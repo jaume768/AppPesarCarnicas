@@ -1,5 +1,5 @@
 
-abstract class CarniceriaEvent  {
+abstract class CarniceriaEvent {
   const CarniceriaEvent();
 
   @override
@@ -13,4 +13,22 @@ class ToggleOption extends CarniceriaEvent {
 
   @override
   List<Object> get props => [index];
+}
+
+class FetchSummaries extends CarniceriaEvent {
+  final String productType;
+
+  const FetchSummaries(this.productType);
+
+  @override
+  List<Object> get props => [productType];
+}
+
+class ToggleButchery extends CarniceriaEvent {
+  final bool isButchery;
+
+  const ToggleButchery(this.isButchery);
+
+  @override
+  List<Object> get props => [isButchery];
 }

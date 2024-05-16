@@ -16,20 +16,20 @@ class CategoryColumn extends StatelessWidget {
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 2,
-                  childAspectRatio: 1, // Makes the buttons square
+                  childAspectRatio: 1,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
                   children: [
-                    _buildButton(context, 'Avicola', 0, state),
-                    _buildButton(context, 'Porc', 1, state),
-                    _buildButton(context, 'Me / Cordero', 2, state),
-                    _buildButton(context, 'Tallat / Desfet', 3, state),
+                    _buildButton(context, 'Avicola', 'POULTRY', state.selectedProductType),
+                    _buildButton(context, 'Porc', 'PIG', state.selectedProductType),
+                    _buildButton(context, 'Me / Cordero', 'LAMB', state.selectedProductType),
+                    _buildButton(context, 'Tallat / Desfet', 'CHOPPED', state.selectedProductType),
                   ],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: _buildSwitch(context, 'CARNICERIA'),
+                child: _buildSwitch(context, 'CARNICERIA', state.isButchery),
               ),
             ],
           );
@@ -38,8 +38,8 @@ class CategoryColumn extends StatelessWidget {
     );
   }
 
-  Widget _buildButton(BuildContext context, String text, int index, CarniceriaState state) {
-    bool isSelected = state.options[index];
+  Widget _buildButton(BuildContext context, String text, String productType, String? selectedProductType) {
+    bool isSelected = selectedProductType == productType;
     Color color = isSelected ? Colors.green : Colors.grey;
 
     return ElevatedButton(
@@ -51,20 +51,23 @@ class CategoryColumn extends StatelessWidget {
         ),
       ),
       onPressed: () {
-        context.read<CarniceriaBloc>().add(ToggleOption(index));
+        context.read<CarniceriaBloc>().add(FetchSummaries(productType));
       },
       child: Text(text, textAlign: TextAlign.center),
     );
   }
 
-  Widget _buildSwitch(BuildContext context, String text) {
+
+  Widget _buildSwitch(BuildContext context, String text, bool isButchery) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(text),
         Switch(
-          value: true,
-          onChanged: (value) {},
+          value: isButchery,
+          onChanged: (value) {
+            context.read<CarniceriaBloc>().add(ToggleButchery(value));
+          },
         ),
       ],
     );
