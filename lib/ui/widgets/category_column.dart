@@ -29,7 +29,7 @@ class CategoryColumn extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: _buildSwitch(context, 'CARNICERIA', state.isButchery),
+                child: _buildSwitch(context, 'CARNICERIA    ', state.isButchery),
               ),
             ],
           );
@@ -40,10 +40,11 @@ class CategoryColumn extends StatelessWidget {
 
   Widget _buildButton(BuildContext context, String text, String productType, String? selectedProductType) {
     bool isSelected = selectedProductType == productType;
-    Color color = isSelected ? Colors.green : Colors.grey;
+    Color color = isSelected ? Colors.green : Colors.grey.shade300;
 
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.black,
         backgroundColor: color,
         minimumSize: Size(100, 100),
         shape: RoundedRectangleBorder(
@@ -60,7 +61,7 @@ class CategoryColumn extends StatelessWidget {
 
   Widget _buildSwitch(BuildContext context, String text, bool isButchery) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(text),
         Switch(
