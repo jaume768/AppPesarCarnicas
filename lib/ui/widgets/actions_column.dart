@@ -9,36 +9,58 @@ class ActionsColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildButton(context, 'Seleccionar Báscula', Colors.lightBlue, true),
-          _buildButton(context, 'Seleccionar Impresora', Colors.pink, false),
-          _buildButton(context, 'Veure Totals x Article', Colors.red, null),
-        ],
+      child: BlocBuilder<ConfigurationBloc, ConfigurationState>(
+        builder: (context, state) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildButton(
+                context,
+                'Seleccionar Báscula',
+                state.selectedScale != null ? 'Seleccionado: ${state.selectedScale['name']}' : 'Seleccionar Báscula',
+                Colors.lightBlue,
+                true,
+              ),
+              _buildButton(
+                context,
+                'Seleccionar Impresora',
+                state.selectedPrinter != null ? 'Seleccionado: ${state.selectedPrinter['name']}' : 'Seleccionar Impresora',
+                Colors.pink,
+                false,
+              ),
+              _buildButton(context, 'Veure Totals x Article', 'Veure Totals x Article', Colors.red, null),
+            ],
+          );
+        },
       ),
     );
   }
 
-  Widget _buildButton(BuildContext context, String text, Color color, bool? isScale) {
+  Widget _buildButton(BuildContext context, String text, String displayText, Color color, bool? isScale) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      padding: const EdgeInsets.symmetric(vertical: 0.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.black,
           backgroundColor: color,
-          minimumSize: Size(double.infinity, 50),
+          minimumSize: const Size(double.infinity, 60),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(0),
           ),
         ),
-        onPressed: isScale == null ? null : () {
+        onPressed: isScale == null
+            ? (){}
+            : () {
           _showSelectionDialog(context, isScale);
         },
-        child: Text(text),
+        child: Text(
+          displayText,
+          style: TextStyle(fontSize: 17), // Aumenta el tamaño del texto
+        ),
       ),
     );
   }
+
 
   void _showSelectionDialog(BuildContext context, bool isScale) {
     context.read<ConfigurationBloc>().add(FetchConfiguration());

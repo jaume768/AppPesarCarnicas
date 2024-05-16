@@ -7,33 +7,39 @@ class CarniceriaBloc extends Bloc<CarniceriaEvent, CarniceriaState> {
   final CarniceriaRepository repository;
 
   CarniceriaBloc({required this.repository})
-      : super(CarniceriaState(options: List<bool>.filled(8, false), summaries: [], isButchery: true)) {
+      : super(CarniceriaState(optionsMap: {}, summaries: [], isButchery: true)) {
     on<ToggleOption>(_onToggleOption);
     on<FetchSummaries>(_onFetchSummaries);
     on<ToggleButchery>(_onToggleButchery);
   }
 
   void _onToggleOption(ToggleOption event, Emitter<CarniceriaState> emit) {
-    final updatedOptions = List<bool>.from(state.options);
-    updatedOptions[event.index] = !updatedOptions[event.index];
-    emit(state.copyWith(options: updatedOptions));
+    if (state.selectedProductType != null) {
+      final updatedOptions = List<bool>.from(state.optionsMap[state.selectedProductType!] ?? []);
+      updatedOptions[event.index] = !updatedOptions[event.index];
+      final updatedOptionsMap = Map<String, List<bool>>.from(state.optionsMap);
+      updatedOptionsMap[state.selectedProductType!] = updatedOptions;
+      emit(state.copyWith(optionsMap: updatedOptionsMap));
+    }
   }
 
   Future<void> _onFetchSummaries(FetchSummaries event, Emitter<CarniceriaState> emit) async {
-    if (state.selectedProductType == event.productType) {
+    try {
+      final summaries = await repository.getSummaries(event.productType, state.isButchery);
+      final optionsForProduct = List<bool>.filled(summaries.length, false);
+
       emit(state.copyWith(
-        clearSelectedProductType: true,
-        summaries: [],
-        options: List<bool>.filled(8, false),
+          selectedProductType: event.productType,
+          summaries: summaries,
+          optionsMap: {event.productType: optionsForProduct}
       ));
-    } else {
-      emit(state.copyWith(selectedProductType: event.productType));
-      try {
-        final summaries = await repository.getSummaries(event.productType, state.isButchery);
-        emit(state.copyWith(summaries: summaries));
-      } catch (e) {
-        // Manejar el error si es necesario
-      }
+    } catch (e) {
+      print("Error al cargar los resúmenes: $e");
+      emit(state.copyWith(
+          selectedProductType: event.productType,
+          summaries: [],
+          optionsMap: {event.productType: []}
+      ));
     }
   }
 
@@ -42,7 +48,6 @@ class CarniceriaBloc extends Bloc<CarniceriaEvent, CarniceriaState> {
       isButchery: event.isButchery,
       clearSelectedProductType: true,
       summaries: [],
-      options: List<bool>.filled(8, false),
     ));
   }
 }

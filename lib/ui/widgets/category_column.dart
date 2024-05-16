@@ -18,6 +18,7 @@ class CategoryColumn extends StatelessWidget {
                   crossAxisCount: 2,
                   childAspectRatio: 1,
                   mainAxisSpacing: 10,
+                  padding: EdgeInsets.only(top: 40),
                   crossAxisSpacing: 10,
                   children: [
                     _buildButton(context, 'Avicola', 'POULTRY', state.selectedProductType),
@@ -54,7 +55,7 @@ class CategoryColumn extends StatelessWidget {
       onPressed: () {
         context.read<CarniceriaBloc>().add(FetchSummaries(productType));
       },
-      child: Text(text, textAlign: TextAlign.center),
+      child: Text(text, textAlign: TextAlign.center,),
     );
   }
 

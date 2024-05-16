@@ -17,9 +17,9 @@ class CarniceriaScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: 10),
                   CategoryColumn(),
-                  SizedBox(width: 10),
+                  SizedBox(width: 30),
                   ActionsColumn(),
-                  SizedBox(width: 10),
+                  SizedBox(width: 30),
                   SummaryColumn(),
                 ],
               ),

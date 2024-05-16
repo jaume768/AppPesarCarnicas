@@ -1,25 +1,25 @@
 class CarniceriaState {
-  final List<bool> options;
+  final Map<String, List<bool>> optionsMap;
   final List<int> summaries;
   final String? selectedProductType;
   final bool isButchery;
 
   const CarniceriaState({
-    required this.options,
+    required this.optionsMap,
     required this.summaries,
     this.selectedProductType,
     required this.isButchery,
   });
 
   CarniceriaState copyWith({
-    List<bool>? options,
+    Map<String, List<bool>>? optionsMap,
     List<int>? summaries,
     String? selectedProductType,
     bool? isButchery,
     bool clearSelectedProductType = false,
   }) {
     return CarniceriaState(
-      options: options ?? this.options,
+      optionsMap: optionsMap ?? this.optionsMap,
       summaries: summaries ?? this.summaries,
       selectedProductType: clearSelectedProductType ? null : selectedProductType ?? this.selectedProductType,
       isButchery: isButchery ?? this.isButchery,
@@ -27,5 +27,5 @@ class CarniceriaState {
   }
 
   @override
-  List<Object?> get props => [options, summaries, selectedProductType, isButchery];
+  List<Object?> get props => [optionsMap, summaries, selectedProductType, isButchery];
 }
