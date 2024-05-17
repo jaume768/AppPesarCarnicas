@@ -18,7 +18,7 @@ class CategoryColumn extends StatelessWidget {
                   crossAxisCount: 2,
                   childAspectRatio: 1,
                   mainAxisSpacing: 10,
-                  padding: EdgeInsets.only(top: 40),
+                  padding: EdgeInsets.only(top: 70, left: 30),
                   crossAxisSpacing: 10,
                   children: [
                     _buildButton(context, 'Avicola', 'POULTRY', state.selectedProductType),
@@ -29,7 +29,7 @@ class CategoryColumn extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                padding: const EdgeInsets.symmetric(vertical: 80.0),
                 child: _buildSwitch(context, 'CARNICERIA    ', state.isButchery),
               ),
             ],
@@ -55,21 +55,23 @@ class CategoryColumn extends StatelessWidget {
       onPressed: () {
         context.read<CarniceriaBloc>().add(FetchSummaries(productType));
       },
-      child: Text(text, textAlign: TextAlign.center,),
+      child: Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 26),),
     );
   }
 
-
   Widget _buildSwitch(BuildContext context, String text, bool isButchery) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(text),
-        Switch(
-          value: isButchery,
-          onChanged: (value) {
-            context.read<CarniceriaBloc>().add(ToggleButchery(value));
-          },
+        Text(text, style: TextStyle(fontSize: 26),),
+        Transform.scale(
+          scale: 1.4,
+          child: Switch(
+            value: isButchery,
+            onChanged: (value) {
+              context.read<CarniceriaBloc>().add(ToggleButchery(value));
+            },
+          ),
         ),
       ],
     );

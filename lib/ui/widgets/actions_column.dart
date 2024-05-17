@@ -12,8 +12,9 @@ class ActionsColumn extends StatelessWidget {
       child: BlocBuilder<ConfigurationBloc, ConfigurationState>(
         builder: (context, state) {
           return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(height: 60),
               _buildButton(
                 context,
                 'Seleccionar Báscula',
@@ -21,6 +22,7 @@ class ActionsColumn extends StatelessWidget {
                 Colors.lightBlue,
                 true,
               ),
+              SizedBox(height: 10),
               _buildButton(
                 context,
                 'Seleccionar Impresora',
@@ -28,6 +30,7 @@ class ActionsColumn extends StatelessWidget {
                 Colors.pink,
                 false,
               ),
+              SizedBox(height: 10),
               _buildButton(context, 'Veure Totals x Article', 'Veure Totals x Article', Colors.red, null),
             ],
           );
@@ -37,13 +40,14 @@ class ActionsColumn extends StatelessWidget {
   }
 
   Widget _buildButton(BuildContext context, String text, String displayText, Color color, bool? isScale) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 0.0),
+    return Container(
+      width: 190,
+      height: 190, // Altura fija para los botones
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.black,
           backgroundColor: color,
-          minimumSize: const Size(double.infinity, 60),
+          minimumSize: Size(0, 0), // Tamaño mínimo 0 para asegurar el cuadrado
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(0),
           ),
@@ -53,14 +57,16 @@ class ActionsColumn extends StatelessWidget {
             : () {
           _showSelectionDialog(context, isScale);
         },
-        child: Text(
-          displayText,
-          style: TextStyle(fontSize: 17), // Aumenta el tamaño del texto
+        child: Center(
+          child: Text(
+            displayText,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 22), // Ajusta el tamaño del texto según sea necesario
+          ),
         ),
       ),
     );
   }
-
 
   void _showSelectionDialog(BuildContext context, bool isScale) {
     context.read<ConfigurationBloc>().add(FetchConfiguration());

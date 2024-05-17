@@ -11,16 +11,16 @@ class SummaryColumn extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 40),
+          SizedBox(height: 70),
           const Text(
             'RESUM',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32), // Aumenta el tamaño del texto
           ),
           Expanded(
             child: BlocBuilder<CarniceriaBloc, CarniceriaState>(
               builder: (context, state) {
                 if (state.selectedProductType == null) {
-                  return Center(child: Text("Seleccione una categoría"));
+                  return Center(child: Text("Seleccione una categoría", style: TextStyle(fontSize: 18))); // Aumenta el tamaño del texto
                 }
 
                 final options = state.optionsMap[state.selectedProductType!] ?? [];
@@ -29,22 +29,25 @@ class SummaryColumn extends StatelessWidget {
                   itemBuilder: (context, index) {
                     if (options.isNotEmpty && index < options.length) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 0.0),
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text('Nº ${state.summaries[index]}  ', style: TextStyle(fontSize: 16)),
-                            Switch(
-                              value: options[index],
-                              onChanged: (value) {
-                                context.read<CarniceriaBloc>().add(ToggleOption(index));
-                              },
+                            Text('Nº ${state.summaries[index]}       ', style: TextStyle(fontSize: 26)), // Aumenta el tamaño del texto
+                            Transform.scale(
+                              scale: 1.5, // Aumenta el tamaño del Switch
+                              child: Switch(
+                                value: options[index],
+                                onChanged: (value) {
+                                  context.read<CarniceriaBloc>().add(ToggleOption(index));
+                                },
+                              ),
                             ),
                           ],
                         ),
                       );
                     } else {
-                      return Center(child: Text("No hay opciones disponibles."));
+                      return Center(child: Text("No hay opciones disponibles.", style: TextStyle(fontSize: 18))); // Aumenta el tamaño del texto
                     }
                   },
                 );

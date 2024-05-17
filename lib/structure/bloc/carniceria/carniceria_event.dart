@@ -1,4 +1,3 @@
-
 abstract class CarniceriaEvent {
   const CarniceriaEvent();
 
@@ -31,4 +30,33 @@ class ToggleButchery extends CarniceriaEvent {
 
   @override
   List<Object> get props => [isButchery];
+}
+
+class FetchProductList extends CarniceriaEvent {
+  final String productType;
+  final bool butchery;
+  final List<int> summaries;
+
+  const FetchProductList(this.productType, this.butchery, this.summaries);
+
+  @override
+  List<Object> get props => [productType, butchery, summaries];
+}
+
+class SelectScale extends CarniceriaEvent {
+  final Map<String, dynamic> scale;
+
+  const SelectScale(this.scale);
+
+  @override
+  List<Object> get props => [scale];
+}
+
+class SelectPrinter extends CarniceriaEvent {
+  final Map<String, dynamic> printer;
+
+  const SelectPrinter(this.printer);
+
+  @override
+  List<Object> get props => [printer];
 }
