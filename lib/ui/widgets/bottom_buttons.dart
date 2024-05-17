@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../structure/bloc/carniceria/carniceria_bloc.dart';
 import '../../structure/bloc/carniceria/carniceria_event.dart';
-import '../../structure/bloc/carniceria/carniceria_state.dart';
 import '../screens/product_list_screen.dart';
+import '../../structure/bloc/configuration/configuration_bloc.dart';
 
 class BottomButtons extends StatelessWidget {
   @override
@@ -14,23 +14,23 @@ class BottomButtons extends StatelessWidget {
         ElevatedButton.icon(
           onPressed: () async {
             final carniceriaBloc = context.read<CarniceriaBloc>();
-            final state = carniceriaBloc.state;
+            final carniceriaState = carniceriaBloc.state;
 
-            // Verificar que todos los elementos necesarios estén seleccionados
-            final bool isCategorySelected = state.selectedProductType != null;
-            final bool isScaleSelected = state.selectedScale != null;
-            final bool isPrinterSelected = state.selectedPrinter != null;
-            final bool isSummarySelected = state.summaries.isNotEmpty;
+            final configurationBloc = context.read<ConfigurationBloc>();
+            final configurationState = configurationBloc.state;
+
+            final bool isCategorySelected = carniceriaState.selectedProductType != null;
+            final bool isScaleSelected = configurationState.selectedScale != null;
+            final bool isPrinterSelected = configurationState.selectedPrinter != null;
+            final bool isSummarySelected = carniceriaState.summaries.isNotEmpty;
 
             if (isCategorySelected && isScaleSelected && isPrinterSelected && isSummarySelected) {
-              // Agrega el evento para obtener la lista de productos
               carniceriaBloc.add(FetchProductList(
-                state.selectedProductType!,
-                state.isButchery,
-                state.summaries,
+                carniceriaState.selectedProductType!,
+                carniceriaState.isButchery,
+                carniceriaState.summaries,
               ));
 
-              // Escucha el cambio de estado para navegar cuando los productos se carguen
               carniceriaBloc.stream.firstWhere((state) => state.products.isNotEmpty).then((_) {
                 Navigator.push(
                   context,
@@ -38,7 +38,6 @@ class BottomButtons extends StatelessWidget {
                 );
               });
             } else {
-              // Mostrar mensaje de error si algún elemento no está seleccionado
               String errorMessage = 'Seleccione:';
               if (!isCategorySelected) errorMessage += '\n- una categoría';
               if (!isScaleSelected) errorMessage += '\n- una báscula';

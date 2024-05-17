@@ -42,21 +42,3 @@ class FetchProductList extends CarniceriaEvent {
   @override
   List<Object> get props => [productType, butchery, summaries];
 }
-
-class SelectScale extends CarniceriaEvent {
-  final Map<String, dynamic> scale;
-
-  const SelectScale(this.scale);
-
-  @override
-  List<Object> get props => [scale];
-}
-
-class SelectPrinter extends CarniceriaEvent {
-  final Map<String, dynamic> printer;
-
-  const SelectPrinter(this.printer);
-
-  @override
-  List<Object> get props => [printer];
-}

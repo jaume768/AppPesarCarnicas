@@ -12,8 +12,6 @@ class CarniceriaBloc extends Bloc<CarniceriaEvent, CarniceriaState> {
     on<FetchSummaries>(_onFetchSummaries);
     on<ToggleButchery>(_onToggleButchery);
     on<FetchProductList>(_onFetchProductList);
-    on<SelectScale>(_onSelectScale);
-    on<SelectPrinter>(_onSelectPrinter);
   }
 
   void _onToggleOption(ToggleOption event, Emitter<CarniceriaState> emit) {
@@ -56,18 +54,17 @@ class CarniceriaBloc extends Bloc<CarniceriaEvent, CarniceriaState> {
 
   Future<void> _onFetchProductList(FetchProductList event, Emitter<CarniceriaState> emit) async {
     try {
-      final products = await repository.getProductList(event.productType, event.butchery, event.summaries);
+      final options = state.optionsMap[event.productType] ?? [];
+      final selectedSummaries = state.summaries
+          .asMap()
+          .entries
+          .where((entry) => options[entry.key])
+          .map((entry) => entry.value)
+          .toList();
+      final products = await repository.getProductList(event.productType, event.butchery, selectedSummaries);
       emit(state.copyWith(products: products));
     } catch (e) {
       // Manejar el error si es necesario
     }
-  }
-
-  void _onSelectScale(SelectScale event, Emitter<CarniceriaState> emit) {
-    emit(state.copyWith(selectedScale: event.scale));
-  }
-
-  void _onSelectPrinter(SelectPrinter event, Emitter<CarniceriaState> emit) {
-    emit(state.copyWith(selectedPrinter: event.printer));
   }
 }

@@ -4,8 +4,6 @@ class CarniceriaState {
   final List<dynamic> products;
   final String? selectedProductType;
   final bool isButchery;
-  final Map<String, dynamic>? selectedScale;
-  final Map<String, dynamic>? selectedPrinter;
 
   const CarniceriaState({
     required this.optionsMap,
@@ -13,8 +11,6 @@ class CarniceriaState {
     this.products = const [],
     this.selectedProductType,
     required this.isButchery,
-    this.selectedScale,
-    this.selectedPrinter,
   });
 
   CarniceriaState copyWith({
@@ -33,11 +29,9 @@ class CarniceriaState {
       products: products ?? this.products,
       selectedProductType: clearSelectedProductType ? null : selectedProductType ?? this.selectedProductType,
       isButchery: isButchery ?? this.isButchery,
-      selectedScale: selectedScale ?? this.selectedScale,
-      selectedPrinter: selectedPrinter ?? this.selectedPrinter,
     );
   }
 
   @override
-  List<Object?> get props => [optionsMap, summaries,products, selectedProductType, isButchery,selectedScale, selectedPrinter];
+  List<Object?> get props => [optionsMap, summaries,products, selectedProductType, isButchery];
 }
