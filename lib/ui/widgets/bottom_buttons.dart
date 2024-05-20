@@ -38,11 +38,11 @@ class BottomButtons extends StatelessWidget {
                 );
               });
             } else {
-              String errorMessage = 'Seleccione:';
+              String errorMessage = 'Selecciona:';
               if (!isCategorySelected) errorMessage += '\n- una categoría';
               if (!isScaleSelected) errorMessage += '\n- una báscula';
               if (!isPrinterSelected) errorMessage += '\n- una impresora';
-              if (!isSummarySelected) errorMessage += '\n- al menos un resumen';
+              if (!isSummarySelected) errorMessage += '\n- al menys un resum';
 
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(errorMessage)),

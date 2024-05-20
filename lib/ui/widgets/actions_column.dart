@@ -18,7 +18,7 @@ class ActionsColumn extends StatelessWidget {
               _buildButton(
                 context,
                 'Seleccionar Báscula',
-                state.selectedScale != null ? 'Seleccionado: ${state.selectedScale['name']}' : 'Seleccionar Báscula',
+                state.selectedScale != null ? 'Seleccionada: ${state.selectedScale['name']}' : 'Seleccionar Báscula',
                 Colors.lightBlue,
                 true,
               ),
@@ -26,7 +26,7 @@ class ActionsColumn extends StatelessWidget {
               _buildButton(
                 context,
                 'Seleccionar Impresora',
-                state.selectedPrinter != null ? 'Seleccionado: ${state.selectedPrinter['name']}' : 'Seleccionar Impresora',
+                state.selectedPrinter != null ? 'Seleccionada: ${state.selectedPrinter['name']}' : 'Seleccionar Impresora',
                 Colors.pink,
                 false,
               ),
