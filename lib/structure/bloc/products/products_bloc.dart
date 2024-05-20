@@ -3,23 +3,16 @@ import '../../../data/repositories/product_repository.dart';
 import 'products_event.dart';
 import 'products_state.dart';
 
-// BLoC
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final ProductRepository repository;
 
-  ProductBloc({required this.repository}) : super(ProductLoaded(Set<int>())) {
+  ProductBloc({required this.repository}) : super(ProductLoaded(-1)) {
     on<SelectArticle>((event, emit) {
-      final newState = Set<int>.from(state.selectedArticles);
-      newState.add(event.articleIndex);
-      emit(ProductLoaded(newState));
+      emit(ProductLoaded(event.articleIndex));
     });
 
     on<DeselectArticle>((event, emit) {
-      final newState = Set<int>.from(state.selectedArticles);
-      newState.remove(event.articleIndex);
-      emit(ProductLoaded(newState));
+      emit(ProductLoaded(-1));
     });
-
-    // Aquí podrías agregar eventos que utilicen el repositorio para cargar datos, etc.
   }
 }

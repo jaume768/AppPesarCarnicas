@@ -24,41 +24,64 @@ class ProductListTable extends StatelessWidget {
 
             rows.add(
               DataRow(
+                color: MaterialStateProperty.resolveWith<Color?>(
+                      (Set<MaterialState> states) {
+                    if (product is Client) {
+                      return Colors.green[200]; // Fondo gris para clientes
+                    }
+                    return null; // Fondo predeterminado para otros productos
+                  },
+                ),
                 cells: [
                   DataCell(Text('')),
                   DataCell(Text('')),
                   DataCell(Text('')),
-                  DataCell(Text('${product.name} (${product.code})', style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold))),
+                  DataCell(
+                    Text(
+                      '${product.name} (${product.code})',
+                      style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ],
               ),
             );
 
-            rowIndex++;  // Incrementar rowIndex para cada nuevo producto
+            rowIndex++;
 
-            // Agregamos las filas de los artículos (con selección)
             for (var article in product.articles) {
               int currentRowIndex = rowIndex;
               rows.add(
                 DataRow(
-                  selected: state.selectedArticles.contains(currentRowIndex),
-                  onSelectChanged: (selected) {
-                    if (selected == true) {
-                      BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex));
-                    } else {
-                      BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
-                    }
-                  },
+                  color: MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
+                      if (state.selectedArticle == currentRowIndex) {
+                        return Colors.grey[300]; // Fondo gris si está seleccionado
+                      }
+                      return null; // Fondo predeterminado
+                    },
+                  ),
                   cells: [
                     DataCell(Text(' ', style: TextStyle(color: Colors.black, fontSize: 18))),
                     DataCell(Text(article.units.toString(), style: TextStyle(color: Colors.black, fontSize: 18))),
                     DataCell(Text(article.unitType, style: TextStyle(color: Colors.black, fontSize: 18))),
-                    DataCell(Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(article.name, style: TextStyle(color: Colors.black, fontSize: 18)),
-                        Text(article.observation, style: TextStyle(color: Colors.black, fontSize: 18)),
-                      ],
-                    )),
+                    DataCell(
+                      GestureDetector(
+                        onTap: () {
+                          if (state.selectedArticle == currentRowIndex) {
+                            BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
+                          } else {
+                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex));
+                          }
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(article.name, style: TextStyle(color: Colors.black, fontSize: 18)),
+                            Text(article.observation, style: TextStyle(color: Colors.black, fontSize: 18)),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               );

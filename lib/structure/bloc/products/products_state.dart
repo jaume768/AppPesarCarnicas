@@ -1,15 +1,15 @@
 abstract class ProductState {
-  final Set<int> selectedArticles;
+  final int selectedArticle;
 
-  const ProductState(this.selectedArticles);
+  const ProductState(this.selectedArticle);
 
   @override
-  List<Object> get props => [selectedArticles];
+  List<Object> get props => [selectedArticle];
 }
 
 class ProductLoaded extends ProductState {
-  ProductLoaded(Set<int> selectedArticles) : super(selectedArticles);
+  ProductLoaded(int selectedArticle) : super(selectedArticle);
 
   @override
-  List<Object> get props => [selectedArticles];
+  List<Object> get props => [selectedArticle];
 }
