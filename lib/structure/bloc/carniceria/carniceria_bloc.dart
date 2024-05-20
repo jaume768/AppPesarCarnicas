@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/repositories/carniceria_repository.dart';
 import 'carniceria_event.dart';
 import 'carniceria_state.dart';
+import '../../../models/client.dart';
 
 class CarniceriaBloc extends Bloc<CarniceriaEvent, CarniceriaState> {
   final CarniceriaRepository repository;

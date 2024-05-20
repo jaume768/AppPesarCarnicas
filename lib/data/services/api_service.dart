@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../../models/client.dart';
 
 class ApiService {
   final String baseUrl;
@@ -39,9 +40,7 @@ class ApiService {
     }
   }
 
-  Future<List<dynamic>> fetchProductList(String productType, bool butchery, List<int> summaries) async {
-    print(productType);
-    print(summaries);
+  Future<List<Client>> fetchProductList(String productType, bool butchery, List<int> summaries) async {
     final response = await http.post(
       Uri.parse('$baseUrl/orderPreparation/productList'),
       headers: {'Content-Type': 'application/json'},
@@ -54,8 +53,9 @@ class ApiService {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      print(data['clients']);
-      return List<dynamic>.from(data['clients']);
+      return (data['clients'] as List)
+          .map((clientJson) => Client.fromJson(clientJson))
+          .toList();
     } else {
       throw Exception('Failed to load product list');
     }

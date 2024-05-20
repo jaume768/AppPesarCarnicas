@@ -1,3 +1,4 @@
+import '../../models/client.dart';
 import '../services/api_service.dart';
 
 class CarniceriaRepository {
@@ -9,7 +10,8 @@ class CarniceriaRepository {
     return apiService.fetchSummaries(productType, butchery);
   }
 
-  Future<List<dynamic>> getProductList(String productType, bool butchery, List<int> summaries) {
-    return apiService.fetchProductList(productType, butchery, summaries);
+  Future<List<Client>> getProductList(String productType, bool butchery, List<int> summaries) async {
+    final response = await apiService.fetchProductList(productType, butchery, summaries);
+    return response;
   }
 }

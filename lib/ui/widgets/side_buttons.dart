@@ -2,6 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SideButtons extends StatelessWidget {
+  final VoidCallback onFilterClient;
+  final VoidCallback onClearFilter;
+
+  const SideButtons({required this.onFilterClient, required this.onClearFilter});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,7 +35,7 @@ class SideButtons extends StatelessWidget {
           ),
           SizedBox(height: 10),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: onFilterClient,
             child: Text('FILTRAR CLIENT', style: TextStyle(color: Colors.black, fontSize: 18)),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.teal,
