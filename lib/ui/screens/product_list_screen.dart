@@ -15,7 +15,7 @@ class ProductListScreen extends StatefulWidget {
 class _ProductListScreenState extends State<ProductListScreen> {
   String? selectedClient;
   int? selectedRowIndex;
-  List<Client> products = []; // Cambiar a List<Client>
+  List<Client> products = [];
 
   void _filterClient(BuildContext context) {
     showDialog(
@@ -94,7 +94,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
           return Column(
             children: [
-              SizedBox(height: 60.0), // Añade un espacio vacío antes de la tabla
+              SizedBox(height: 70.0), // Añade un espacio vacío antes de la tabla
               Expanded(
                 child: Row(
                   children: [

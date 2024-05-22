@@ -1,0 +1,48 @@
+{
+    "configuration": {
+      "printers": [
+        {
+          "id": 1,
+          "name": "Printer 1"
+        }
+      ],
+      "scales": [
+        {
+          "id": 1,
+          "name": "Scale 1"
+        }
+      ]
+    },
+    "summaries": {
+      "LAMB": [1, 2, 3,4],
+      "POULTRY": [1, 2, 3, 4, 5],
+      "PIG": [1, 2, 3],
+      "CHOPPED": [1, 2, 3]
+    },
+    "productList": {
+      "LAMB": [
+        {
+          "code": 1,
+          "name": "Client 1",
+          "articles": [
+            {
+              "id": 1,
+              "code": 1,
+              "name": "Article 1",
+              "observation": "Observation 1",
+              "units": 1.5,
+              "unitType": "KILOS",
+              "special": true,
+              "mandatoryLot": false,
+              "primaryAction": null,
+              "secondaryAction": null
+            }
+          ]
+        }
+      ],
+      "POULTRY": [],
+      "PIG": [],
+      "CHOPPED": []
+    }
+  }
+  
