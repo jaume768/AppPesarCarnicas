@@ -24,9 +24,12 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<MarkAsPending>((event, emit) {
       if (state is ProductLoaded) {
         final currentState = state as ProductLoaded;
-        // Agregar el índice del artículo a la lista de pendientes y emitir el nuevo estado
-        final newPendingArticles = Set<int>.from(currentState.pendingArticles)
-          ..add(event.articleIndex);
+        Set<int> newPendingArticles = Set<int>.from(currentState.pendingArticles);
+        if (newPendingArticles.contains(event.articleIndex)) {
+          newPendingArticles.remove(event.articleIndex);
+        } else {
+          newPendingArticles.add(event.articleIndex);
+        }
         emit(ProductLoaded(currentState.selectedArticle, newPendingArticles));
       }
     });
