@@ -20,3 +20,12 @@ class DeselectArticle extends ProductEvent {
   @override
   List<Object> get props => [articleIndex];
 }
+
+class MarkAsPending extends ProductEvent {
+  final int articleIndex;
+
+  MarkAsPending(this.articleIndex);
+
+  @override
+  List<Object> get props => [articleIndex];
+}

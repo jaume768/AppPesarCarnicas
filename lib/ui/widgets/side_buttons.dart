@@ -1,5 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../structure/bloc/products/products_bloc.dart';
+import '../../structure/bloc/products/products_event.dart';
+import '../../structure/bloc/products/products_state.dart';
 
 class SideButtons extends StatelessWidget {
   final VoidCallback onFilterClient;
@@ -44,7 +49,12 @@ class SideButtons extends StatelessWidget {
           ),
           SizedBox(height: 10),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              final currentState = BlocProvider.of<ProductBloc>(context).state;
+              if (currentState is ProductLoaded) {
+                BlocProvider.of<ProductBloc>(context).add(MarkAsPending(currentState.selectedArticle));
+              }
+            },
             child: Text('MARCAR PENDENT', style: TextStyle(color: Colors.black, fontSize: 18)),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.grey,

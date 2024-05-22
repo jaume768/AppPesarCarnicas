@@ -27,7 +27,7 @@ class ProductListTable extends StatelessWidget {
                 color: MaterialStateProperty.resolveWith<Color?>(
                       (Set<MaterialState> states) {
                     if (product is Client) {
-                      return Colors.green[200]; // Fondo gris para clientes
+                      return Colors.green[300]; // Fondo gris para clientes
                     }
                     return null; // Fondo predeterminado para otros productos
                   },
@@ -56,10 +56,16 @@ class ProductListTable extends StatelessWidget {
                 DataRow(
                   color: MaterialStateProperty.resolveWith<Color?>(
                         (Set<MaterialState> states) {
-                      if (state.selectedArticle == currentRowIndex) {
-                        return Colors.grey[300]; // Fondo gris si está seleccionado
+                      if (state.selectedArticle == currentRowIndex && state.pendingArticles.contains(currentRowIndex)) {
+                        return Colors.red[400];
                       }
-                      return null; // Fondo predeterminado
+                      if (state.pendingArticles.contains(currentRowIndex)) {
+                        return Colors.red[200];
+                      }
+                      if (state.selectedArticle == currentRowIndex) {
+                        return Colors.grey[300];
+                      }
+                      return null;
                     },
                   ),
                   cells: [

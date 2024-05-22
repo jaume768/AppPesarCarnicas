@@ -8,8 +8,13 @@ abstract class ProductState {
 }
 
 class ProductLoaded extends ProductState {
-  ProductLoaded(int selectedArticle) : super(selectedArticle);
+  final Set<int> pendingArticles;  // Nuevo campo
+
+  ProductLoaded(int selectedArticle, [Set<int> pendingArticles = const {}])
+      : this.pendingArticles = pendingArticles,
+        super(selectedArticle);
 
   @override
-  List<Object> get props => [selectedArticle];
+  List<Object> get props => [selectedArticle, pendingArticles];
 }
+
