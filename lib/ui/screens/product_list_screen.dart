@@ -92,22 +92,28 @@ class _ProductListScreenState extends State<ProductListScreen> {
             return Center(child: Text('No hay productos disponibles'));
           }
 
-          // No se necesita conversión si state.products ya es List<Client>
-          List<Client> clients = state.products;
-
           return Column(
             children: [
+              SizedBox(height: 60.0), // Añade un espacio vacío antes de la tabla
               Expanded(
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Row(
-                    children: [
-                      Expanded(flex: 5, child: ProductListTable(products: clients, selectedClient: selectedClient)),
-                      Expanded(flex: 2, child: SideButtons(onFilterClient: () => _filterClient(context), onClearFilter: _clearFilter)),
-                    ],
-                  ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        margin: EdgeInsets.only(left: 30.0), // Añade margen izquierdo a la tabla
+                        child: ProductListTable(products: state.products, selectedClient: selectedClient),
+                      ),
+                    ),
+                    Spacer(),
+                    Flexible(
+                      flex: 2,
+                      child: SideButtons(onFilterClient: () => _filterClient(context), onClearFilter: _clearFilter),
+                    ),
+                  ],
                 ),
               ),
+              SizedBox(height: 20.0), // Añade un espacio vacío antes de los botones inferiores
               BottomButtons(),
             ],
           );

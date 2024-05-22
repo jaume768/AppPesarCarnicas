@@ -163,27 +163,35 @@ class ProductListTable extends StatelessWidget {
           }
 
           return SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: DataTable(
-              columnSpacing: 58.0,
-              dataRowHeight: 80.0,
-              headingRowHeight: 120.0,
-              border: const TableBorder(
-                horizontalInside: BorderSide(color: Colors.black, width: 2),
-                verticalInside: BorderSide(color: Colors.black, width: 2),
-                right: BorderSide(color: Colors.black, width: 2),
-                bottom: BorderSide(color: Colors.black, width: 2),
-                top: BorderSide(color: Colors.black, width: 2),
-                left: BorderSide(color: Colors.black, width: 2),
+            scrollDirection: Axis.vertical,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.5, // Ajusta el factor de ancho según sea necesario
+                child: SingleChildScrollView(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.5, // Ajusta el factor de ancho según sea necesario
+                    child: DataTable(
+                      columnSpacing: 68.0,
+                      dataRowHeight: 70.0,
+                      headingRowHeight: 60.0,
+                      border: const TableBorder(
+                        horizontalInside: BorderSide(color: Colors.black, width: 2),
+                        verticalInside: BorderSide(color: Colors.black, width: 2),
+                        right: BorderSide(color: Colors.black, width: 2),
+                        bottom: BorderSide(color: Colors.black, width: 2),
+                        top: BorderSide(color: Colors.black, width: 2),
+                        left: BorderSide(color: Colors.black, width: 2),
+                      ),
+                      columns: const [
+                        DataColumn(label: Text('BLOC', style: TextStyle(color: Colors.black, fontSize: 20))),
+                        DataColumn(label: Text('QUANT.', style: TextStyle(color: Colors.black, fontSize: 20))),
+                        DataColumn(label: Text('UNI', style: TextStyle(color: Colors.black, fontSize: 20))),
+                        DataColumn(label: Text('CLIENT/ PRODUCTE', style: TextStyle(color: Colors.black, fontSize: 20))),
+                      ],
+                      rows: rows,
+                    ),
+                  ),
+                ),
               ),
-              columns: const [
-                DataColumn(label: Text('BLOC', style: TextStyle(color: Colors.black, fontSize: 20))),
-                DataColumn(label: Text('QUANT.', style: TextStyle(color: Colors.black, fontSize: 20))),
-                DataColumn(label: Text('UNI', style: TextStyle(color: Colors.black, fontSize: 20))),
-                DataColumn(label: Text('CLIENT/ PRODUCTE', style: TextStyle(color: Colors.black, fontSize: 20))),
-              ],
-              rows: rows,
-            ),
           );
         } else {
           return Center(child: Text('No se han cargado los productos'));
