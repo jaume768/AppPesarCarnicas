@@ -37,9 +37,11 @@ class ProductListTable extends StatelessWidget {
                   DataCell(Text('')),
                   DataCell(Text('')),
                   DataCell(
-                    Text(
-                      '${product.name} (${product.code})',
-                      style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                    Center(
+                      child: Text(
+                        '${product.name} (${product.code})',
+                        style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ],
@@ -61,9 +63,15 @@ class ProductListTable extends StatelessWidget {
                     },
                   ),
                   cells: [
-                    DataCell(Text(' ', style: TextStyle(color: Colors.black, fontSize: 18))),
-                    DataCell(Text(article.units.toString(), style: TextStyle(color: Colors.black, fontSize: 18))),
-                    DataCell(Text(article.unitType, style: TextStyle(color: Colors.black, fontSize: 18))),
+                    DataCell(
+                      Center(
+                        child: Text(
+                          article.special ? 'X' : '',  // Si 'special' es true, muestra 'X'; de lo contrario, no muestra nada.
+                          style: TextStyle(color: Colors.black, fontSize: 18),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
                     DataCell(
                       GestureDetector(
                         onTap: () {
@@ -73,12 +81,71 @@ class ProductListTable extends StatelessWidget {
                             BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex));
                           }
                         },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(article.name, style: TextStyle(color: Colors.black, fontSize: 18)),
-                            Text(article.observation, style: TextStyle(color: Colors.black, fontSize: 18)),
-                          ],
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center, // Centra el contenido verticalmente
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                article.units.toString(),
+                                style: TextStyle(color: Colors.black, fontSize: 18),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    DataCell(
+                      GestureDetector(
+                        onTap: () {
+                          if (state.selectedArticle == currentRowIndex) {
+                            BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
+                          } else {
+                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex));
+                          }
+                        },
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center, // Centra el contenido verticalmente
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                article.unitType.toString(),
+                                style: TextStyle(color: Colors.black, fontSize: 18),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    DataCell(
+                      GestureDetector(
+                        onTap: () {
+                          if (state.selectedArticle == currentRowIndex) {
+                            BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
+                          } else {
+                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex));
+                          }
+                        },
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center, // Centra el contenido verticalmente
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                article.name,
+                                style: TextStyle(color: Colors.black, fontSize: 18),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                article.observation,
+                                style: TextStyle(color: Colors.black, fontSize: 18),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -95,7 +162,7 @@ class ProductListTable extends StatelessWidget {
               columnSpacing: 58.0,
               dataRowHeight: 80.0,
               headingRowHeight: 120.0,
-              border: TableBorder(
+              border: const TableBorder(
                 horizontalInside: BorderSide(color: Colors.black, width: 2),
                 verticalInside: BorderSide(color: Colors.black, width: 2),
                 right: BorderSide(color: Colors.black, width: 2),
@@ -103,7 +170,7 @@ class ProductListTable extends StatelessWidget {
                 top: BorderSide(color: Colors.black, width: 2),
                 left: BorderSide(color: Colors.black, width: 2),
               ),
-              columns: [
+              columns: const [
                 DataColumn(label: Text('BLOC', style: TextStyle(color: Colors.black, fontSize: 20))),
                 DataColumn(label: Text('QUANT.', style: TextStyle(color: Colors.black, fontSize: 20))),
                 DataColumn(label: Text('UNI', style: TextStyle(color: Colors.black, fontSize: 20))),
