@@ -170,9 +170,9 @@ class ProductListTable extends StatelessWidget {
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5, // Ajusta el factor de ancho según sea necesario
                     child: DataTable(
-                      columnSpacing: 68.0,
-                      dataRowHeight: 70.0,
-                      headingRowHeight: 60.0,
+                      columnSpacing: 7.0,
+                      dataRowHeight: 80.0,
+                      headingRowHeight: 70.0,
                       border: const TableBorder(
                         horizontalInside: BorderSide(color: Colors.black, width: 2),
                         verticalInside: BorderSide(color: Colors.black, width: 2),

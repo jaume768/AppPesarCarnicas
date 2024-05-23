@@ -17,69 +17,63 @@ class SideButtons extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('REVISAR COMPLET', style: TextStyle(color: Colors.black, fontSize: 18)),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.lightBlue,
-              minimumSize: Size(double.infinity, 60),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildButton(context, 'REVISAR COMPLET', Colors.lightBlue, () {}),
+              _buildButton(context, 'CANVIAR CONFIGURACIÓ', Colors.yellow.shade300, () {
+                Navigator.pop(context);
+              }),
+            ],
           ),
-          SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text('CANVIAR CONFIGURACIÓ', style: TextStyle(color: Colors.black, fontSize: 18)),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.yellow,
-              minimumSize: Size(double.infinity, 60),
-            ),
+          SizedBox(height: 50),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildButton(context, 'FILTRAR CLIENT', Colors.green.shade300, onFilterClient),
+              SizedBox(width: 10), // Separación entre los botones
+              _buildButton(context, 'MARCAR PENDENT', Colors.grey.shade300, () {
+                final currentState = BlocProvider.of<ProductBloc>(context).state;
+                if (currentState is ProductLoaded) {
+                  BlocProvider.of<ProductBloc>(context).add(MarkAsPending(currentState.selectedArticle));
+                }
+              }),
+              SizedBox(width: 10), // Separación entre los botones
+              _buildButton(context, 'PES PRODUCTE', Colors.red.shade300, () {}),
+            ],
           ),
-          SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: onFilterClient,
-            child: Text('FILTRAR CLIENT', style: TextStyle(color: Colors.black, fontSize: 18)),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.teal,
-              minimumSize: Size(double.infinity, 60),
-            ),
-          ),
-          SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: () {
-              final currentState = BlocProvider.of<ProductBloc>(context).state;
-              if (currentState is ProductLoaded) {
-                BlocProvider.of<ProductBloc>(context).add(MarkAsPending(currentState.selectedArticle));
-              }
-            },
-            child: Text('MARCAR PENDENT', style: TextStyle(color: Colors.black, fontSize: 18)),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.grey,
-              minimumSize: Size(double.infinity, 60),
-            ),
-          ),
-          SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('PES PRODUCTE', style: TextStyle(color: Colors.black, fontSize: 18)),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              minimumSize: Size(double.infinity, 60),
-            ),
-          ),
-          SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('ENVIAR FINAL', style: TextStyle(color: Colors.black, fontSize: 18)),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.grey,
-              minimumSize: Size(double.infinity, 60),
-            ),
+          SizedBox(height: 50),
+          Center(
+            child: _buildButton(context, 'ENVIAR FINAL', Colors.grey.shade300, () {}),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildButton(BuildContext context, String text, Color color, VoidCallback onPressed) {
+    return Container(
+      margin: EdgeInsets.only(right: 20.0), // Margen a la derecha de cada botón
+      child: SizedBox(
+        width: 175,
+        height: 60,
+        child: ElevatedButton(
+          onPressed: onPressed,
+          child: Text(
+            text,
+            style: TextStyle(color: Colors.black, fontSize: 17),
+            textAlign: TextAlign.center,
+          ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: color,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(0),
+            ),
+            side: BorderSide(color: Colors.black, width: 1), // Borde negro de 2 píxeles
+          ),
+        ),
       ),
     );
   }

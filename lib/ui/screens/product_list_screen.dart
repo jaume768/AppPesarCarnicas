@@ -93,26 +93,26 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
           return Column(
             children: [
-              SizedBox(height: 70.0), // Añade un espacio vacío antes de la tabla
+              SizedBox(height: 70.0),
               Expanded(
                 child: Row(
                   children: [
                     Expanded(
-                      flex: 3,
+                      flex: 4,
                       child: Container(
-                        margin: EdgeInsets.only(left: 30.0), // Añade margen izquierdo a la tabla
+                        margin: EdgeInsets.only(left: 20.0), // Añade margen izquierdo a la tabla
                         child: ProductListTable(products: state.products, selectedClient: selectedClient),
                       ),
                     ),
                     Spacer(),
                     Flexible(
-                      flex: 2,
+                      flex: 5,
                       child: SideButtons(onFilterClient: () => _filterClient(context), onClearFilter: _clearFilter),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 20.0), // Añade un espacio vacío antes de los botones inferiores
+              SizedBox(height: 20.0),
               BottomButtons(),
             ],
           );
