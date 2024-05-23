@@ -76,7 +76,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
       },
     );
   }
-
   void _clearFilter() {
     setState(() {
       selectedClient = null;
