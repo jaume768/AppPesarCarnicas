@@ -469,6 +469,18 @@ server.post('/orderPreparation/productList', (req, res) => {
             "mandatoryLot": true,
             "primaryAction": null,
             "secondaryAction": null
+          },
+          {
+            "id": 22,
+            "code": 22,
+            "name": "Article 22",
+            "observation": "Observation 22",
+            "units": 1.0,
+            "unitType": "KILOS",
+            "special": false,
+            "mandatoryLot": true,
+            "primaryAction": null,
+            "secondaryAction": null
           }
         ]
       }

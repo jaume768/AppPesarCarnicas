@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../structure/bloc/carniceria/carniceria_bloc.dart';
 import '../../structure/bloc/carniceria/carniceria_state.dart';
-import '../widgets/bottom_buttons_table.dart';
 import '../widgets/product_list.dart';
 import '../widgets/side_buttons.dart';
 import '../../models/client.dart'; // Asegúrate de importar el modelo Client
@@ -76,6 +75,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       },
     );
   }
+
   void _clearFilter() {
     setState(() {
       selectedClient = null;
@@ -106,14 +106,15 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     ),
                     Spacer(),
                     Flexible(
-                      flex: 5,
-                      child: SideButtons(onFilterClient: () => _filterClient(context), onClearFilter: _clearFilter),
+                      flex: 4,
+                      child: SideButtons(
+                        onFilterClient: () => _filterClient(context),
+                        onClearFilter: _clearFilter,
+                      ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 20.0),
-              BottomButtons(),
             ],
           );
         },
