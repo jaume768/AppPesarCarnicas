@@ -5,11 +5,12 @@ abstract class ProductEvent {
 
 class SelectArticle extends ProductEvent {
   final int articleIndex;
+  final bool isSpecial;
 
-  SelectArticle(this.articleIndex);
+  SelectArticle(this.articleIndex, this.isSpecial);
 
   @override
-  List<Object> get props => [articleIndex];
+  List<Object> get props => [articleIndex, isSpecial];
 }
 
 class DeselectArticle extends ProductEvent {

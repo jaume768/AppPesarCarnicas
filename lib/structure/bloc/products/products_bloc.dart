@@ -6,18 +6,18 @@ import 'products_state.dart';
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final ProductRepository repository;
 
-  ProductBloc({required this.repository}) : super(ProductLoaded(-1)) {
+  ProductBloc({required this.repository}) : super(ProductLoaded(-1, false)) {
     on<SelectArticle>((event, emit) {
       if (state is ProductLoaded) {
         final currentState = state as ProductLoaded;
-        emit(ProductLoaded(event.articleIndex, currentState.pendingArticles));
+        emit(ProductLoaded(event.articleIndex, event.isSpecial, currentState.pendingArticles));
       }
     });
 
     on<DeselectArticle>((event, emit) {
       if (state is ProductLoaded) {
         final currentState = state as ProductLoaded;
-        emit(ProductLoaded(-1, currentState.pendingArticles));
+        emit(ProductLoaded(-1, false, currentState.pendingArticles));
       }
     });
 
@@ -30,8 +30,10 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         } else {
           newPendingArticles.add(event.articleIndex);
         }
-        emit(ProductLoaded(currentState.selectedArticle, newPendingArticles));
+        emit(ProductLoaded(currentState.selectedArticle, currentState.isSpecial, newPendingArticles));
       }
     });
   }
 }
+
+

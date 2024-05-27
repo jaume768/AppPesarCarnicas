@@ -26,10 +26,7 @@ class ProductListTable extends StatelessWidget {
               DataRow(
                 color: MaterialStateProperty.resolveWith<Color?>(
                       (Set<MaterialState> states) {
-                    if (product is Client) {
-                      return Colors.green[300]; // Fondo gris para clientes
-                    }
-                    return null; // Fondo predeterminado para otros productos
+                    return Colors.green[300]; // Fondo verde para clientes
                   },
                 ),
                 cells: [
@@ -84,7 +81,7 @@ class ProductListTable extends StatelessWidget {
                           if (state.selectedArticle == currentRowIndex) {
                             BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
                           } else {
-                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex));
+                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special));
                           }
                         },
                         child: Center(
@@ -108,7 +105,7 @@ class ProductListTable extends StatelessWidget {
                           if (state.selectedArticle == currentRowIndex) {
                             BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
                           } else {
-                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex));
+                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special));
                           }
                         },
                         child: Center(
@@ -132,7 +129,7 @@ class ProductListTable extends StatelessWidget {
                           if (state.selectedArticle == currentRowIndex) {
                             BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
                           } else {
-                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex));
+                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special));
                           }
                         },
                         child: Center(
@@ -164,34 +161,34 @@ class ProductListTable extends StatelessWidget {
 
           return SingleChildScrollView(
             scrollDirection: Axis.vertical,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.5, // Ajusta el factor de ancho según sea necesario
-                child: SingleChildScrollView(
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.5, // Ajusta el factor de ancho según sea necesario
-                    child: DataTable(
-                      columnSpacing: 7.0,
-                      dataRowHeight: 80.0,
-                      headingRowHeight: 70.0,
-                      border: const TableBorder(
-                        horizontalInside: BorderSide(color: Colors.black, width: 2),
-                        verticalInside: BorderSide(color: Colors.black, width: 2),
-                        right: BorderSide(color: Colors.black, width: 2),
-                        bottom: BorderSide(color: Colors.black, width: 2),
-                        top: BorderSide(color: Colors.black, width: 2),
-                        left: BorderSide(color: Colors.black, width: 2),
-                      ),
-                      columns: const [
-                        DataColumn(label: Text('BLOC', style: TextStyle(color: Colors.black, fontSize: 20))),
-                        DataColumn(label: Text('QUANT.', style: TextStyle(color: Colors.black, fontSize: 20))),
-                        DataColumn(label: Text('UNI', style: TextStyle(color: Colors.black, fontSize: 20))),
-                        DataColumn(label: Text('CLIENT/ PRODUCTE', style: TextStyle(color: Colors.black, fontSize: 20))),
-                      ],
-                      rows: rows,
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.5, // Ajusta el factor de ancho según sea necesario
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.5, // Ajusta el factor de ancho según sea necesario
+                  child: DataTable(
+                    columnSpacing: 7.0,
+                    dataRowHeight: 80.0,
+                    headingRowHeight: 70.0,
+                    border: const TableBorder(
+                      horizontalInside: BorderSide(color: Colors.black, width: 2),
+                      verticalInside: BorderSide(color: Colors.black, width: 2),
+                      right: BorderSide(color: Colors.black, width: 2),
+                      bottom: BorderSide(color: Colors.black, width: 2),
+                      top: BorderSide(color: Colors.black, width: 2),
+                      left: BorderSide(color: Colors.black, width: 2),
                     ),
+                    columns: const [
+                      DataColumn(label: Text('BLOC', style: TextStyle(color: Colors.black, fontSize: 20))),
+                      DataColumn(label: Text('QUANT.', style: TextStyle(color: Colors.black, fontSize: 20))),
+                      DataColumn(label: Text('UNI', style: TextStyle(color: Colors.black, fontSize: 20))),
+                      DataColumn(label: Text('CLIENT/ PRODUCTE', style: TextStyle(color: Colors.black, fontSize: 20))),
+                    ],
+                    rows: rows,
                   ),
                 ),
               ),
+            ),
           );
         } else {
           return Center(child: Text('No se han cargado los productos'));
