@@ -38,7 +38,7 @@ class SideButtons extends StatelessWidget {
               Expanded(
                 child: _buildButton(context, 'FILTRAR CLIENT', Colors.green.shade300, onFilterClient),
               ),
-              SizedBox(width: 10), // Separación entre los botones
+              SizedBox(width: 10),
               Expanded(
                 child: _buildButton(context, 'MARCAR PENDENT', Colors.grey.shade300, () {
                   final currentState = BlocProvider.of<ProductBloc>(context).state;
@@ -58,55 +58,78 @@ class SideButtons extends StatelessWidget {
                       isEnabled ? Colors.orange : Colors.grey.shade300,
                       isEnabled ? () {
                         print('Procesar artículo seleccionado: ${state.selectedArticle}');
-                        // Aquí puedes colocar cualquier lógica adicional necesaria para manejar el evento de este botón.
                       } : null,
                     );
                   },
                 ),
               ),
-              SizedBox(width: 10), // Separación entre los botones
+              SizedBox(width: 10),
             ],
           ),
           SizedBox(height: 50),
           Center(
             child: _buildButton(context, 'ENVIAR FINAL', Colors.grey.shade300, () {}),
           ),
-          Spacer(), // Spacer to push bottom buttons to the bottom
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+          Spacer(),
+          Column(
             children: [
               Container(
-                margin: EdgeInsets.only(right: 50), // Aumenta el margen entre los botones
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Multi Pes', style: TextStyle(color: Colors.black, fontSize: 24)), // Tamaño de letra aumentado
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.pink,
-                    minimumSize: Size(100, 100), // Botones cuadrados
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0), // Bordes cuadrados
-                    ),
-                    side: BorderSide(color: Colors.black, width: 1), // Borde negro de 2 píxeles
+                margin: EdgeInsets.only(bottom: 20),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: Container(
+                  color: Colors.green.shade200,
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    '0,00',
+                    style: TextStyle(color: Colors.black, fontSize: 48),
                   ),
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center, // Centrar el texto verticalmente
-                  children: [
-                    Text('Aceptar Pesada,', style: TextStyle(color: Colors.black, fontSize: 24)), // Tamaño de letra aumentado
-                    Text('gravar, imprimir', style: TextStyle(color: Colors.black, fontSize: 24)), // Tamaño de letra aumentado
-                  ],
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
-                  minimumSize: Size(200, 100), // Tamaño del botón
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(0), // Bordes cuadrados
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(right: 50),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text('Multi Pes', style: TextStyle(color: Colors.black, fontSize: 24)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.pink,
+                        minimumSize: Size(100, 100),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        side: BorderSide(color: Colors.black, width: 1),
+                      ),
+                    ),
                   ),
-                  side: BorderSide(color: Colors.black, width: 1), // Borde negro de 2 píxeles
-                ),
+                  Container(
+                    margin: EdgeInsets.only(right: 50),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Aceptar Pesada,', style: TextStyle(color: Colors.black, fontSize: 24)),
+                          Text('gravar, imprimir', style: TextStyle(color: Colors.black, fontSize: 24)),
+                        ],
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        minimumSize: Size(200, 100),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        side: BorderSide(color: Colors.black, width: 1),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -122,7 +145,7 @@ class SideButtons extends StatelessWidget {
         width: 175,
         height: 60,
         child: ElevatedButton(
-          onPressed: onPressed,  // Ahora puede ser null o una función
+          onPressed: onPressed,
           child: Text(
             text,
             style: TextStyle(color: Colors.black, fontSize: 17),
