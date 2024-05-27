@@ -81,7 +81,7 @@ class ProductListTable extends StatelessWidget {
                           if (state.selectedArticle == currentRowIndex) {
                             BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
                           } else {
-                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special));
+                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special,article.mandatoryLot));
                           }
                         },
                         child: Center(
@@ -105,7 +105,7 @@ class ProductListTable extends StatelessWidget {
                           if (state.selectedArticle == currentRowIndex) {
                             BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
                           } else {
-                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special));
+                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special,article.mandatoryLot));
                           }
                         },
                         child: Center(
@@ -129,7 +129,7 @@ class ProductListTable extends StatelessWidget {
                           if (state.selectedArticle == currentRowIndex) {
                             BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
                           } else {
-                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special));
+                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special,article.mandatoryLot));
                           }
                         },
                         child: Center(

@@ -73,6 +73,24 @@ class SideButtons extends StatelessWidget {
           Spacer(),
           Column(
             children: [
+              BlocBuilder<ProductBloc, ProductState>(
+                builder: (context, state) {
+                  if (state is ProductLoaded && state.isMandatoryLot) {
+                    return Container(
+                      margin: EdgeInsets.only(bottom: 20),
+                      child: _buildButton(
+                        context,
+                        'LOTE',
+                        Colors.red,
+                            () {
+                          // Acción para el botón Lote
+                        },
+                      ),
+                    );
+                  }
+                  return SizedBox.shrink();
+                },
+              ),
               Container(
                 margin: EdgeInsets.only(bottom: 20),
                 decoration: BoxDecoration(
