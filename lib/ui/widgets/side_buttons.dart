@@ -77,14 +77,26 @@ class SideButtons extends StatelessWidget {
                 builder: (context, state) {
                   if (state is ProductLoaded && state.isMandatoryLot) {
                     return Container(
-                      margin: EdgeInsets.only(bottom: 20),
-                      child: _buildButton(
-                        context,
-                        'LOTE',
-                        Colors.red,
-                            () {
-                          // Acción para el botón Lote
-                        },
+                      margin: EdgeInsets.only(bottom: 20,left: 165),
+                      child: Row(
+                        children: [
+                          Text('LOT:', style: TextStyle(color: Colors.black, fontSize: 24)),
+                          SizedBox(width: 10),
+                          ElevatedButton(
+                            onPressed: () {
+                              // Acción para el botón "S/N"
+                            },
+                            child: Text('S/N', style: TextStyle(color: Colors.black, fontSize: 24)),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.pink,
+                              minimumSize: Size(100, 60),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0),
+                              ),
+                              side: BorderSide(color: Colors.black, width: 1),
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   }
@@ -104,7 +116,7 @@ class SideButtons extends StatelessWidget {
                   padding: EdgeInsets.all(8.0),
                   child: Text(
                     '0,00',
-                    style: TextStyle(color: Colors.black, fontSize: 48),
+                    style: TextStyle(color: Colors.black, fontSize: 42),
                   ),
                 ),
               ),
