@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../structure/bloc/products/products_bloc.dart';
 import '../../structure/bloc/products/products_event.dart';
 import '../../structure/bloc/products/products_state.dart';
+import '../utils/lot_number_modal.dart';
 
 class SideButtons extends StatelessWidget {
   final VoidCallback onFilterClient;
@@ -114,10 +115,11 @@ class SideButtons extends StatelessWidget {
                 Text('LOT:', style: TextStyle(color: Colors.black, fontSize: 24)),
                 SizedBox(width: 10),
                 ElevatedButton(
-                  onPressed: () {
-                    // Acción para el botón "S/N"
-                  },
-                  child: Text('S/N', style: TextStyle(color: Colors.black, fontSize: 24)),
+                  onPressed: () => _showLotNumberModal(context),
+                  child: Text(
+                    state.lotNumber == 0 ? 'S/N' : state.lotNumber.toString(),
+                    style: TextStyle(color: Colors.black, fontSize: 24),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.pink,
                     minimumSize: Size(100, 60),
@@ -132,6 +134,18 @@ class SideButtons extends StatelessWidget {
           );
         }
         return SizedBox.shrink();
+      },
+    );
+  }
+
+  void _showLotNumberModal(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return BlocProvider.value(
+          value: BlocProvider.of<ProductBloc>(context),
+          child: LotNumberModal(),
+        );
       },
     );
   }

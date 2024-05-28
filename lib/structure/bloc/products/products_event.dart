@@ -31,3 +31,12 @@ class MarkAsPending extends ProductEvent {
   @override
   List<Object> get props => [articleIndex];
 }
+
+class UpdateLotNumber extends ProductEvent {
+  final int lotNumber;
+
+  UpdateLotNumber(this.lotNumber);
+
+  @override
+  List<Object> get props => [lotNumber];
+}
