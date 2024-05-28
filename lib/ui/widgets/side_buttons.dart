@@ -5,6 +5,7 @@ import '../../structure/bloc/products/products_bloc.dart';
 import '../../structure/bloc/products/products_event.dart';
 import '../../structure/bloc/products/products_state.dart';
 import '../utils/lot_number_modal.dart';
+import 'multi_per_indicators.dart';
 
 class SideButtons extends StatelessWidget {
   final VoidCallback onFilterClient;
@@ -98,8 +99,8 @@ class SideButtons extends StatelessWidget {
     return Column(
       children: [
         _buildMandatoryLotSection(context),
-        _buildAmountDisplay(),
-        _buildBottomButtons(),
+        MultiPesIndicators(),
+        _buildBottomButtons(context),
       ],
     );
   }
@@ -150,31 +151,13 @@ class SideButtons extends StatelessWidget {
     );
   }
 
-  Widget _buildAmountDisplay() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.black,
-          width: 1,
-        ),
-      ),
-      child: Container(
-        color: Colors.green.shade200,
-        padding: EdgeInsets.all(8.0),
-        child: Text(
-          '0,00',
-          style: TextStyle(color: Colors.black, fontSize: 42),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBottomButtons() {
+  Widget _buildBottomButtons(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        _buildCustomButton('Multi Pes', Colors.pink, 100, 100, () {}),
+        _buildCustomButton('Multi Pes', Colors.pink, 100, 100, () {
+          BlocProvider.of<ProductBloc>(context).add(ToggleMultiPesIndicators());
+        }),
         _buildCustomButton('Aceptar Pesada,\ngravar, imprimir', Colors.blueAccent, 200, 100, () {}),
       ],
     );

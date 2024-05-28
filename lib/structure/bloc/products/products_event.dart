@@ -8,10 +8,10 @@ class SelectArticle extends ProductEvent {
   final bool isSpecial;
   final bool isMandatoryLot;
 
-  SelectArticle(this.articleIndex, this.isSpecial,this.isMandatoryLot);
+  SelectArticle(this.articleIndex, this.isSpecial, this.isMandatoryLot);
 
   @override
-  List<Object> get props => [articleIndex, isSpecial,isMandatoryLot];
+  List<Object> get props => [articleIndex, isSpecial, isMandatoryLot];
 }
 
 class DeselectArticle extends ProductEvent {
@@ -39,4 +39,9 @@ class UpdateLotNumber extends ProductEvent {
 
   @override
   List<Object> get props => [lotNumber];
+}
+
+class ToggleMultiPesIndicators extends ProductEvent {
+  @override
+  List<Object> get props => [];
 }
