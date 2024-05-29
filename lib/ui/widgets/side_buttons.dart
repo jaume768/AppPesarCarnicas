@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../structure/bloc/products/products_bloc.dart';
 import '../../structure/bloc/products/products_event.dart';
 import '../../structure/bloc/products/products_state.dart';
+import '../../structure/bloc/pesaje/pesaje_bloc.dart';
+import '../../structure/bloc/pesaje/pesaje_event.dart';
+import '../../structure/bloc/pesaje/pesaje_state.dart';
 import '../utils/lot_number_modal.dart';
 import 'multi_per_indicators.dart';
 
@@ -88,7 +90,7 @@ class SideButtons extends StatelessWidget {
           buttonText,
           isEnabled ? Colors.orange : Colors.grey.shade300,
           isEnabled ? () {
-            print('Procesar artículo seleccionado: ${state.selectedArticle}');
+            BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
           } : null,
         );
       },
@@ -158,12 +160,23 @@ class SideButtons extends StatelessWidget {
         _buildCustomButton('Multi Pes', Colors.pink, 100, 100, () {
           BlocProvider.of<ProductBloc>(context).add(ToggleMultiPesIndicators());
         }),
-        _buildCustomButton('Aceptar Pesada,\ngravar, imprimir', Colors.blueAccent, 200, 100, () {}),
+        BlocBuilder<PesajeBloc, PesajeState>(
+          builder: (context, state) {
+            bool isAcceptButtonEnabled = !(state is PesajeLoaded && (state.pesajeStatus['tipoPes'] == 'ZERO' || state.pesajeStatus['tipoPes'] == 'INESTABLE'));
+            return _buildCustomButton(
+              'Aceptar Pesada,\ngravar, imprimir',
+              isAcceptButtonEnabled ? Colors.blueAccent : Colors.grey,
+              200,
+              100,
+              isAcceptButtonEnabled ? () {} : null,
+            );
+          },
+        ),
       ],
     );
   }
 
-  Widget _buildCustomButton(String text, Color color, double width, double height, VoidCallback onPressed) {
+  Widget _buildCustomButton(String text, Color color, double width, double height, VoidCallback? onPressed) {
     return Container(
       margin: EdgeInsets.only(right: 50),
       child: ElevatedButton(

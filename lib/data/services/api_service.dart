@@ -60,4 +60,46 @@ class ApiService {
       throw Exception('Failed to load product list');
     }
   }
+
+  Future<Map<String, dynamic>> fetchPesajeZero() async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/pesaje/zero'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({}),
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to load pesaje zero');
+    }
+  }
+
+  Future<Map<String, dynamic>> fetchPesajeInestable() async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/pesaje/inestable'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({}),
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to load pesaje inestable');
+    }
+  }
+
+  Future<Map<String, dynamic>> fetchPesajeEstable() async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/pesaje/estable'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({}),
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to load pesaje estable');
+    }
+  }
 }

@@ -489,6 +489,51 @@ server.post('/orderPreparation/productList', (req, res) => {
   res.jsonp({ "clients": productList[req.body.productType] || [] });
 });
 
+server.post('/generateDecimal', (req, res) => {
+  const generateRandomDecimal = () => {
+    return (Math.random() * 100).toFixed(2);
+  };
+
+  const decimalNumber = generateRandomDecimal();
+  res.jsonp({ "decimalNumber": decimalNumber });
+});
+
+server.post('/pesaje/zero', (req, res) => {
+  res.jsonp({
+    "id": 11,
+    "pes": 0,
+    "tipoPes": "ZERO",
+    "taraBascula": false,
+    "tara": {
+        "total": 0
+    }
+  });
+});
+
+server.post('/pesaje/inestable', (req, res) => {
+  res.jsonp({
+    "id": 11,
+    "pes": 1.46,
+    "tipoPes": "INESTABLE",
+    "taraBascula": false,
+    "tara": {
+        "total": 0
+    }
+  });
+});
+
+server.post('/pesaje/estable', (req, res) => {
+  res.jsonp({
+    "id": 11,
+    "pes": 3.37,
+    "tipoPes": "ESTABLE",
+    "taraBascula": false,
+    "tara": {
+        "total": 0
+    }
+  });
+});
+
 // Usa el router predeterminado
 server.use(router);
 

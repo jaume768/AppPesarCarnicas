@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../structure/bloc/products/products_bloc.dart';
 import '../../structure/bloc/products/products_event.dart';
 import '../../structure/bloc/products/products_state.dart';
+import '../../structure/bloc/pesaje/pesaje_bloc.dart';
+import '../../structure/bloc/pesaje/pesaje_event.dart';
 import '../../models/client.dart';
 
 class ProductListTable extends StatelessWidget {
@@ -69,7 +71,7 @@ class ProductListTable extends StatelessWidget {
                     DataCell(
                       Center(
                         child: Text(
-                          article.special ? 'X' : '',  // Si 'special' es true, muestra 'X'; de lo contrario, no muestra nada.
+                          article.special ? 'X' : '', // Si 'special' es true, muestra 'X'; de lo contrario, no muestra nada.
                           style: TextStyle(color: Colors.black, fontSize: 18),
                           textAlign: TextAlign.center,
                         ),
@@ -80,8 +82,10 @@ class ProductListTable extends StatelessWidget {
                         onTap: () {
                           if (state.selectedArticle == currentRowIndex) {
                             BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
+                            BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
                           } else {
-                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special,article.mandatoryLot));
+                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special, article.mandatoryLot));
+                            BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
                           }
                         },
                         child: Center(
@@ -104,8 +108,10 @@ class ProductListTable extends StatelessWidget {
                         onTap: () {
                           if (state.selectedArticle == currentRowIndex) {
                             BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
+                            BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
                           } else {
-                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special,article.mandatoryLot));
+                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special, article.mandatoryLot));
+                            BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
                           }
                         },
                         child: Center(
@@ -128,8 +134,10 @@ class ProductListTable extends StatelessWidget {
                         onTap: () {
                           if (state.selectedArticle == currentRowIndex) {
                             BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
+                            BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
                           } else {
-                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special,article.mandatoryLot));
+                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special, article.mandatoryLot));
+                            BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
                           }
                         },
                         child: Center(
