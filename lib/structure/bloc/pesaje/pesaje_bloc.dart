@@ -22,37 +22,40 @@ class PesajeBloc extends Bloc<PesajeEvent, PesajeState> {
   }
 
   void _startPesajeZeroTimer(Emitter<PesajeState> emit) {
-    _timer = Timer.periodic(Duration(milliseconds: 200), (timer) async {
+    _timer = Timer.periodic(Duration(milliseconds: 100), (timer) async {
       try {
         final pesajeStatus = await repository.getPesajeZero();
         add(UpdatePesajeStatus(pesajeStatus));
+        add(StopPesajeMonitoring());
         await Future.delayed(Duration(seconds: 2));
         final pesajeStatus2 = await repository.getPesajeInestable();
         add(UpdatePesajeStatus(pesajeStatus2));
-        print("inestable");
+        add(StopPesajeMonitoring());
         await Future.delayed(Duration(seconds: 2));
         final pesajeStatus3 = await repository.getPesajeEstable();
-        add(UpdatePesajeStatus(pesajeStatus3));
-        print("estable");
-        await Future.delayed(Duration(seconds: 2));
-        if (pesajeStatus['tipoPes'] == 'ZERO') {
+        if (pesajeStatus3['tipoPes'] == 'ESTABLE') {
           timer.cancel();
+          add(UpdatePesajeStatus(pesajeStatus3));
+          add(StopPesajeMonitoring());
         }
       } catch (error) {
         timer.cancel();
+        emit(PesajeError(error.toString()));
       }
     });
   }
 
   void _onStopPesajeMonitoring(StopPesajeMonitoring event, Emitter<PesajeState> emit) {
     _timer?.cancel();
-    emit(PesajeInitial());
   }
 
   void _onUpdatePesajeStatus(UpdatePesajeStatus event, Emitter<PesajeState> emit) {
-    emit(PesajeLoaded(event.pesajeStatus));
-    if (event.pesajeStatus['tipoPes'] != 'ZERO' && event.pesajeStatus['tipoPes'] != 'INESTABLE') {
-      add(StopPesajeMonitoring());
+    if (event.pesajeStatus['tipoPes'] == 'ESTABLE') {
+      final weight = event.pesajeStatus['pes'];
+      print(weight);
+      emit(PesajeLoaded(event.pesajeStatus, weight: weight));
+    } else {
+      emit(PesajeLoaded(event.pesajeStatus, weight: state.weight));
     }
   }
 

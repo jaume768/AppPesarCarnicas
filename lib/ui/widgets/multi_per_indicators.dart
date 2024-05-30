@@ -2,30 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../structure/bloc/products/products_bloc.dart';
 import '../../structure/bloc/products/products_state.dart';
+import '../../structure/bloc/pesaje/pesaje_bloc.dart';
+import '../../structure/bloc/pesaje/pesaje_state.dart';
 
 class MultiPesIndicators extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductBloc, ProductState>(
-      builder: (context, state) {
-        if (state is ProductLoaded) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (state.showMultiPesIndicators) ...[
-                _buildIndicator('0', Colors.yellow),
+      builder: (context, productState) {
+        return BlocBuilder<PesajeBloc, PesajeState>(
+          builder: (context, pesajeState) {
+            print("prova:");
+            print(pesajeState.weight);
+            String weightText = pesajeState.weight?.toStringAsFixed(2) ?? '0,00';
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (productState is ProductLoaded && productState.showMultiPesIndicators) ...[
+                  _buildIndicator('0', Colors.yellow),
+                  SizedBox(width: 10),
+                ],
+                if (productState is ProductLoaded && productState.showMultiPesIndicators) ...[
+                  SizedBox(width: 10),
+                  _buildIndicator('0', Colors.green),
+                ],
                 SizedBox(width: 10),
+                _buildIndicator(weightText, Colors.green.shade200),
               ],
-              if (state.showMultiPesIndicators) ...[
-                SizedBox(width: 10),
-                _buildIndicator('0', Colors.green),
-              ],
-              SizedBox(width: 10),
-              _buildIndicator('0,00', Colors.green.shade200),
-            ],
-          );
-        }
-        return SizedBox.shrink();
+            );
+          },
+        );
       },
     );
   }
