@@ -24,7 +24,7 @@ class PesajeBloc extends Bloc<PesajeEvent, PesajeState> {
   void _startPesajeZeroTimer(Emitter<PesajeState> emit) {
     _timer = Timer.periodic(Duration(milliseconds: 100), (timer) async {
       try {
-        /*
+
         final pesajeStatus = await repository.getPesajeZero();
         add(UpdatePesajeStatus(pesajeStatus));
         add(StopPesajeMonitoring());
@@ -33,7 +33,7 @@ class PesajeBloc extends Bloc<PesajeEvent, PesajeState> {
         add(UpdatePesajeStatus(pesajeStatus2));
         add(StopPesajeMonitoring());
         await Future.delayed(Duration(seconds: 2));
-         */
+
         final pesajeStatus3 = await repository.getPesajeEstable();
         if (pesajeStatus3['tipoPes'] == 'ESTABLE') {
           timer.cancel();

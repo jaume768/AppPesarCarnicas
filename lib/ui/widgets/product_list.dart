@@ -6,6 +6,7 @@ import '../../structure/bloc/products/products_state.dart';
 import '../../structure/bloc/pesaje/pesaje_bloc.dart';
 import '../../structure/bloc/pesaje/pesaje_event.dart';
 import '../../models/client.dart';
+import '../utils/confirm_delete_modal.dart';
 
 class ProductListTable extends StatelessWidget {
   final List<Client> products;
@@ -61,16 +62,12 @@ class ProductListTable extends StatelessWidget {
                       if (state.pendingArticles.contains(currentRowIndex)) {
                         return Colors.red[200];
                       }
-                      if (state.selectedArticle == currentRowIndex && state.acceptedArticles.contains(currentRowIndex)) {
-                        return Colors.blue[400];
-                      }
                       if (state.acceptedArticles.contains(currentRowIndex)) {
-                        return Colors.blue[200];
+                        return Colors.blue[400];
                       }
                       if (state.selectedArticle == currentRowIndex) {
                         return Colors.grey[300];
                       }
-
                       return null;
                     },
                   ),
@@ -87,12 +84,30 @@ class ProductListTable extends StatelessWidget {
                     DataCell(
                       GestureDetector(
                         onTap: () {
-                          if (state.selectedArticle == currentRowIndex) {
-                            BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
-                            BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
+                          if (state.acceptedArticles.contains(currentRowIndex)) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return ConfirmDeleteModal(
+                                  clientName: product.name,
+                                  productName: article.name,
+                                  productObservation: article.observation,
+                                  weight: article.units,
+                                  onConfirm: () {
+                                    BlocProvider.of<ProductBloc>(context).add(AcceptArticle(currentRowIndex));
+                                    Navigator.of(context).pop();
+                                  },
+                                );
+                              },
+                            );
                           } else {
-                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special, article.mandatoryLot));
-                            BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
+                            if (state.selectedArticle == currentRowIndex) {
+                              BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
+                              BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
+                            } else {
+                              BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special, article.mandatoryLot));
+                              BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
+                            }
                           }
                         },
                         child: Center(
@@ -113,12 +128,30 @@ class ProductListTable extends StatelessWidget {
                     DataCell(
                       GestureDetector(
                         onTap: () {
-                          if (state.selectedArticle == currentRowIndex) {
-                            BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
-                            BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
+                          if (state.acceptedArticles.contains(currentRowIndex)) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return ConfirmDeleteModal(
+                                  clientName: product.name,
+                                  productName: article.name,
+                                  productObservation: article.observation,
+                                  weight: article.units,
+                                  onConfirm: () {
+                                    BlocProvider.of<ProductBloc>(context).add(AcceptArticle(currentRowIndex));
+                                    Navigator.of(context).pop();
+                                  },
+                                );
+                              },
+                            );
                           } else {
-                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special, article.mandatoryLot));
-                            BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
+                            if (state.selectedArticle == currentRowIndex) {
+                              BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
+                              BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
+                            } else {
+                              BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special, article.mandatoryLot));
+                              BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
+                            }
                           }
                         },
                         child: Center(
@@ -139,12 +172,30 @@ class ProductListTable extends StatelessWidget {
                     DataCell(
                       GestureDetector(
                         onTap: () {
-                          if (state.selectedArticle == currentRowIndex) {
-                            BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
-                            BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
+                          if (state.acceptedArticles.contains(currentRowIndex)) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return ConfirmDeleteModal(
+                                  clientName: product.name,
+                                  productName: article.name,
+                                  productObservation: article.observation,
+                                  weight: article.units,
+                                  onConfirm: () {
+                                    BlocProvider.of<ProductBloc>(context).add(AcceptArticle(currentRowIndex));
+                                    Navigator.of(context).pop();
+                                  },
+                                );
+                              },
+                            );
                           } else {
-                            BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special, article.mandatoryLot));
-                            BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
+                            if (state.selectedArticle == currentRowIndex) {
+                              BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
+                              BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
+                            } else {
+                              BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special, article.mandatoryLot));
+                              BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
+                            }
                           }
                         },
                         child: Center(
