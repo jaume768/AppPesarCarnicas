@@ -61,9 +61,16 @@ class ProductListTable extends StatelessWidget {
                       if (state.pendingArticles.contains(currentRowIndex)) {
                         return Colors.red[200];
                       }
+                      if (state.selectedArticle == currentRowIndex && state.acceptedArticles.contains(currentRowIndex)) {
+                        return Colors.blue[400];
+                      }
+                      if (state.acceptedArticles.contains(currentRowIndex)) {
+                        return Colors.blue[200];
+                      }
                       if (state.selectedArticle == currentRowIndex) {
                         return Colors.grey[300];
                       }
+
                       return null;
                     },
                   ),

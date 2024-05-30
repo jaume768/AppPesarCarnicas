@@ -45,3 +45,12 @@ class ToggleMultiPesIndicators extends ProductEvent {
   @override
   List<Object> get props => [];
 }
+
+class AcceptArticle extends ProductEvent {
+  final int articleIndex;
+
+  AcceptArticle(this.articleIndex);
+
+  @override
+  List<Object> get props => [articleIndex];
+}

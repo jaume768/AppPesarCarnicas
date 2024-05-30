@@ -168,13 +168,20 @@ class SideButtons extends StatelessWidget {
               isAcceptButtonEnabled ? Colors.blueAccent : Colors.grey,
               200,
               100,
-              isAcceptButtonEnabled ? () {} : null,
+              isAcceptButtonEnabled ? () {
+                final productState = BlocProvider.of<ProductBloc>(context).state;
+                if (productState is ProductLoaded) {
+                  BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle));
+                }
+              } : null,
             );
           },
         ),
       ],
     );
   }
+
+
 
   Widget _buildCustomButton(String text, Color color, double width, double height, VoidCallback? onPressed) {
     return Container(
