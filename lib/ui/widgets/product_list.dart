@@ -96,7 +96,7 @@ class ProductListTable extends StatelessWidget {
                                       clientName: product.name,
                                       productName: article.name,
                                       productObservation: article.observation,
-                                      weight: pesajeState.weight ?? 0.0,
+                                      weight: article.weight, // Usar el peso del artículo desde el modelo
                                       onConfirm: () {
                                         BlocProvider.of<ProductBloc>(context).add(AcceptArticle(currentRowIndex));
                                         Navigator.of(context).pop();
@@ -140,7 +140,7 @@ class ProductListTable extends StatelessWidget {
                                       clientName: product.name,
                                       productName: article.name,
                                       productObservation: article.observation,
-                                      weight: pesajeState.weight ?? 0.0,
+                                      weight: article.weight, // Usar el peso del artículo desde el modelo
                                       onConfirm: () {
                                         BlocProvider.of<ProductBloc>(context).add(AcceptArticle(currentRowIndex));
                                         Navigator.of(context).pop();
@@ -184,7 +184,7 @@ class ProductListTable extends StatelessWidget {
                                       clientName: product.name,
                                       productName: article.name,
                                       productObservation: article.observation,
-                                      weight: pesajeState.weight ?? 0.0,
+                                      weight: article.weight, // Usar el peso del artículo desde el modelo
                                       onConfirm: () {
                                         BlocProvider.of<ProductBloc>(context).add(AcceptArticle(currentRowIndex));
                                         Navigator.of(context).pop();

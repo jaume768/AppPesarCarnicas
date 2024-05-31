@@ -9,6 +9,7 @@ class Article {
   final bool mandatoryLot;
   final dynamic primaryAction;
   final dynamic secondaryAction;
+  double _weight;
 
   Article({
     required this.id,
@@ -21,7 +22,14 @@ class Article {
     required this.mandatoryLot,
     this.primaryAction,
     this.secondaryAction,
-  });
+    double weight = 0.0,
+  }) : _weight = weight;
+
+  double get weight => _weight;
+
+  set weight(double value) {
+    _weight = value;
+  }
 
   factory Article.fromJson(Map<String, dynamic> json) {
     return Article(
@@ -35,6 +43,7 @@ class Article {
       mandatoryLot: json['mandatoryLot'],
       primaryAction: json['primaryAction'],
       secondaryAction: json['secondaryAction'],
+      weight: json['weight']?.toDouble() ?? 0.0,
     );
   }
 }

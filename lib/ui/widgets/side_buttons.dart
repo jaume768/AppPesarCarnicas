@@ -26,9 +26,6 @@ class SideButtons extends StatelessWidget {
           const SizedBox(height: 50),
           _buildMiddleButtons(context),
           const SizedBox(height: 50),
-          Center(
-            child: _buildButton(context, 'ENVIAR FINAL', Colors.grey.shade300, () {}),
-          ),
           const Spacer(),
           _buildBottomSection(context),
         ],
@@ -170,6 +167,7 @@ class SideButtons extends StatelessWidget {
               100,
               isAcceptButtonEnabled ? () {
                 final productState = BlocProvider.of<ProductBloc>(context).state;
+                print(productState.selectedArticle);
                 if (productState is ProductLoaded) {
                   BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle));
                 }

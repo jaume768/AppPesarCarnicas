@@ -54,7 +54,6 @@ class PesajeBloc extends Bloc<PesajeEvent, PesajeState> {
   void _onUpdatePesajeStatus(UpdatePesajeStatus event, Emitter<PesajeState> emit) {
     if (event.pesajeStatus['tipoPes'] == 'ESTABLE') {
       final weight = event.pesajeStatus['pes'];
-      print(weight);
       emit(PesajeLoaded(event.pesajeStatus, weight: weight));
     } else {
       emit(PesajeLoaded(event.pesajeStatus, weight: state.weight));

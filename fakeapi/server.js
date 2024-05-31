@@ -525,7 +525,7 @@ server.post('/pesaje/inestable', (req, res) => {
 server.post('/pesaje/estable', (req, res) => {
   res.jsonp({
     "id": 11,
-    "pes": 3.37,
+    "pes": 3.38,
     "tipoPes": "ESTABLE",
     "taraBascula": false,
     "tara": {
