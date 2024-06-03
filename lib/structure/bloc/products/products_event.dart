@@ -4,32 +4,32 @@ abstract class ProductEvent {
 }
 
 class SelectArticle extends ProductEvent {
-  final int articleIndex;
+  final int articleId;
   final bool isSpecial;
   final bool isMandatoryLot;
 
-  SelectArticle(this.articleIndex, this.isSpecial, this.isMandatoryLot);
+  SelectArticle(this.articleId, this.isSpecial, this.isMandatoryLot);
 
   @override
-  List<Object> get props => [articleIndex, isSpecial, isMandatoryLot];
+  List<Object> get props => [articleId, isSpecial, isMandatoryLot];
 }
 
 class DeselectArticle extends ProductEvent {
-  final int articleIndex;
+  final int articleId;
 
-  DeselectArticle(this.articleIndex);
+  DeselectArticle(this.articleId);
 
   @override
-  List<Object> get props => [articleIndex];
+  List<Object> get props => [articleId];
 }
 
 class MarkAsPending extends ProductEvent {
-  final int articleIndex;
+  final int articleId;
 
-  MarkAsPending(this.articleIndex);
+  MarkAsPending(this.articleId);
 
   @override
-  List<Object> get props => [articleIndex];
+  List<Object> get props => [articleId];
 }
 
 class UpdateLotNumber extends ProductEvent {
@@ -47,10 +47,10 @@ class ToggleMultiPesIndicators extends ProductEvent {
 }
 
 class AcceptArticle extends ProductEvent {
-  final int articleIndex;
+  final int articleId;
 
-  AcceptArticle(this.articleIndex);
+  AcceptArticle(this.articleId);
 
   @override
-  List<Object> get props => [articleIndex];
+  List<Object> get props => [articleId];
 }

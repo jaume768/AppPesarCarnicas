@@ -6,15 +6,15 @@ import 'products_state.dart';
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final ProductRepository repository;
 
-  ProductBloc({required this.repository}) : super(ProductLoaded(-1, false, false, [], 0, false)) {
+  ProductBloc({required this.repository}) : super(ProductLoaded(-1, false, false, {}, 0, false)) {
     on<SelectArticle>((event, emit) {
       if (state is ProductLoaded) {
         final currentState = state as ProductLoaded;
         emit(ProductLoaded(
-          event.articleIndex,
+          event.articleId,
           event.isSpecial,
           event.isMandatoryLot,
-          currentState.acceptedArticles, // Preservamos el estado actual de acceptedArticles
+          currentState.acceptedArticles,
           currentState.lotNumber,
           currentState.showMultiPesIndicators,
           currentState.pendingArticles,
@@ -29,7 +29,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           -1,
           false,
           false,
-          currentState.acceptedArticles, // Preservamos el estado actual de acceptedArticles
+          currentState.acceptedArticles,
           currentState.lotNumber,
           currentState.showMultiPesIndicators,
           currentState.pendingArticles,
@@ -40,17 +40,17 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<AcceptArticle>((event, emit) {
       if (state is ProductLoaded) {
         final currentState = state as ProductLoaded;
-        List<int> newAcceptedArticles = List<int>.from(currentState.acceptedArticles);
-        if (newAcceptedArticles.contains(event.articleIndex)) {
-          newAcceptedArticles.remove(event.articleIndex); // Eliminar si ya está aceptado
+        Set<int> newAcceptedArticles = Set<int>.from(currentState.acceptedArticles);
+        if (newAcceptedArticles.contains(event.articleId)) {
+          newAcceptedArticles.remove(event.articleId);
         } else {
-          newAcceptedArticles.add(event.articleIndex); // Añadir si no está aceptado
+          newAcceptedArticles.add(event.articleId);
         }
         emit(ProductLoaded(
           currentState.selectedArticle,
           currentState.isSpecial,
           currentState.isMandatoryLot,
-          newAcceptedArticles, // Actualizamos acceptedArticles
+          newAcceptedArticles,
           currentState.lotNumber,
           currentState.showMultiPesIndicators,
           currentState.pendingArticles,
@@ -62,16 +62,16 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       if (state is ProductLoaded) {
         final currentState = state as ProductLoaded;
         Set<int> newPendingArticles = Set<int>.from(currentState.pendingArticles);
-        if (newPendingArticles.contains(event.articleIndex)) {
-          newPendingArticles.remove(event.articleIndex);
+        if (newPendingArticles.contains(event.articleId)) {
+          newPendingArticles.remove(event.articleId);
         } else {
-          newPendingArticles.add(event.articleIndex);
+          newPendingArticles.add(event.articleId);
         }
         emit(ProductLoaded(
           currentState.selectedArticle,
           currentState.isSpecial,
           currentState.isMandatoryLot,
-          currentState.acceptedArticles, // Preservamos el estado actual de acceptedArticles
+          currentState.acceptedArticles,
           currentState.lotNumber,
           currentState.showMultiPesIndicators,
           newPendingArticles,
@@ -86,7 +86,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           currentState.selectedArticle,
           currentState.isSpecial,
           currentState.isMandatoryLot,
-          currentState.acceptedArticles, // Preservamos el estado actual de acceptedArticles
+          currentState.acceptedArticles,
           event.lotNumber,
           currentState.showMultiPesIndicators,
           currentState.pendingArticles,
@@ -101,13 +101,12 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           currentState.selectedArticle,
           currentState.isSpecial,
           currentState.isMandatoryLot,
-          currentState.acceptedArticles, // Preservamos el estado actual de acceptedArticles
+          currentState.acceptedArticles,
           currentState.lotNumber,
-          !currentState.showMultiPesIndicators, // Toggle the state
+          !currentState.showMultiPesIndicators,
           currentState.pendingArticles,
         ));
       }
     });
   }
 }
-

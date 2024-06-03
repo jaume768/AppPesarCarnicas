@@ -32,7 +32,7 @@ class ProductListTable extends StatelessWidget {
                   DataRow(
                     color: MaterialStateProperty.resolveWith<Color?>(
                           (Set<MaterialState> states) {
-                        return Colors.green[300]; // Fondo verde para clientes
+                        return Colors.green[300];
                       },
                     ),
                     cells: [
@@ -51,25 +51,23 @@ class ProductListTable extends StatelessWidget {
                   ),
                 );
 
-                rowIndex++;
-
                 for (var article in product.articles) {
-                  int currentRowIndex = rowIndex;
+                  int articleId = article.id;
+
                   rows.add(
                     DataRow(
                       color: MaterialStateProperty.resolveWith<Color?>(
                             (Set<MaterialState> states) {
-                          if (productState.selectedArticle == currentRowIndex &&
-                              productState.pendingArticles.contains(currentRowIndex)) {
+                          if (productState.selectedArticle == articleId && productState.pendingArticles.contains(articleId)) {
                             return Colors.red[400];
                           }
-                          if (productState.pendingArticles.contains(currentRowIndex)) {
+                          if (productState.pendingArticles.contains(articleId)) {
                             return Colors.red[200];
                           }
-                          if (productState.acceptedArticles.contains(currentRowIndex)) {
+                          if (productState.acceptedArticles.contains(articleId)) {
                             return Colors.blue[400];
                           }
-                          if (productState.selectedArticle == currentRowIndex) {
+                          if (productState.selectedArticle == articleId) {
                             return Colors.grey[300];
                           }
                           return null;
@@ -79,7 +77,7 @@ class ProductListTable extends StatelessWidget {
                         DataCell(
                           Center(
                             child: Text(
-                              article.special ? 'X' : '', // Si 'special' es true, muestra 'X'; de lo contrario, no muestra nada.
+                              article.special ? 'X' : '',
                               style: TextStyle(color: Colors.black, fontSize: 18),
                               textAlign: TextAlign.center,
                             ),
@@ -88,7 +86,7 @@ class ProductListTable extends StatelessWidget {
                         DataCell(
                           GestureDetector(
                             onTap: () {
-                              if (productState.acceptedArticles.contains(currentRowIndex)) {
+                              if (productState.acceptedArticles.contains(articleId)) {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -96,27 +94,27 @@ class ProductListTable extends StatelessWidget {
                                       clientName: product.name,
                                       productName: article.name,
                                       productObservation: article.observation,
-                                      weight: article.weight, // Usar el peso del artículo desde el modelo
+                                      weight: article.weight,
                                       onConfirm: () {
-                                        BlocProvider.of<ProductBloc>(context).add(AcceptArticle(currentRowIndex));
+                                        BlocProvider.of<ProductBloc>(context).add(AcceptArticle(articleId));
                                         Navigator.of(context).pop();
                                       },
                                     );
                                   },
                                 );
                               } else {
-                                if (productState.selectedArticle == currentRowIndex) {
-                                  BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
+                                if (productState.selectedArticle == articleId) {
+                                  BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
                                   BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
                                 } else {
-                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special, article.mandatoryLot));
+                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot));
                                   BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
                                 }
                               }
                             },
                             child: Center(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center, // Centra el contenido verticalmente
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
@@ -132,7 +130,7 @@ class ProductListTable extends StatelessWidget {
                         DataCell(
                           GestureDetector(
                             onTap: () {
-                              if (productState.acceptedArticles.contains(currentRowIndex)) {
+                              if (productState.acceptedArticles.contains(articleId)) {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -140,27 +138,27 @@ class ProductListTable extends StatelessWidget {
                                       clientName: product.name,
                                       productName: article.name,
                                       productObservation: article.observation,
-                                      weight: article.weight, // Usar el peso del artículo desde el modelo
+                                      weight: article.weight,
                                       onConfirm: () {
-                                        BlocProvider.of<ProductBloc>(context).add(AcceptArticle(currentRowIndex));
+                                        BlocProvider.of<ProductBloc>(context).add(AcceptArticle(articleId));
                                         Navigator.of(context).pop();
                                       },
                                     );
                                   },
                                 );
                               } else {
-                                if (productState.selectedArticle == currentRowIndex) {
-                                  BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
+                                if (productState.selectedArticle == articleId) {
+                                  BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
                                   BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
                                 } else {
-                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special, article.mandatoryLot));
+                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot));
                                   BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
                                 }
                               }
                             },
                             child: Center(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center, // Centra el contenido verticalmente
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
@@ -176,7 +174,7 @@ class ProductListTable extends StatelessWidget {
                         DataCell(
                           GestureDetector(
                             onTap: () {
-                              if (productState.acceptedArticles.contains(currentRowIndex)) {
+                              if (productState.acceptedArticles.contains(articleId)) {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -184,27 +182,27 @@ class ProductListTable extends StatelessWidget {
                                       clientName: product.name,
                                       productName: article.name,
                                       productObservation: article.observation,
-                                      weight: article.weight, // Usar el peso del artículo desde el modelo
+                                      weight: article.weight,
                                       onConfirm: () {
-                                        BlocProvider.of<ProductBloc>(context).add(AcceptArticle(currentRowIndex));
+                                        BlocProvider.of<ProductBloc>(context).add(AcceptArticle(articleId));
                                         Navigator.of(context).pop();
                                       },
                                     );
                                   },
                                 );
                               } else {
-                                if (productState.selectedArticle == currentRowIndex) {
-                                  BlocProvider.of<ProductBloc>(context).add(DeselectArticle(currentRowIndex));
+                                if (productState.selectedArticle == articleId) {
+                                  BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
                                   BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
                                 } else {
-                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(currentRowIndex, article.special, article.mandatoryLot));
+                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot));
                                   BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
                                 }
                               }
                             },
                             child: Center(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center, // Centra el contenido verticalmente
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
@@ -225,17 +223,16 @@ class ProductListTable extends StatelessWidget {
                       ],
                     ),
                   );
-                  rowIndex++;
                 }
               }
 
               return SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Container(
-                  width: MediaQuery.of(context).size.width * 0.5, // Ajusta el factor de ancho según sea necesario
+                  width: MediaQuery.of(context).size.width * 0.5,
                   child: SingleChildScrollView(
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.5, // Ajusta el factor de ancho según sea necesario
+                      width: MediaQuery.of(context).size.width * 0.5,
                       child: DataTable(
                         columnSpacing: 7.0,
                         dataRowHeight: 80.0,

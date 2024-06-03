@@ -2,7 +2,7 @@ abstract class ProductState {
   final int selectedArticle;
   final bool isSpecial;
   final bool isMandatoryLot;
-  final List<int> acceptedArticles;
+  final Set<int> acceptedArticles;
 
   const ProductState(this.selectedArticle, this.isSpecial, this.isMandatoryLot, this.acceptedArticles);
 
@@ -19,7 +19,7 @@ class ProductLoaded extends ProductState {
       int selectedArticle,
       bool isSpecial,
       bool isMandatoryLot,
-      List<int> acceptedArticles,
+      Set<int> acceptedArticles,
       this.lotNumber,
       this.showMultiPesIndicators, [
         Set<int> pendingArticles = const {},
