@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../data/repositories/pesaje_repository.dart';
+import '../../data/services/api_service.dart';
 import '../../structure/bloc/carniceria/carniceria_bloc.dart';
 import '../../structure/bloc/carniceria/carniceria_event.dart';
 import '../screens/product_list_screen.dart';
 import '../../structure/bloc/configuration/configuration_bloc.dart';
 
 class BottomButtons extends StatelessWidget {
+  final ApiService apiService;
+
+  const BottomButtons({Key? key, required this.apiService}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -32,9 +38,13 @@ class BottomButtons extends StatelessWidget {
               ));
 
               carniceriaBloc.stream.firstWhere((state) => state.products.isNotEmpty).then((_) {
+                final pesajeRepository = PesajeRepository(apiService: apiService); // Crea una instancia del repositorio
+
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ProductListScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => ProductListScreen(pesajeRepository: pesajeRepository),
+                  ),
                 );
               });
             } else {

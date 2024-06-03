@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../data/repositories/pesaje_repository.dart';
 import '../../structure/bloc/pesaje/pesaje_event.dart';
 import '../../structure/bloc/products/products_bloc.dart';
 import '../../structure/bloc/products/products_event.dart';
@@ -12,8 +13,37 @@ import '../utils/confirm_delete_modal.dart';
 class ProductListTable extends StatelessWidget {
   final List<Client> products;
   final String? selectedClient;
+  final PesajeRepository pesajeRepository; // Añade el repositorio
 
-  const ProductListTable({Key? key, required this.products, this.selectedClient}) : super(key: key);
+  const ProductListTable({Key? key, required this.products, this.selectedClient, required this.pesajeRepository}) : super(key: key);
+
+  Future<void> _showConfirmDeleteModal(BuildContext context, String clientName, String articleName, String articleObservation, int articleId) async {
+    try {
+      final weightData = await pesajeRepository.getArticleWeight(articleId);
+      final weight = weightData['pes'];
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ConfirmDeleteModal(
+            clientName: clientName,
+            productName: articleName,
+            productObservation: articleObservation,
+            weight: weight, // Usar el peso obtenido del repository
+            onConfirm: () {
+              BlocProvider.of<ProductBloc>(context).add(AcceptArticle(articleId));
+              Navigator.of(context).pop();
+            },
+          );
+        },
+      );
+    } catch (e) {
+      // Manejar errores si es necesario
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error al obtener el peso del artículo: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,21 +117,7 @@ class ProductListTable extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               if (productState.acceptedArticles.contains(articleId)) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return ConfirmDeleteModal(
-                                      clientName: product.name,
-                                      productName: article.name,
-                                      productObservation: article.observation,
-                                      weight: article.weight,
-                                      onConfirm: () {
-                                        BlocProvider.of<ProductBloc>(context).add(AcceptArticle(articleId));
-                                        Navigator.of(context).pop();
-                                      },
-                                    );
-                                  },
-                                );
+                                _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId); // Usar la función para mostrar el modal
                               } else {
                                 if (productState.selectedArticle == articleId) {
                                   BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
@@ -131,21 +147,7 @@ class ProductListTable extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               if (productState.acceptedArticles.contains(articleId)) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return ConfirmDeleteModal(
-                                      clientName: product.name,
-                                      productName: article.name,
-                                      productObservation: article.observation,
-                                      weight: article.weight,
-                                      onConfirm: () {
-                                        BlocProvider.of<ProductBloc>(context).add(AcceptArticle(articleId));
-                                        Navigator.of(context).pop();
-                                      },
-                                    );
-                                  },
-                                );
+                                _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId); // Usar la función para mostrar el modal
                               } else {
                                 if (productState.selectedArticle == articleId) {
                                   BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
@@ -175,21 +177,7 @@ class ProductListTable extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               if (productState.acceptedArticles.contains(articleId)) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return ConfirmDeleteModal(
-                                      clientName: product.name,
-                                      productName: article.name,
-                                      productObservation: article.observation,
-                                      weight: article.weight,
-                                      onConfirm: () {
-                                        BlocProvider.of<ProductBloc>(context).add(AcceptArticle(articleId));
-                                        Navigator.of(context).pop();
-                                      },
-                                    );
-                                  },
-                                );
+                                _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId); // Usar la función para mostrar el modal
                               } else {
                                 if (productState.selectedArticle == articleId) {
                                   BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));

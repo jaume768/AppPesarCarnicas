@@ -102,4 +102,19 @@ class ApiService {
       throw Exception('Failed to load pesaje estable');
     }
   }
+
+  // Nuevo método para obtener el peso del artículo
+  Future<Map<String, dynamic>> fetchArticleWeight(int articleId) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/getArticleWeight'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'id': articleId}),
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to load article weight');
+    }
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../data/repositories/pesaje_repository.dart';
 import '../../structure/bloc/carniceria/carniceria_bloc.dart';
 import '../../structure/bloc/carniceria/carniceria_state.dart';
 import '../widgets/product_list.dart';
@@ -7,6 +8,10 @@ import '../widgets/side_buttons.dart';
 import '../../models/client.dart'; // Asegúrate de importar el modelo Client
 
 class ProductListScreen extends StatefulWidget {
+  final PesajeRepository pesajeRepository; // Añade el repositorio como parámetro
+
+  const ProductListScreen({Key? key, required this.pesajeRepository}) : super(key: key);
+
   @override
   _ProductListScreenState createState() => _ProductListScreenState();
 }
@@ -101,7 +106,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
                       flex: 4,
                       child: Container(
                         margin: EdgeInsets.only(left: 20.0), // Añade margen izquierdo a la tabla
-                        child: ProductListTable(products: state.products, selectedClient: selectedClient),
+                        child: ProductListTable(
+                          products: state.products,
+                          selectedClient: selectedClient,
+                          pesajeRepository: widget.pesajeRepository, // Pasa el repositorio aquí
+                        ),
                       ),
                     ),
                     Spacer(),

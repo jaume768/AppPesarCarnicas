@@ -37,4 +37,13 @@ class PesajeRepository {
       throw Exception('Failed to get pesaje estable: $e');
     }
   }
+
+  // Nuevo método para obtener el peso del artículo
+  Future<Map<String, dynamic>> getArticleWeight(int articleId) async {
+    try {
+      return await apiService.fetchArticleWeight(articleId);
+    } catch (e) {
+      throw Exception('Failed to get article weight: $e');
+    }
+  }
 }
