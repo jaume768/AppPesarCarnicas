@@ -41,11 +41,6 @@ class UpdateLotNumber extends ProductEvent {
   List<Object> get props => [lotNumber];
 }
 
-class ToggleMultiPesIndicators extends ProductEvent {
-  @override
-  List<Object> get props => [];
-}
-
 class AcceptArticle extends ProductEvent {
   final int articleId;
 

@@ -34,6 +34,16 @@ server.use((req, res, next) => {
   next();
 });
 
+server.post('/getArticleWeight', (req, res) => {
+  const articleId = req.body.id;
+  if (!articleId) {
+    return res.status(400).send('Invalid body');
+  }
+
+  res.jsonp({ pes: 3.38 });
+});
+
+
 // Rutas personalizadas
 server.post('/orderPreparation/configuration', (req, res) => {
   res.jsonp({

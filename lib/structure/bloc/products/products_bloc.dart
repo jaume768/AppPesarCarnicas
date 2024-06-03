@@ -6,7 +6,7 @@ import 'products_state.dart';
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final ProductRepository repository;
 
-  ProductBloc({required this.repository}) : super(ProductLoaded(-1, false, false, {}, 0, false)) {
+  ProductBloc({required this.repository}) : super(ProductLoaded(-1, false, false, {}, 0)) {
     on<SelectArticle>((event, emit) {
       if (state is ProductLoaded) {
         final currentState = state as ProductLoaded;
@@ -16,7 +16,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           event.isMandatoryLot,
           currentState.acceptedArticles,
           currentState.lotNumber,
-          currentState.showMultiPesIndicators,
           currentState.pendingArticles,
         ));
       }
@@ -31,7 +30,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           false,
           currentState.acceptedArticles,
           currentState.lotNumber,
-          currentState.showMultiPesIndicators,
           currentState.pendingArticles,
         ));
       }
@@ -52,7 +50,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           currentState.isMandatoryLot,
           newAcceptedArticles,
           currentState.lotNumber,
-          currentState.showMultiPesIndicators,
           currentState.pendingArticles,
         ));
       }
@@ -73,7 +70,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           currentState.isMandatoryLot,
           currentState.acceptedArticles,
           currentState.lotNumber,
-          currentState.showMultiPesIndicators,
           newPendingArticles,
         ));
       }
@@ -88,22 +84,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           currentState.isMandatoryLot,
           currentState.acceptedArticles,
           event.lotNumber,
-          currentState.showMultiPesIndicators,
-          currentState.pendingArticles,
-        ));
-      }
-    });
-
-    on<ToggleMultiPesIndicators>((event, emit) {
-      if (state is ProductLoaded) {
-        final currentState = state as ProductLoaded;
-        emit(ProductLoaded(
-          currentState.selectedArticle,
-          currentState.isSpecial,
-          currentState.isMandatoryLot,
-          currentState.acceptedArticles,
-          currentState.lotNumber,
-          !currentState.showMultiPesIndicators,
           currentState.pendingArticles,
         ));
       }

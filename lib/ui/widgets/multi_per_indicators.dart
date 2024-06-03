@@ -14,18 +14,13 @@ class MultiPesIndicators extends StatelessWidget {
           builder: (context, pesajeState) {
             print("prova:");
             print(pesajeState.weight);
-            String weightText = pesajeState.weight?.toStringAsFixed(2) ?? '0,00';
+            String weightText = pesajeState.weight?.toStringAsFixed(2) ?? '00.00';
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (productState is ProductLoaded && productState.showMultiPesIndicators) ...[
-                  _buildIndicator('0', Colors.yellow),
-                  SizedBox(width: 10),
-                ],
-                if (productState is ProductLoaded && productState.showMultiPesIndicators) ...[
-                  SizedBox(width: 10),
-                  _buildIndicator('0', Colors.green),
-                ],
+                _buildIndicator('00.00', Colors.yellow),
+                SizedBox(width: 10),
+                _buildIndicator('00.00', Colors.green),
                 SizedBox(width: 10),
                 _buildIndicator(weightText, Colors.green.shade200),
               ],

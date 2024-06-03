@@ -13,15 +13,13 @@ abstract class ProductState {
 class ProductLoaded extends ProductState {
   final Set<int> pendingArticles;
   final int lotNumber;
-  final bool showMultiPesIndicators;
 
   ProductLoaded(
       int selectedArticle,
       bool isSpecial,
       bool isMandatoryLot,
       Set<int> acceptedArticles,
-      this.lotNumber,
-      this.showMultiPesIndicators, [
+      this.lotNumber, [
         Set<int> pendingArticles = const {},
       ])  : this.pendingArticles = pendingArticles,
         super(selectedArticle, isSpecial, isMandatoryLot, acceptedArticles);
@@ -33,7 +31,6 @@ class ProductLoaded extends ProductState {
     isMandatoryLot,
     pendingArticles,
     lotNumber,
-    showMultiPesIndicators,
     acceptedArticles,
   ];
 }

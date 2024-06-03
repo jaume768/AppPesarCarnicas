@@ -95,12 +95,11 @@ class SideButtons extends StatelessWidget {
     );
   }
 
-
   Widget _buildBottomSection(BuildContext context) {
     return Column(
       children: [
         _buildMandatoryLotSection(context),
-        MultiPesIndicators(),
+        MultiPesIndicators(), // Mantén siempre visibles los indicadores Multi Pes
         _buildBottomButtons(context),
       ],
     );
@@ -157,7 +156,7 @@ class SideButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         _buildCustomButton('Multi Pes', Colors.pink, 100, 100, () {
-          BlocProvider.of<ProductBloc>(context).add(ToggleMultiPesIndicators());
+          // Eliminar la funcionalidad actual
         }),
         BlocBuilder<PesajeBloc, PesajeState>(
           builder: (context, state) {
@@ -180,8 +179,6 @@ class SideButtons extends StatelessWidget {
       ],
     );
   }
-
-
 
   Widget _buildCustomButton(String text, Color color, double width, double height, VoidCallback? onPressed) {
     return Container(
