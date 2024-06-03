@@ -80,20 +80,22 @@ class SideButtons extends StatelessWidget {
   Widget _buildBlocButton(BuildContext context) {
     return BlocBuilder<ProductBloc, ProductState>(
       builder: (context, state) {
-        final isEnabled = state is ProductLoaded && state.selectedArticle != -1;
         final buttonText = (state is ProductLoaded && state.isSpecial) ? 'ETIQUETA BLOC' : 'PES PRODUCTE';
         return _buildButton(
           context,
           buttonText,
-          isEnabled ? Colors.orange : Colors.grey.shade300,
-          isEnabled ? () {
-            BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
-          } : null,
+          Colors.orange,
+              () {
+            final productState = BlocProvider.of<ProductBloc>(context).state;
+            if (productState is ProductLoaded) {
+              BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle));
+            }
+          },
         );
       },
     );
   }
-
+  
   Widget _buildBottomSection(BuildContext context) {
     return Column(
       children: [
