@@ -4,6 +4,7 @@ import '../../structure/bloc/products/products_bloc.dart';
 import '../../structure/bloc/products/products_event.dart';
 import '../../structure/bloc/products/products_state.dart';
 import '../../structure/bloc/pesaje/pesaje_bloc.dart';
+import '../../structure/bloc/pesaje/pesaje_event.dart';
 import '../../structure/bloc/pesaje/pesaje_state.dart';
 import '../utils/lot_number_modal.dart';
 import 'multi_per_indicators.dart';
@@ -156,7 +157,8 @@ class SideButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         _buildCustomButton('Multi Pes', Colors.pink, 100, 100, () {
-          // Eliminar la funcionalidad actual
+          BlocProvider.of<PesajeBloc>(context).add(AccumulateWeight());
+          BlocProvider.of<PesajeBloc>(context).add(IncrementCount());
         }),
         BlocBuilder<PesajeBloc, PesajeState>(
           builder: (context, state) {

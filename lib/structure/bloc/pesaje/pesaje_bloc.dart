@@ -12,6 +12,8 @@ class PesajeBloc extends Bloc<PesajeEvent, PesajeState> {
     on<StartPesajeMonitoring>(_onStartPesajeMonitoring);
     on<StopPesajeMonitoring>(_onStopPesajeMonitoring);
     on<UpdatePesajeStatus>(_onUpdatePesajeStatus);
+    on<AccumulateWeight>(_onAccumulateWeight);
+    on<IncrementCount>(_onIncrementCount);
   }
 
   void _onStartPesajeMonitoring(StartPesajeMonitoring event, Emitter<PesajeState> emit) {
@@ -24,7 +26,6 @@ class PesajeBloc extends Bloc<PesajeEvent, PesajeState> {
   void _startPesajeZeroTimer(Emitter<PesajeState> emit) {
     _timer = Timer.periodic(Duration(milliseconds: 100), (timer) async {
       try {
-
         final pesajeStatus = await repository.getPesajeZero();
         add(UpdatePesajeStatus(pesajeStatus));
         add(StopPesajeMonitoring());
@@ -54,9 +55,25 @@ class PesajeBloc extends Bloc<PesajeEvent, PesajeState> {
   void _onUpdatePesajeStatus(UpdatePesajeStatus event, Emitter<PesajeState> emit) {
     if (event.pesajeStatus['tipoPes'] == 'ESTABLE') {
       final weight = event.pesajeStatus['pes'];
-      emit(PesajeLoaded(event.pesajeStatus, weight: weight));
+      emit(PesajeLoaded(event.pesajeStatus, weight: weight, accumulatedWeight: state.accumulatedWeight, count: state.count));
     } else {
-      emit(PesajeLoaded(event.pesajeStatus, weight: state.weight));
+      emit(PesajeLoaded(event.pesajeStatus, weight: state.weight, accumulatedWeight: state.accumulatedWeight, count: state.count));
+    }
+  }
+
+  void _onAccumulateWeight(AccumulateWeight event, Emitter<PesajeState> emit) {
+    if (state is PesajeLoaded) {
+      final currentState = state as PesajeLoaded;
+      final accumulatedWeight = currentState.accumulatedWeight + (currentState.weight ?? 0);
+      emit(PesajeLoaded(currentState.pesajeStatus, weight: currentState.weight, accumulatedWeight: accumulatedWeight, count: currentState.count));
+    }
+  }
+
+  void _onIncrementCount(IncrementCount event, Emitter<PesajeState> emit) {
+    if (state is PesajeLoaded) {
+      final currentState = state as PesajeLoaded;
+      final count = currentState.count + 1;
+      emit(PesajeLoaded(currentState.pesajeStatus, weight: currentState.weight, accumulatedWeight: currentState.accumulatedWeight, count: count));
     }
   }
 

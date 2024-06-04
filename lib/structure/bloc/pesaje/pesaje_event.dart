@@ -1,5 +1,4 @@
-
-abstract class PesajeEvent  {
+abstract class PesajeEvent {
   const PesajeEvent();
 
   @override
@@ -18,3 +17,7 @@ class UpdatePesajeStatus extends PesajeEvent {
   @override
   List<Object?> get props => [pesajeStatus];
 }
+
+class AccumulateWeight extends PesajeEvent {}
+
+class IncrementCount extends PesajeEvent {}
