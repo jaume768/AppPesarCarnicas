@@ -1,0 +1,9 @@
+{
+  "buttons": [
+    {"text": "Avicola", "productType": "POULTRY"},
+    {"text": "Porc", "productType": "PIG"},
+    {"text": "Me / Cordero", "productType": "LAMB"},
+    {"text": "Tallat / Desfet", "productType": "CHOPPED"},
+    {"text": "Pavo", "productType": "PROVA"}
+  ]
+}
