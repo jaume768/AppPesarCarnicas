@@ -133,7 +133,7 @@ class ActionsColumn extends StatelessWidget {
                   title: Text('Veure Totals x Article'),
                   content: SingleChildScrollView(
                     child: DataTable(
-                      columns: [
+                      columns: const [
                         DataColumn(label: Text('Codi')),
                         DataColumn(label: Text('Descripció')),
                         DataColumn(label: Text('Kgs')),
@@ -151,6 +151,8 @@ class ActionsColumn extends StatelessWidget {
                           DataCell(Text(article['doc'].toString())),
                         ]);
                       }).toList(),
+                      headingRowColor: MaterialStateColor.resolveWith((states) => Colors.grey.shade300),
+                      border: TableBorder.all(color: Colors.black, width: 1.0),
                     ),
                   ),
                   actions: [
@@ -158,7 +160,8 @@ class ActionsColumn extends StatelessWidget {
                       onPressed: () => Navigator.of(context).pop(),
                       child: Text('Cerrar'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
                       ),
                     ),
                   ],
@@ -172,20 +175,52 @@ class ActionsColumn extends StatelessWidget {
                       onPressed: () => Navigator.of(context).pop(),
                       child: Text('Cerrar'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
                       ),
                     ),
                   ],
                 );
               } else {
-                return SizedBox.shrink();
+                return AlertDialog(
+                  title: Text('Advertencia'),
+                  content: Text('Seleccione un tipo de producto primero'),
+                  actions: [
+                    ElevatedButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text('Cerrar'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                      ),
+                    ),
+                  ],
+                );
               }
             },
           );
         },
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Seleccione un tipo de producto primero')));
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Selecciona una categoria'),
+            actions: [
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('Cerrar'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 }

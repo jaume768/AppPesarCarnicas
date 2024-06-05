@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
           create: (context) => PesajeBloc(repository: pesajeRepository),
         ),
         BlocProvider<ArticleBloc>(
-          create: (context) => ArticleBloc(productRepository: productRepository), // Añadir el ArticleBloc
+          create: (context) => ArticleBloc(productRepository: productRepository),
         ),
       ],
       child: MaterialApp(
