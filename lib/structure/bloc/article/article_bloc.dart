@@ -9,6 +9,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
 
   ArticleBloc({required this.productRepository}) : super(ArticleInitial()) {
     on<FetchArticles>(_onFetchArticles);
+    on<SortArticles>(_onSortArticles);
   }
 
   void _onFetchArticles(FetchArticles event, Emitter<ArticleState> emit) async {
@@ -20,4 +21,16 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
       emit(ArticleError(message: e.toString()));
     }
   }
+
+  void _onSortArticles(SortArticles event, Emitter<ArticleState> emit) {
+    if (state is ArticleLoaded) {
+      final currentState = state as ArticleLoaded;
+      emit(ArticleLoaded(
+        articles: currentState.articles,
+        sortField: event.sortField,
+        isAscending: event.isAscending,
+      ));
+    }
+  }
+
 }

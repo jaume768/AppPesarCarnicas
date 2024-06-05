@@ -15,3 +15,11 @@ class FetchArticles extends ArticleEvent {
   @override
   List<Object> get props => [productType];
 }
+
+class SortArticles extends ArticleEvent {
+  final String sortField;
+  final bool isAscending;
+
+  SortArticles({required this.sortField, required this.isAscending});
+}
+

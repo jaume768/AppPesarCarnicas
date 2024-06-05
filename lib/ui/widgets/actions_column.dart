@@ -53,12 +53,12 @@ class ActionsColumn extends StatelessWidget {
   Widget _buildButton(BuildContext context, String text, String displayText, Color color, bool? isScale, VoidCallback? onPressed) {
     return Container(
       width: 190,
-      height: 190, // Altura fija para los botones
+      height: 190, // Fixed height for buttons
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.black,
           backgroundColor: color,
-          minimumSize: Size(0, 0), // Tamaño mínimo 0 para asegurar el cuadrado
+          minimumSize: Size(0, 0), // Minimum size to 0 to ensure it's square
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(0),
           ),
@@ -72,7 +72,7 @@ class ActionsColumn extends StatelessWidget {
           child: Text(
             displayText,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 22), // Ajusta el tamaño del texto según sea necesario
+            style: TextStyle(fontSize: 22), // Adjust text size as needed
           ),
         ),
       ),
@@ -132,27 +132,40 @@ class ActionsColumn extends StatelessWidget {
                 return AlertDialog(
                   title: Text('Veure Totals x Article'),
                   content: SingleChildScrollView(
-                    child: DataTable(
-                      columns: const [
-                        DataColumn(label: Text('Codi')),
-                        DataColumn(label: Text('Descripció')),
-                        DataColumn(label: Text('Kgs')),
-                        DataColumn(label: Text('Uni')),
-                        DataColumn(label: Text('Caixes')),
-                        DataColumn(label: Text('Doc')),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            _sortingButton(context, 'Kgs', 'kgs', state),
+                            _sortingButton(context, 'Uni', 'units', state),
+                            _sortingButton(context, 'Caixes', 'boxes', state),
+                            _sortingButton(context, 'Doc', 'doc', state),
+                          ],
+                        ),
+                        DataTable(
+                          columns: const [
+                            DataColumn(label: Text('Codi')),
+                            DataColumn(label: Text('Descripció')),
+                            DataColumn(label: Text('Kgs')),
+                            DataColumn(label: Text('Uni')),
+                            DataColumn(label: Text('Caixes')),
+                            DataColumn(label: Text('Doc')),
+                          ],
+                          rows: state.sortedArticles.map((article) {
+                            return DataRow(cells: [
+                              DataCell(Text(article['code'].toString())),
+                              DataCell(Text(article['description'])),
+                              DataCell(Text(article['kgs'].toString())),
+                              DataCell(Text(article['units'].toString())),
+                              DataCell(Text(article['boxes'].toString())),
+                              DataCell(Text(article['doc'].toString())),
+                            ]);
+                          }).toList(),
+                          headingRowColor: MaterialStateColor.resolveWith((states) => Colors.grey.shade300),
+                          border: TableBorder.all(color: Colors.black, width: 1.0),
+                        ),
                       ],
-                      rows: state.articles.map((article) {
-                        return DataRow(cells: [
-                          DataCell(Text(article['code'].toString())),
-                          DataCell(Text(article['description'])),
-                          DataCell(Text(article['kgs'].toString())),
-                          DataCell(Text(article['units'].toString())),
-                          DataCell(Text(article['boxes'].toString())),
-                          DataCell(Text(article['doc'].toString())),
-                        ]);
-                      }).toList(),
-                      headingRowColor: MaterialStateColor.resolveWith((states) => Colors.grey.shade300),
-                      border: TableBorder.all(color: Colors.black, width: 1.0),
                     ),
                   ),
                   actions: [
@@ -166,61 +179,85 @@ class ActionsColumn extends StatelessWidget {
                     ),
                   ],
                 );
-              } else if (state is ArticleError) {
-                return AlertDialog(
-                  title: Text('Error'),
-                  content: Text(state.message),
-                  actions: [
-                    ElevatedButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Text('Cerrar'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                        foregroundColor: Colors.white,
-                      ),
-                    ),
-                  ],
-                );
               } else {
-                return AlertDialog(
-                  title: Text('Advertencia'),
-                  content: Text('Seleccione un tipo de producto primero'),
-                  actions: [
-                    ElevatedButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Text('Cerrar'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                        foregroundColor: Colors.white,
-                      ),
-                    ),
-                  ],
-                );
+                return _errorDialog(context, state);
               }
             },
           );
         },
       );
     } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Error'),
-            content: Text('Selecciona una categoria'),
-            actions: [
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: Text('Cerrar'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
-                ),
-              ),
-            ],
-          );
-        },
-      );
+      _showCategoryErrorDialog(context);
     }
+  }
+
+  Widget _sortingButton(BuildContext context, String text, String sortField, ArticleLoaded state) {
+    bool isActive = state.sortField == sortField;
+    bool isAscending = isActive && state.isAscending;
+
+    return ElevatedButton(
+      onPressed: () {
+        bool newAscending = isActive ? !state.isAscending : true;
+        context.read<ArticleBloc>().add(SortArticles(sortField: sortField, isAscending: newAscending));
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: isActive ? Colors.blue : Colors.grey,
+        foregroundColor: Colors.white,
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+        elevation: isActive ? 4 : 0,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(text),
+          Icon(
+            isAscending ? Icons.arrow_upward : Icons.arrow_downward,
+            size: 16,
+            color: Colors.white,
+          ),
+        ],
+      ),
+    );
+  }
+
+
+
+  AlertDialog _errorDialog(BuildContext context, ArticleState state) {
+    return AlertDialog(
+      title: Text('Error'),
+      content: Text(state is ArticleError ? state.message : 'Error desconocido'),
+      actions: [
+        ElevatedButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text('Cerrar'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red,
+            foregroundColor: Colors.white,
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showCategoryErrorDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Error'),
+          content: Text('Selecciona una categoria'),
+          actions: [
+            ElevatedButton(
+              onPressed: () => Navigator.of(context). pop(),
+              child: Text('Cerrar'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
