@@ -103,7 +103,6 @@ class ApiService {
     }
   }
 
-  // Nuevo método para obtener el peso del artículo
   Future<Map<String, dynamic>> fetchArticleWeight(int articleId) async {
     final response = await http.post(
       Uri.parse('$baseUrl/getArticleWeight'),
@@ -115,6 +114,21 @@ class ApiService {
       return jsonDecode(response.body);
     } else {
       throw Exception('Failed to load article weight');
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> fetchArticleList(String productType) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/getArticleList'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'productType': productType}),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return List<Map<String, dynamic>>.from(data['articles']);
+    } else {
+      throw Exception('Failed to load article list');
     }
   }
 }

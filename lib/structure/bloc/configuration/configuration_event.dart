@@ -25,3 +25,12 @@ class SelectScale extends ConfigurationEvent {
   @override
   List<Object> get props => [scale];
 }
+
+class SelectProductType extends ConfigurationEvent {
+  final String productType;
+
+  const SelectProductType(this.productType);
+
+  @override
+  List<Object> get props => [productType];
+}

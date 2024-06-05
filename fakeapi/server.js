@@ -44,6 +44,42 @@ server.post('/getArticleWeight', (req, res) => {
 });
 
 
+server.post('/getArticleList', (req, res) => {
+  
+  const productType = req.body.productType;
+  if (!productType) {
+    return res.status(400).send('Invalid body');
+  }
+
+  const articleList = {
+    "articles": [
+      {"code": 10313, "description": "ALAS POLLO FCO", "kgs": 34, "units": "", "boxes": "", "doc": ""},
+      {"code": 10319, "description": "ALAS POLLO S/PUNTA P/MITAD FCA", "kgs": 4, "units": "", "boxes": "", "doc": ""},
+      {"code": 10389, "description": "CADERA POLLO", "kgs": 40, "units": "", "boxes": "", "doc": ""},
+      {"code": 10388, "description": "CARCARA POLLO", "kgs": 12, "units": 10, "boxes": "", "doc": ""},
+      {"code": 10365, "description": "CONEJO Fco. CORTADO FONDO", "kgs": 4, "units": "", "boxes": 2, "doc": ""},
+      {"code": 10360, "description": "CONEJO FRESCO", "kgs": 27, "units": "", "boxes": "", "doc": ""},
+      {"code": 10363, "description": "CONEJO GRANDE + 1.5 KG FCO.", "kgs": 2, "units": "", "boxes": "", "doc": ""},
+      {"code": 10362, "description": "CONEJO PEQ. 800-900 G", "kgs": 20, "units": "", "boxes": "", "doc": ""},
+      {"code": 10395, "description": "CONFIT PATO 6U (KG)", "kgs": 2, "units": "", "boxes": "", "doc": ""},
+      {"code": 10311, "description": "CONTRAMUSLO POLLO C/H. FCO.", "kgs": 2, "units": "", "boxes": "", "doc": ""},
+      {"code": 11339, "description": "CONTRAMUSLO POLLO S/H S/P (X) FON", "kgs": 11, "units": "", "boxes": "", "doc": ""},
+      {"code": 10310, "description": "PECHUGA POLLO", "kgs": 15, "units": 5, "boxes": "", "doc": ""},
+      {"code": 10320, "description": "PIERNA POLLO", "kgs": 18, "units": "", "boxes": 3, "doc": ""},
+      {"code": 10330, "description": "MUSLO POLLO", "kgs": 25, "units": "", "boxes": "", "doc": ""},
+      {"code": 10340, "description": "ALA POLLO", "kgs": 8, "units": "", "boxes": "", "doc": ""},
+      {"code": 10350, "description": "PATA POLLO", "kgs": 6, "units": 2, "boxes": "", "doc": ""},
+      {"code": 10360, "description": "CUELLO POLLO", "kgs": 10, "units": "", "boxes": 1, "doc": ""},
+      {"code": 10370, "description": "HIGADO POLLO", "kgs": 5, "units": "", "boxes": "", "doc": ""},
+      {"code": 10380, "description": "MOLLEJA POLLO", "kgs": 3, "units": 1, "boxes": "", "doc": ""},
+      {"code": 10390, "description": "CORAZON POLLO", "kgs": 7, "units": "", "boxes": "", "doc": ""}
+    ]
+  };
+
+  res.jsonp(articleList);
+});
+
+
 // Rutas personalizadas
 server.post('/orderPreparation/configuration', (req, res) => {
   res.jsonp({

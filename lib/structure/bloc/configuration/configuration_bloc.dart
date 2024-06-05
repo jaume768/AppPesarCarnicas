@@ -10,6 +10,7 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
     on<FetchConfiguration>(_onFetchConfiguration);
     on<SelectPrinter>(_onSelectPrinter);
     on<SelectScale>(_onSelectScale);
+    on<SelectProductType>(_onSelectProductType); // Agregar esta línea
   }
 
   Future<void> _onFetchConfiguration(FetchConfiguration event, Emitter<ConfigurationState> emit) async {
@@ -28,5 +29,9 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
 
   void _onSelectScale(SelectScale event, Emitter<ConfigurationState> emit) {
     emit(state.copyWith(selectedScale: event.scale));
+  }
+
+  void _onSelectProductType(SelectProductType event, Emitter<ConfigurationState> emit) {
+    emit(state.copyWith(selectedProductType: event.productType)); // Agregar esta línea
   }
 }

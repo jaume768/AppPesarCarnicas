@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../structure/bloc/products/products_bloc.dart';
-import '../../structure/bloc/products/products_state.dart';
 import '../../structure/bloc/pesaje/pesaje_bloc.dart';
 import '../../structure/bloc/pesaje/pesaje_state.dart';
 
@@ -10,7 +8,7 @@ class MultiPesIndicators extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PesajeBloc, PesajeState>(
       builder: (context, pesajeState) {
-        String weightText = pesajeState.weight?.toStringAsFixed(2) ?? '00.00';
+        String weightText = pesajeState.weight?.toStringAsFixed(2) ?? '0.00';
         String accumulatedWeightText = pesajeState.accumulatedWeight.toStringAsFixed(2);
         String countText = pesajeState.count.toString();
         return Row(

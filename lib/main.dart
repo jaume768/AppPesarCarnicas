@@ -4,6 +4,7 @@ import 'package:flutterprova/structure/bloc/carniceria/carniceria_bloc.dart';
 import 'package:flutterprova/structure/bloc/configuration/configuration_bloc.dart';
 import 'package:flutterprova/structure/bloc/products/products_bloc.dart';
 import 'package:flutterprova/structure/bloc/pesaje/pesaje_bloc.dart';
+import 'package:flutterprova/structure/bloc/article/article_bloc.dart';
 import 'package:flutterprova/ui/screens/carniceria_screen.dart';
 import 'data/repositories/carniceria_repository.dart';
 import 'data/repositories/configuration_repository.dart';
@@ -16,13 +17,13 @@ void main() {
   final carniceriaRepository = CarniceriaRepository(apiService: apiService);
   final configurationRepository = ConfigurationRepository(apiService: apiService);
   final productRepository = ProductRepository(apiService: apiService);
-  final pesajeRepository = PesajeRepository(apiService: apiService); // Añadir el PesajeRepository
+  final pesajeRepository = PesajeRepository(apiService: apiService);
 
   runApp(MyApp(
     carniceriaRepository: carniceriaRepository,
     configurationRepository: configurationRepository,
     productRepository: productRepository,
-    pesajeRepository: pesajeRepository, // Pasar el PesajeRepository al constructor de MyApp
+    pesajeRepository: pesajeRepository,
   ));
 }
 
@@ -30,13 +31,13 @@ class MyApp extends StatelessWidget {
   final CarniceriaRepository carniceriaRepository;
   final ConfigurationRepository configurationRepository;
   final ProductRepository productRepository;
-  final PesajeRepository pesajeRepository; // Añadir el PesajeRepository
+  final PesajeRepository pesajeRepository;
 
   MyApp({
     required this.carniceriaRepository,
     required this.configurationRepository,
     required this.productRepository,
-    required this.pesajeRepository, // Asegurarse de inicializar el PesajeRepository
+    required this.pesajeRepository,
   });
 
   @override
@@ -53,7 +54,10 @@ class MyApp extends StatelessWidget {
           create: (context) => ConfigurationBloc(repository: configurationRepository),
         ),
         BlocProvider<PesajeBloc>(
-          create: (context) => PesajeBloc(repository: pesajeRepository), // Añadir el PesajeBloc
+          create: (context) => PesajeBloc(repository: pesajeRepository),
+        ),
+        BlocProvider<ArticleBloc>(
+          create: (context) => ArticleBloc(productRepository: productRepository), // Añadir el ArticleBloc
         ),
       ],
       child: MaterialApp(

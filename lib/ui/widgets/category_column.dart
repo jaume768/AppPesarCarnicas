@@ -36,15 +36,15 @@ class _CategoryColumnState extends State<CategoryColumn> {
           return Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 60), // Margen superior para el botón de carnicería
+                margin: EdgeInsets.only(top: 60),
                 child: _buildSwitch(context, 'CARNICERIA    ', state.isButchery),
               ),
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 2,
-                  childAspectRatio: 1.2,
+                  childAspectRatio: 1.1,
                   mainAxisSpacing: 10,
-                  padding: EdgeInsets.only(top: 20, left: 30, right: 30),
+                  padding: EdgeInsets.only(top: 20, left: 30, right: 10),
                   crossAxisSpacing: 10,
                   children: buttons.map<Widget>((button) {
                     return _buildButton(context, button['text'], button['productType'], state.selectedProductType);
@@ -63,14 +63,14 @@ class _CategoryColumnState extends State<CategoryColumn> {
     Color color = isSelected ? Colors.green : Colors.grey.shade300;
 
     return Container(
-      margin: EdgeInsets.only(top: 10), // Margen superior
+      margin: EdgeInsets.only(top: 10),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.black,
           backgroundColor: color,
-          minimumSize: Size(100, 50), // Ajustar el tamaño mínimo del botón
+          minimumSize: Size(100, 80),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8), // Bordes redondeados
+            borderRadius: BorderRadius.circular(8),
           ),
         ),
         onPressed: () {
@@ -79,7 +79,7 @@ class _CategoryColumnState extends State<CategoryColumn> {
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20), // Ajustar el tamaño del texto
+          style: TextStyle(fontSize: 20),
         ),
       ),
     );
