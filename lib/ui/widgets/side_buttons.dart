@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../data/repositories/pesaje_repository.dart';
 import '../../structure/bloc/products/products_bloc.dart';
 import '../../structure/bloc/products/products_event.dart';
 import '../../structure/bloc/products/products_state.dart';
@@ -12,8 +13,14 @@ import 'multi_per_indicators.dart';
 class SideButtons extends StatelessWidget {
   final VoidCallback onFilterClient;
   final VoidCallback onClearFilter;
+  final PesajeRepository pesajeRepository;  // Añadir esto
 
-  const SideButtons({required this.onFilterClient, required this.onClearFilter});
+  const SideButtons({
+    required this.onFilterClient,
+    required this.onClearFilter,
+    required this.pesajeRepository  // Añadir esto
+  });
+
 
   @override
   Widget build(BuildContext context) {
@@ -168,11 +175,22 @@ class SideButtons extends StatelessWidget {
               isAcceptButtonEnabled ? Colors.blueAccent : Colors.grey,
               200,
               100,
-              isAcceptButtonEnabled ? () {
+              isAcceptButtonEnabled ? () async {
                 final productState = BlocProvider.of<ProductBloc>(context).state;
-                print(productState.selectedArticle);
-                if (productState is ProductLoaded) {
-                  BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle));
+                if (productState is ProductLoaded && state is PesajeLoaded) {
+                  try {
+                    await pesajeRepository.sendArticleWeight(
+                        articleId: productState.selectedArticle,
+                        weight: state.weight ?? 0.0,
+                        accumulatedWeight: state.accumulatedWeight,
+                        clientCode: productState.clientCode
+                    );
+                    BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle));
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Error al enviar el peso: ${e.toString()}')),
+                    );
+                  }
                 }
               } : null,
             );
@@ -181,6 +199,8 @@ class SideButtons extends StatelessWidget {
       ],
     );
   }
+
+
 
   Widget _buildCustomButton(String text, Color color, double width, double height, VoidCallback? onPressed) {
     return Container(

@@ -123,7 +123,7 @@ class ProductListTable extends StatelessWidget {
                                   BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
                                   BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
                                 } else {
-                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot));
+                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
                                   BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
                                 }
                               }
@@ -153,7 +153,7 @@ class ProductListTable extends StatelessWidget {
                                   BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
                                   BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
                                 } else {
-                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot));
+                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
                                   BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
                                 }
                               }
@@ -183,7 +183,7 @@ class ProductListTable extends StatelessWidget {
                                   BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
                                   BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
                                 } else {
-                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot));
+                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
                                   BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
                                 }
                               }

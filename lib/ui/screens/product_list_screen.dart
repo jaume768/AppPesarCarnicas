@@ -5,10 +5,10 @@ import '../../structure/bloc/carniceria/carniceria_bloc.dart';
 import '../../structure/bloc/carniceria/carniceria_state.dart';
 import '../widgets/product_list.dart';
 import '../widgets/side_buttons.dart';
-import '../../models/client.dart'; // Asegúrate de importar el modelo Client
+import '../../models/client.dart';
 
 class ProductListScreen extends StatefulWidget {
-  final PesajeRepository pesajeRepository; // Añade el repositorio como parámetro
+  final PesajeRepository pesajeRepository;
 
   const ProductListScreen({Key? key, required this.pesajeRepository}) : super(key: key);
 
@@ -105,11 +105,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     Expanded(
                       flex: 4,
                       child: Container(
-                        margin: EdgeInsets.only(left: 20.0), // Añade margen izquierdo a la tabla
+                        margin: EdgeInsets.only(left: 20.0),
                         child: ProductListTable(
                           products: state.products,
                           selectedClient: selectedClient,
-                          pesajeRepository: widget.pesajeRepository, // Pasa el repositorio aquí
+                          pesajeRepository: widget.pesajeRepository,
                         ),
                       ),
                     ),
@@ -119,6 +119,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                       child: SideButtons(
                         onFilterClient: () => _filterClient(context),
                         onClearFilter: _clearFilter,
+                        pesajeRepository: widget.pesajeRepository,
                       ),
                     ),
                   ],
@@ -131,3 +132,4 @@ class _ProductListScreenState extends State<ProductListScreen> {
     );
   }
 }
+

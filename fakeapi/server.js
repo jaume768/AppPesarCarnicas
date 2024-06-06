@@ -34,6 +34,20 @@ server.use((req, res, next) => {
   next();
 });
 
+server.post('/updateArticleWeight', (req, res) => {
+  const id = req.body.id;
+  const weight = req.body.weight;
+  const accumulatedWeightText = req.body.accumulatedWeightText;
+  const clientCode = req.body.clientCode;
+
+  if (!id || !weight || !clientCode || accumulatedWeightText === null) {
+    return res.status(400).send('Invalid body');
+  }
+
+  res.jsonp({ message: "ok" });
+});
+
+
 server.post('/getArticleWeight', (req, res) => {
   const articleId = req.body.id;
   if (!articleId) {

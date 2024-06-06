@@ -7,11 +7,12 @@ class SelectArticle extends ProductEvent {
   final int articleId;
   final bool isSpecial;
   final bool isMandatoryLot;
+  final int clientCode;
 
-  SelectArticle(this.articleId, this.isSpecial, this.isMandatoryLot);
+  SelectArticle(this.articleId, this.isSpecial, this.isMandatoryLot, this.clientCode);
 
   @override
-  List<Object> get props => [articleId, isSpecial, isMandatoryLot];
+  List<Object> get props => [articleId, isSpecial, isMandatoryLot, clientCode];
 }
 
 class DeselectArticle extends ProductEvent {

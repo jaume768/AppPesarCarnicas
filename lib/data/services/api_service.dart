@@ -131,4 +131,28 @@ class ApiService {
       throw Exception('Failed to load article list');
     }
   }
+
+  Future<Map<String, dynamic>> sendArticleWeight({
+    required int articleId,
+    required double weight,
+    required double accumulatedWeight,
+    required int clientCode,
+  }) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/updateArticleWeight'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'id': articleId,
+        'weight': weight,
+        'accumulatedWeightText': accumulatedWeight,
+        'clientCode': clientCode,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to send article weight');
+    }
+  }
 }

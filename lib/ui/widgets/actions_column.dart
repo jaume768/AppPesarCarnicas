@@ -5,7 +5,6 @@ import '../../structure/bloc/configuration/configuration_event.dart';
 import '../../structure/bloc/configuration/configuration_state.dart';
 import '../../structure/bloc/article/article_bloc.dart';
 import '../../structure/bloc/carniceria/carniceria_bloc.dart';
-import '../../structure/bloc/carniceria/carniceria_state.dart';
 
 class ActionsColumn extends StatelessWidget {
   @override
@@ -50,7 +49,7 @@ class ActionsColumn extends StatelessWidget {
     );
   }
 
-  Widget _buildButton(BuildContext context, String text, String displayText, Color color, bool? isScale, VoidCallback? onPressed) {
+  Widget  _buildButton(BuildContext context, String text, String displayText, Color color, bool? isScale, VoidCallback? onPressed) {
     return Container(
       width: 190,
       height: 190, // Fixed height for buttons
@@ -219,8 +218,6 @@ class ActionsColumn extends StatelessWidget {
       ),
     );
   }
-
-
 
   AlertDialog _errorDialog(BuildContext context, ArticleState state) {
     return AlertDialog(

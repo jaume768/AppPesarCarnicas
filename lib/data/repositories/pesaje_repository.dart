@@ -38,12 +38,29 @@ class PesajeRepository {
     }
   }
 
-  // Nuevo método para obtener el peso del artículo
   Future<Map<String, dynamic>> getArticleWeight(int articleId) async {
     try {
       return await apiService.fetchArticleWeight(articleId);
     } catch (e) {
       throw Exception('Failed to get article weight: $e');
+    }
+  }
+
+  Future<Map<String, dynamic>> sendArticleWeight({
+    required int articleId,
+    required double weight,
+    required double accumulatedWeight,
+    required int clientCode,
+  }) async {
+    try {
+      return await apiService.sendArticleWeight(
+        articleId: articleId,
+        weight: weight,
+        accumulatedWeight: accumulatedWeight,
+        clientCode: clientCode,
+      );
+    } catch (e) {
+      throw Exception('Failed to send article weight: $e');
     }
   }
 }

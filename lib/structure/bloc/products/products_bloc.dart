@@ -6,7 +6,7 @@ import 'products_state.dart';
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final ProductRepository repository;
 
-  ProductBloc({required this.repository}) : super(ProductLoaded(-1, false, false, {}, 0)) {
+  ProductBloc({required this.repository}) : super(ProductLoaded(-1, false, false, {}, 0, 0)) { // Añadir valor inicial para clientCode
     on<SelectArticle>((event, emit) {
       if (state is ProductLoaded) {
         final currentState = state as ProductLoaded;
@@ -16,6 +16,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           event.isMandatoryLot,
           currentState.acceptedArticles,
           currentState.lotNumber,
+          event.clientCode,
           currentState.pendingArticles,
         ));
       }
@@ -30,6 +31,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           false,
           currentState.acceptedArticles,
           currentState.lotNumber,
+          currentState.clientCode, // Asegurarse de pasar clientCode
           currentState.pendingArticles,
         ));
       }
@@ -50,6 +52,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           currentState.isMandatoryLot,
           newAcceptedArticles,
           currentState.lotNumber,
+          currentState.clientCode,
           currentState.pendingArticles,
         ));
       }
@@ -70,6 +73,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           currentState.isMandatoryLot,
           currentState.acceptedArticles,
           currentState.lotNumber,
+          currentState.clientCode, // Asegurarse de pasar clientCode
           newPendingArticles,
         ));
       }
@@ -84,6 +88,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           currentState.isMandatoryLot,
           currentState.acceptedArticles,
           event.lotNumber,
+          currentState.clientCode, // Asegurarse de pasar clientCode
           currentState.pendingArticles,
         ));
       }
