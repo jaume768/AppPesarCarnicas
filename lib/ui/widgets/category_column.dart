@@ -35,21 +35,21 @@ class _CategoryColumnState extends State<CategoryColumn> {
         builder: (context, state) {
           return Column(
             children: [
-              Container(
-                margin: EdgeInsets.only(top: 60),
-                child: _buildSwitch(context, 'CARNICERIA    ', state.isButchery),
-              ),
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 2,
                   childAspectRatio: 1.1,
                   mainAxisSpacing: 10,
-                  padding: EdgeInsets.only(top: 20, left: 30, right: 10),
+                  padding: EdgeInsets.only(top: 60, left: 30, right: 10),
                   crossAxisSpacing: 10,
                   children: buttons.map<Widget>((button) {
                     return _buildButton(context, button['text'], button['productType'], state.selectedProductType);
                   }).toList(),
                 ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 60),
+                child: _buildSwitch(context, 'CARNICERIA    ', state.isButchery),
               ),
             ],
           );

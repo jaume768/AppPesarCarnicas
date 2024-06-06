@@ -4,10 +4,8 @@ const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 const port = 3000;
 
-// Middleware predeterminados
 server.use(middlewares);
 
-// Middleware para manejar solicitudes POST con validación del body
 server.use(jsonServer.bodyParser);
 server.use((req, res, next) => {
   if (req.method === 'POST') {
@@ -33,6 +31,8 @@ server.use((req, res, next) => {
   }
   next();
 });
+
+
 
 server.post('/updateArticleWeight', (req, res) => {
   const id = req.body.id;

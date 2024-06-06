@@ -13,7 +13,7 @@ import '../utils/confirm_delete_modal.dart';
 class ProductListTable extends StatelessWidget {
   final List<Client> products;
   final String? selectedClient;
-  final PesajeRepository pesajeRepository; // Añade el repositorio
+  final PesajeRepository pesajeRepository;
 
   const ProductListTable({Key? key, required this.products, this.selectedClient, required this.pesajeRepository}) : super(key: key);
 
@@ -29,7 +29,7 @@ class ProductListTable extends StatelessWidget {
             clientName: clientName,
             productName: articleName,
             productObservation: articleObservation,
-            weight: weight, // Usar el peso obtenido del repository
+            weight: weight,
             onConfirm: () {
               BlocProvider.of<ProductBloc>(context).add(AcceptArticle(articleId));
               Navigator.of(context).pop();
@@ -38,7 +38,6 @@ class ProductListTable extends StatelessWidget {
         },
       );
     } catch (e) {
-      // Manejar errores si es necesario
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error al obtener el peso del artículo: $e')),
       );
