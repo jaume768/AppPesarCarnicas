@@ -9,13 +9,16 @@ import '../../structure/bloc/pesaje/pesaje_event.dart';
 import '../../structure/bloc/pesaje/pesaje_state.dart';
 import '../utils/lot_number_modal.dart';
 import 'multi_per_indicators.dart';
+import '../../models/client.dart';
 
 class SideButtons extends StatelessWidget {
+  final List<Client> products;
   final VoidCallback onFilterClient;
   final VoidCallback onClearFilter;
   final PesajeRepository pesajeRepository;  // Añadir esto
 
   const SideButtons({
+    required this.products,
     required this.onFilterClient,
     required this.onClearFilter,
     required this.pesajeRepository  // Añadir esto
@@ -79,8 +82,17 @@ class SideButtons extends StatelessWidget {
     return _buildButton(context, 'MARCAR PENDENT', Colors.grey.shade300, () {
       final currentState = BlocProvider.of<ProductBloc>(context).state;
       if (currentState is ProductLoaded) {
-        BlocProvider.of<ProductBloc>(context).add(MarkAsPending(currentState.selectedArticle));
+        for(var product in products){
+          for(var articulo in product.articles){
+            if(articulo.isMarket && currentState.selectedArticle == articulo.code){
+              articulo.isMarket = false;
+              BlocProvider.of<ProductBloc>(context).add(MarkAsPending(currentState.selectedArticle,false));
+              return;
+            }
+          }
+        }
       }
+      BlocProvider.of<ProductBloc>(context).add(MarkAsPending(currentState.selectedArticle,true));
     });
   }
 
@@ -95,7 +107,7 @@ class SideButtons extends StatelessWidget {
               () {
             final productState = BlocProvider.of<ProductBloc>(context).state;
             if (productState is ProductLoaded) {
-              BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle));
+              BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle,true));
             }
           },
         );
@@ -185,7 +197,7 @@ class SideButtons extends StatelessWidget {
                         accumulatedWeight: state.accumulatedWeight,
                         clientCode: productState.clientCode
                     );
-                    BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle));
+                    BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle,true));
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Error al enviar el peso: ${e.toString()}')),

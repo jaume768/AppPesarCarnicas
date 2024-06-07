@@ -148,7 +148,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": true,
+            "isAccepted": false
           },
           {
             "id": 2,
@@ -160,7 +162,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": false,
             "mandatoryLot": true,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": false
           },
           {
             "id": 3,
@@ -172,7 +176,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": true
           },
           {
             "id": 4,
@@ -184,7 +190,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": false,
             "mandatoryLot": true,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": false
           },
           {
             "id": 5,
@@ -196,7 +204,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": true,
+            "isAccepted": false
           }
         ]
       }
@@ -216,7 +226,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": true,
+            "isAccepted": false
           },
           {
             "id": 7,
@@ -228,7 +240,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": false,
             "mandatoryLot": true,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": false
           },
           {
             "id": 8,
@@ -240,7 +254,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": true
           },
           {
             "id": 9,
@@ -252,7 +268,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": false,
             "mandatoryLot": true,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": false
           },
           {
             "id": 10,
@@ -264,7 +282,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": true,
+            "isAccepted": false
           },
           {
             "id": 11,
@@ -276,7 +296,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": true
           },
           {
             "id": 12,
@@ -288,7 +310,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": false,
             "mandatoryLot": true,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": false
           },
           {
             "id": 8,
@@ -300,7 +324,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": true
           },
           {
             "id": 9,
@@ -312,7 +338,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": false,
             "mandatoryLot": true,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": false
           },
           {
             "id": 10,
@@ -324,67 +352,79 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": true,
+            "isAccepted": false
           },
           {
-            "id": 6,
-            "code": 6,
-            "name": "Article 6",
-            "observation": "Observation 6",
+            "id": 24,
+            "code": 24,
+            "name": "Article 24",
+            "observation": "Observation 24",
             "units": 1.0,
             "unitType": "KILOS",
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": true,
+            "isAccepted": false
           },
           {
-            "id": 7,
-            "code": 7,
-            "name": "Article 7",
-            "observation": "Observation 7",
+            "id": 25,
+            "code": 25,
+            "name": "Article 25",
+            "observation": "Observation 25",
             "units": 2.5,
             "unitType": "KILOS",
             "special": false,
             "mandatoryLot": true,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": false
           },
           {
-            "id": 8,
-            "code": 8,
-            "name": "Article 8",
-            "observation": "Observation 8",
+            "id": 26,
+            "code": 26,
+            "name": "Article 26",
+            "observation": "Observation 26",
             "units": 1.5,
             "unitType": "KILOS",
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": true
           },
           {
-            "id": 9,
-            "code": 9,
-            "name": "Article 9",
-            "observation": "Observation 9",
+            "id": 27,
+            "code": 27,
+            "name": "Article 27",
+            "observation": "Observation 27",
             "units": 3.0,
             "unitType": "KILOS",
             "special": false,
             "mandatoryLot": true,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": false
           },
           {
-            "id": 10,
-            "code": 10,
-            "name": "Article 10",
-            "observation": "Observation 10",
+            "id": 28,
+            "code": 28,
+            "name": "Article 28",
+            "observation": "Observation 28",
             "units": 2.0,
             "unitType": "KILOS",
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": true,
+            "isAccepted": false
           }
         ]
       }
@@ -404,7 +444,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": true,
+            "isAccepted": false
           },
           {
             "id": 12,
@@ -416,7 +458,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": false,
             "mandatoryLot": true,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": false
           },
           {
             "id": 13,
@@ -428,7 +472,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": true
           },
           {
             "id": 14,
@@ -440,7 +486,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": false,
             "mandatoryLot": true,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": false
           },
           {
             "id": 15,
@@ -452,7 +500,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": true,
+            "isAccepted": false
           }
         ]
       }
@@ -472,7 +522,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": true
           },
           {
             "id": 17,
@@ -484,9 +536,10 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": false,
             "mandatoryLot": true,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": false
           },
-          // Nuevo artículo
           {
             "id": 19,
             "code": 19,
@@ -497,11 +550,12 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": true,
+            "isAccepted": false
           }
         ]
       },
-      // Nuevo cliente
       {
         "code": 5,
         "name": "Client 5",
@@ -516,7 +570,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": true,
             "mandatoryLot": false,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": true,
+            "isAccepted": false
           },
           {
             "id": 21,
@@ -528,7 +584,9 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": false,
             "mandatoryLot": true,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": false
           },
           {
             "id": 22,
@@ -540,12 +598,14 @@ server.post('/orderPreparation/productList', (req, res) => {
             "special": false,
             "mandatoryLot": true,
             "primaryAction": null,
-            "secondaryAction": null
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": false
           }
         ]
       }
     ]
-  };  
+  };    
   res.jsonp({ "clients": productList[req.body.productType] || [] });
 });
 

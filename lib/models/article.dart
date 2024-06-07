@@ -9,6 +9,8 @@ class Article {
   final bool mandatoryLot;
   final dynamic primaryAction;
   final dynamic secondaryAction;
+  bool isMarket;
+  bool isAccepted;
   double _weight;
 
   Article({
@@ -22,6 +24,8 @@ class Article {
     required this.mandatoryLot,
     this.primaryAction,
     this.secondaryAction,
+    this.isMarket = false,
+    this.isAccepted = false,
     double weight = 0.0,
   }) : _weight = weight;
 
@@ -43,6 +47,8 @@ class Article {
       mandatoryLot: json['mandatoryLot'],
       primaryAction: json['primaryAction'],
       secondaryAction: json['secondaryAction'],
+      isMarket: json['isMarket'],
+      isAccepted: json['isAccepted'],
       weight: json['weight']?.toDouble() ?? 0.0,
     );
   }

@@ -25,13 +25,24 @@ class ProductListTable extends StatelessWidget {
       showDialog(
         context: context,
         builder: (BuildContext context) {
+          final productState = BlocProvider.of<ProductBloc>(context).state;
           return ConfirmDeleteModal(
             clientName: clientName,
             productName: articleName,
             productObservation: articleObservation,
             weight: weight,
             onConfirm: () {
-              BlocProvider.of<ProductBloc>(context).add(AcceptArticle(articleId));
+              for(var product in products){
+                for(var articulo in product.articles){
+                  if(articulo.isAccepted && productState.selectedArticle == articulo.code){
+                    articulo.isAccepted = false;
+                    BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle,false));
+                    Navigator.of(context).pop();
+                    return;
+                  }
+                }
+              }
+              BlocProvider.of<ProductBloc>(context).add(AcceptArticle(articleId,true));
               Navigator.of(context).pop();
             },
           );
@@ -87,13 +98,13 @@ class ProductListTable extends StatelessWidget {
                     DataRow(
                       color: MaterialStateProperty.resolveWith<Color?>(
                             (Set<MaterialState> states) {
-                          if (productState.selectedArticle == articleId && productState.pendingArticles.contains(articleId)) {
+                          if (productState.selectedArticle == articleId && productState.pendingArticles.contains(articleId) || article.isMarket) {
                             return Colors.red[400];
                           }
                           if (productState.pendingArticles.contains(articleId)) {
                             return Colors.red[200];
                           }
-                          if (productState.acceptedArticles.contains(articleId)) {
+                          if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
                             return Colors.blue[400];
                           }
                           if (productState.selectedArticle == articleId) {
@@ -115,7 +126,9 @@ class ProductListTable extends StatelessWidget {
                         DataCell(
                           GestureDetector(
                             onTap: () {
-                              if (productState.acceptedArticles.contains(articleId)) {
+
+                              if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
                                 _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId); // Usar la función para mostrar el modal
                               } else {
                                 if (productState.selectedArticle == articleId) {
@@ -145,7 +158,8 @@ class ProductListTable extends StatelessWidget {
                         DataCell(
                           GestureDetector(
                             onTap: () {
-                              if (productState.acceptedArticles.contains(articleId)) {
+                              if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
                                 _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId); // Usar la función para mostrar el modal
                               } else {
                                 if (productState.selectedArticle == articleId) {
@@ -175,7 +189,8 @@ class ProductListTable extends StatelessWidget {
                         DataCell(
                           GestureDetector(
                             onTap: () {
-                              if (productState.acceptedArticles.contains(articleId)) {
+                              if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
                                 _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId); // Usar la función para mostrar el modal
                               } else {
                                 if (productState.selectedArticle == articleId) {

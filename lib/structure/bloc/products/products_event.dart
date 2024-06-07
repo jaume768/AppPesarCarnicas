@@ -26,11 +26,12 @@ class DeselectArticle extends ProductEvent {
 
 class MarkAsPending extends ProductEvent {
   final int articleId;
+  final bool llevar;
 
-  MarkAsPending(this.articleId);
+  MarkAsPending(this.articleId,this.llevar);
 
   @override
-  List<Object> get props => [articleId];
+  List<Object> get props => [articleId,llevar];
 }
 
 class UpdateLotNumber extends ProductEvent {
@@ -44,9 +45,16 @@ class UpdateLotNumber extends ProductEvent {
 
 class AcceptArticle extends ProductEvent {
   final int articleId;
+  final bool llevar;
 
-  AcceptArticle(this.articleId);
+  AcceptArticle(this.articleId,this.llevar);
 
   @override
-  List<Object> get props => [articleId];
+  List<Object> get props => [articleId,llevar];
+}
+
+class RemoveArticleFromLists extends ProductEvent {
+  final int articleId;
+
+  RemoveArticleFromLists(this.articleId);
 }

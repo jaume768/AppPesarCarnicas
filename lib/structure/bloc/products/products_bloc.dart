@@ -6,7 +6,7 @@ import 'products_state.dart';
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final ProductRepository repository;
 
-  ProductBloc({required this.repository}) : super(ProductLoaded(-1, false, false, {}, 0, 0)) { // Añadir valor inicial para clientCode
+  ProductBloc({required this.repository}) : super(ProductLoaded(-1, false, false, {}, 0, 0)) {
     on<SelectArticle>((event, emit) {
       if (state is ProductLoaded) {
         final currentState = state as ProductLoaded;
@@ -31,7 +31,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           false,
           currentState.acceptedArticles,
           currentState.lotNumber,
-          currentState.clientCode, // Asegurarse de pasar clientCode
+          currentState.clientCode,
           currentState.pendingArticles,
         ));
       }
@@ -41,10 +41,12 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       if (state is ProductLoaded) {
         final currentState = state as ProductLoaded;
         Set<int> newAcceptedArticles = Set<int>.from(currentState.acceptedArticles);
-        if (newAcceptedArticles.contains(event.articleId)) {
-          newAcceptedArticles.remove(event.articleId);
-        } else {
-          newAcceptedArticles.add(event.articleId);
+        if(event.llevar){
+          if (newAcceptedArticles.contains(event.articleId)) {
+            newAcceptedArticles.remove(event.articleId);
+          } else {
+            newAcceptedArticles.add(event.articleId);
+          }
         }
         emit(ProductLoaded(
           currentState.selectedArticle,
@@ -62,10 +64,12 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       if (state is ProductLoaded) {
         final currentState = state as ProductLoaded;
         Set<int> newPendingArticles = Set<int>.from(currentState.pendingArticles);
-        if (newPendingArticles.contains(event.articleId)) {
-          newPendingArticles.remove(event.articleId);
-        } else {
-          newPendingArticles.add(event.articleId);
+        if(event.llevar){
+          if (newPendingArticles.contains(event.articleId)) {
+            newPendingArticles.remove(event.articleId);
+          } else {
+            newPendingArticles.add(event.articleId);
+          }
         }
         emit(ProductLoaded(
           currentState.selectedArticle,
@@ -73,7 +77,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           currentState.isMandatoryLot,
           currentState.acceptedArticles,
           currentState.lotNumber,
-          currentState.clientCode, // Asegurarse de pasar clientCode
+          currentState.clientCode,
           newPendingArticles,
         ));
       }
@@ -88,10 +92,30 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           currentState.isMandatoryLot,
           currentState.acceptedArticles,
           event.lotNumber,
-          currentState.clientCode, // Asegurarse de pasar clientCode
+          currentState.clientCode,
           currentState.pendingArticles,
         ));
       }
+    });
+
+    on<RemoveArticleFromLists>((event, emit) {
+        print("si");
+        final currentState = state as ProductLoaded;
+        Set<int> newAcceptedArticles = Set<int>.from(currentState.acceptedArticles);
+        Set<int> newPendingArticles = Set<int>.from(currentState.pendingArticles);
+
+        newAcceptedArticles.remove(event.articleId);
+        newPendingArticles.remove(event.articleId);
+
+        emit(ProductLoaded(
+          currentState.selectedArticle,
+          currentState.isSpecial,
+          currentState.isMandatoryLot,
+          newAcceptedArticles,
+          currentState.lotNumber,
+          currentState.clientCode,
+          newPendingArticles,
+        ));
     });
   }
 }

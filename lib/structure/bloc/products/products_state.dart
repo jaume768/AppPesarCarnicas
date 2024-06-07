@@ -21,7 +21,7 @@ class ProductLoaded extends ProductState {
       bool isMandatoryLot,
       Set<int> acceptedArticles,
       this.lotNumber,
-      int clientCode, // Añadir este parámetro
+      int clientCode, 
       [Set<int> pendingArticles = const {}]
       ) : this.pendingArticles = pendingArticles,
         super(selectedArticle, isSpecial, isMandatoryLot, acceptedArticles, clientCode); // Añadir aquí

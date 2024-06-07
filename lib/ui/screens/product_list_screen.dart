@@ -117,6 +117,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     Flexible(
                       flex: 4,
                       child: SideButtons(
+                        products: state.products,
                         onFilterClient: () => _filterClient(context),
                         onClearFilter: _clearFilter,
                         pesajeRepository: widget.pesajeRepository,
