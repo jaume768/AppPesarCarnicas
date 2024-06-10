@@ -603,6 +603,54 @@ server.post('/orderPreparation/productList', (req, res) => {
             "isAccepted": false
           }
         ]
+      },
+      {
+        "code": 6,
+        "name": "Prova",
+        "articles": [
+          {
+            "id": 21,
+            "code": 21,
+            "name": "Article 21",
+            "observation": "Observation 21",
+            "units": 2.5,
+            "unitType": "KILOS",
+            "special": true,
+            "mandatoryLot": false,
+            "primaryAction": null,
+            "secondaryAction": null,
+            "isMarket": true,
+            "isAccepted": false
+          },
+          {
+            "id": 22,
+            "code": 22,
+            "name": "Article 22",
+            "observation": "Observation 22",
+            "units": 1.0,
+            "unitType": "KILOS",
+            "special": false,
+            "mandatoryLot": true,
+            "primaryAction": null,
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": false
+          },
+          {
+            "id": 23,
+            "code": 23,
+            "name": "Article 23",
+            "observation": "Observation 23",
+            "units": 1.0,
+            "unitType": "KILOS",
+            "special": false,
+            "mandatoryLot": true,
+            "primaryAction": null,
+            "secondaryAction": null,
+            "isMarket": false,
+            "isAccepted": false
+          }
+        ]
       }
     ]
   };    

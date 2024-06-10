@@ -20,6 +20,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
   String? selectedClient;
   int? selectedRowIndex;
   List<Client> products = [];
+  String filter = '';
+  TextEditingController _searchController = TextEditingController();
 
   void _filterClient(BuildContext context) {
     showDialog(
@@ -27,34 +29,55 @@ class _ProductListScreenState extends State<ProductListScreen> {
       builder: (BuildContext context) {
         return BlocBuilder<CarniceriaBloc, CarniceriaState>(
           builder: (context, state) {
+            List<Client> filteredClients = state.products
+                .where((client) => client.name.toLowerCase().contains(filter.toLowerCase()))
+                .toList();
+
             return AlertDialog(
               title: Text('Seleccionar Cliente'),
               content: Container(
                 width: MediaQuery.of(context).size.width * 0.3,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: state.products.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    var client = state.products[index].name;
-                    return ListTile(
-                      title: Row(
-                        children: [
-                          Icon(
-                            selectedClient == client ? Icons.check_circle : Icons.radio_button_unchecked,
-                            color: selectedClient == client ? Colors.green : null,
-                          ),
-                          SizedBox(width: 10),
-                          Text(client),
-                        ],
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        labelText: 'Buscar Cliente',
                       ),
-                      onTap: () {
+                      onChanged: (value) {
                         setState(() {
-                          selectedClient = client;
+                          filter = value;
                         });
-                        Navigator.pop(context);
                       },
-                    );
-                  },
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: filteredClients.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var client = filteredClients[index].name;
+                          return ListTile(
+                            title: Row(
+                              children: [
+                                Icon(
+                                  selectedClient == client ? Icons.check_circle : Icons.radio_button_unchecked,
+                                  color: selectedClient == client ? Colors.green : null,
+                                ),
+                                SizedBox(width: 10),
+                                Text(client),
+                              ],
+                            ),
+                            onTap: () {
+                              setState(() {
+                                selectedClient = client;
+                              });
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
               actions: [
@@ -62,6 +85,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   onPressed: () {
                     setState(() {
                       selectedClient = null;
+                      filter = '';
+                      _searchController.clear();
                     });
                     Navigator.pop(context);
                   },
@@ -84,6 +109,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
   void _clearFilter() {
     setState(() {
       selectedClient = null;
+      filter = '';
+      _searchController.clear();
     });
   }
 
@@ -133,4 +160,3 @@ class _ProductListScreenState extends State<ProductListScreen> {
     );
   }
 }
-
