@@ -119,16 +119,20 @@ class ProductListTable extends StatelessWidget {
                       ),
                       cells: [
                         DataCell(
-                          Center(
-                            child: Text(
-                              article.special ? 'X' : '',
-                              style: TextStyle(color: Colors.black, fontSize: 18),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
+                            InkWell(
+                              onTap: () {
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(article.id, article.special, article.mandatoryLot, product.code));
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(vertical: 20),
+                                width: double.infinity,
+                                child: Text(article.special ? 'X' : '', style: TextStyle(color: Colors.black, fontSize: 18),),
+                              ),
+                            )
                         ),
                         DataCell(
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
 
                               if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
@@ -160,7 +164,7 @@ class ProductListTable extends StatelessWidget {
                           ),
                         ),
                         DataCell(
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
                                 BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
@@ -191,7 +195,7 @@ class ProductListTable extends StatelessWidget {
                           ),
                         ),
                         DataCell(
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
                                 BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
@@ -241,7 +245,7 @@ class ProductListTable extends StatelessWidget {
                         child: Column(
                           children: [
                             DataTable(
-                              columnSpacing: 27.0,
+                              columnSpacing: 47.0,
                               dataRowHeight: 80.0,
                               headingRowHeight: 70.0,
                               border: const TableBorder(
