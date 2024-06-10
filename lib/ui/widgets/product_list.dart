@@ -232,36 +232,41 @@ class ProductListTable extends StatelessWidget {
                 }
               }
 
-              return SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  child: SingleChildScrollView(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      child: DataTable(
-                        columnSpacing: 7.0,
-                        dataRowHeight: 80.0,
-                        headingRowHeight: 70.0,
-                        border: const TableBorder(
-                          horizontalInside: BorderSide(color: Colors.black, width: 2),
-                          verticalInside: BorderSide(color: Colors.black, width: 2),
-                          right: BorderSide(color: Colors.black, width: 2),
-                          bottom: BorderSide(color: Colors.black, width: 2),
-                          top: BorderSide(color: Colors.black, width: 2),
-                          left: BorderSide(color: Colors.black, width: 2),
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  return SingleChildScrollView(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                      child: IntrinsicHeight(
+                        child: Column(
+                          children: [
+                            DataTable(
+                              columnSpacing: 27.0,
+                              dataRowHeight: 80.0,
+                              headingRowHeight: 70.0,
+                              border: const TableBorder(
+                                horizontalInside: BorderSide(color: Colors.black, width: 2),
+                                verticalInside: BorderSide(color: Colors.black, width: 2),
+                                right: BorderSide(color: Colors.black, width: 2),
+                                bottom: BorderSide(color: Colors.black, width: 2),
+                                top: BorderSide(color: Colors.black, width: 2),
+                                left: BorderSide(color: Colors.black, width: 2),
+                              ),
+                              columns: const [
+                                DataColumn(label: Text('BLOC', style: TextStyle(color: Colors.black, fontSize: 20,), textAlign: TextAlign.center)),
+                                DataColumn(label: Text('QUANT.', style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
+                                DataColumn(label: Text('UNI', style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
+                                DataColumn(label: Text('CLIENT/ PRODUCTE', style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
+                              ],
+                              rows: rows,
+                            ),
+                            Expanded(child: Container()),  // This ensures the DataTable stays at the top
+                          ],
                         ),
-                        columns: const [
-                          DataColumn(label: Text('BLOC', style: TextStyle(color: Colors.black, fontSize: 20,), textAlign: TextAlign.center)),
-                          DataColumn(label: Text('QUANT.', style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
-                          DataColumn(label: Text('UNI', style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
-                          DataColumn(label: Text('CLIENT/ PRODUCTE', style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
-                        ],
-                        rows: rows,
                       ),
                     ),
-                  ),
-                ),
+                  );
+                },
               );
             } else {
               return Center(child: Text('No se han cargado los productos'));
