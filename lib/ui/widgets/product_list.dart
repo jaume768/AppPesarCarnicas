@@ -98,12 +98,16 @@ class ProductListTable extends StatelessWidget {
                     DataRow(
                       color: MaterialStateProperty.resolveWith<Color?>(
                             (Set<MaterialState> states) {
-                          if (productState.selectedArticle == articleId && productState.pendingArticles.contains(articleId) || article.isMarket) {
+                              if (productState.selectedArticle == articleId && article.isMarket) {
+                                return Colors.red[400];
+                              }
+                          if (productState.selectedArticle == articleId && productState.pendingArticles.contains(articleId) ) {
                             return Colors.red[400];
                           }
-                          if (productState.pendingArticles.contains(articleId)) {
+                          if (productState.pendingArticles.contains(articleId) || article.isMarket) {
                             return Colors.red[200];
                           }
+
                           if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
                             return Colors.blue[400];
                           }
