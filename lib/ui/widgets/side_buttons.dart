@@ -15,15 +15,14 @@ class SideButtons extends StatelessWidget {
   final List<Client> products;
   final VoidCallback onFilterClient;
   final VoidCallback onClearFilter;
-  final PesajeRepository pesajeRepository;  // Añadir esto
+  final PesajeRepository pesajeRepository;  // Repositorio de pesaje para enviar datos
 
   const SideButtons({
     required this.products,
     required this.onFilterClient,
     required this.onClearFilter,
-    required this.pesajeRepository  // Añadir esto
+    required this.pesajeRepository
   });
-
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +47,9 @@ class SideButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          child: _buildButton(context, 'REVISAR COMPLET', Colors.lightBlue, () {}),
+          child: _buildButton(context, 'REVISAR COMPLET', Colors.lightBlue, () {
+            _showFunctionalityAlert(context); // Llamada al método que muestra el modal
+          }),
         ),
         Expanded(
           child: _buildButton(context, 'CANVIAR CONFIGURACIÓ', Colors.yellow.shade300, () {
@@ -56,6 +57,26 @@ class SideButtons extends StatelessWidget {
           }),
         ),
       ],
+    );
+  }
+
+  void _showFunctionalityAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Alerta"),
+          content: Text("Falta funcionalidad, avisa a informática"),
+          actions: <Widget>[
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();  // Cierra el modal al presionar OK
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -82,17 +103,17 @@ class SideButtons extends StatelessWidget {
     return _buildButton(context, 'MARCAR PENDENT', Colors.grey.shade300, () {
       final currentState = BlocProvider.of<ProductBloc>(context).state;
       if (currentState is ProductLoaded) {
-        for(var product in products){
-          for(var articulo in product.articles){
-            if(articulo.isMarket && currentState.selectedArticle == articulo.code){
+        for (var product in products) {
+          for (var articulo in product.articles) {
+            if (articulo.isMarket && currentState.selectedArticle == articulo.code) {
               articulo.isMarket = false;
-              BlocProvider.of<ProductBloc>(context).add(MarkAsPending(currentState.selectedArticle,false));
+              BlocProvider.of<ProductBloc>(context).add(MarkAsPending(currentState.selectedArticle, false));
               return;
             }
           }
         }
       }
-      BlocProvider.of<ProductBloc>(context).add(MarkAsPending(currentState.selectedArticle,true));
+      BlocProvider.of<ProductBloc>(context).add(MarkAsPending(currentState.selectedArticle, true));
     });
   }
 
@@ -107,7 +128,7 @@ class SideButtons extends StatelessWidget {
               () {
             final productState = BlocProvider.of<ProductBloc>(context).state;
             if (productState is ProductLoaded) {
-              BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle,true));
+              BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle, true));
             }
           },
         );
@@ -119,7 +140,7 @@ class SideButtons extends StatelessWidget {
     return Column(
       children: [
         _buildMandatoryLotSection(context),
-        MultiPesIndicators(), // Mantén siempre visibles los indicadores Multi Pes
+        MultiPesIndicators(),  // Mantén siempre visibles los indicadores Multi Pes
         _buildBottomButtons(context),
       ],
     );
@@ -180,38 +201,47 @@ class SideButtons extends StatelessWidget {
           BlocProvider.of<PesajeBloc>(context).add(IncrementCount());
         }),
         BlocBuilder<PesajeBloc, PesajeState>(
-          builder: (context, state) {
-            bool isAcceptButtonEnabled = !(state is PesajeLoaded && (state.pesajeStatus['tipoPes'] == 'ZERO' || state.pesajeStatus['tipoPes'] == 'INESTABLE'));
-            return _buildCustomButton(
-              'Aceptar Pesada,\ngravar, imprimir',
-              isAcceptButtonEnabled ? Colors.blueAccent : Colors.grey,
-              200,
-              100,
-              isAcceptButtonEnabled ? () async {
-                final productState = BlocProvider.of<ProductBloc>(context).state;
-                if (productState is ProductLoaded && state is PesajeLoaded) {
-                  try {
-                    await pesajeRepository.sendArticleWeight(
-                        articleId: productState.selectedArticle,
-                        weight: state.weight ?? 0.0,
-                        accumulatedWeight: state.accumulatedWeight,
-                        clientCode: productState.clientCode
-                    );
-                    BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle,true));
-                  } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Error al enviar el peso: ${e.toString()}')),
-                    );
-                  }
-                }
-              } : null,
+          builder: (context, pesajeState) {
+            return BlocBuilder<ProductBloc, ProductState>(
+              builder: (context, productState) {
+                bool isWeightStable = pesajeState is PesajeLoaded &&
+                    pesajeState.pesajeStatus['tipoPes'] != 'ZERO' &&
+                    pesajeState.pesajeStatus['tipoPes'] != 'INESTABLE';
+
+                bool isLotValid = productState is ProductLoaded &&
+                    ((productState.isMandatoryLot && productState.lotNumber > 0) ||
+                        !productState.isMandatoryLot);
+
+                bool isAcceptButtonEnabled = isWeightStable && isLotValid;
+
+                return _buildCustomButton(
+                  'Aceptar Pesada,\ngravar, imprimir',
+                  isAcceptButtonEnabled ? Colors.blueAccent : Colors.grey,
+                  200,
+                  100,
+                  isAcceptButtonEnabled ? () async {
+                    try {
+                      await pesajeRepository.sendArticleWeight(
+                          articleId: productState.selectedArticle,
+                          weight: pesajeState.weight ?? 0.0,
+                          accumulatedWeight: pesajeState.accumulatedWeight,
+                          clientCode: productState.clientCode
+                      );
+                      BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle, true));
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Error al enviar el peso: ${e.toString()}')),
+                      );
+                    }
+                  } : null,
+                );
+              },
             );
           },
         ),
       ],
     );
   }
-
 
 
   Widget _buildCustomButton(String text, Color color, double width, double height, VoidCallback? onPressed) {
