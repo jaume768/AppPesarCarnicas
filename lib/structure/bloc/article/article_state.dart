@@ -13,7 +13,7 @@ class ArticleLoaded extends ArticleState {
   final String sortField;
   final bool isAscending;
 
-  ArticleLoaded({required this.articles, this.sortField = 'kgs', this.isAscending = true});
+  ArticleLoaded({required this.articles, this.sortField = 'kgs', this.isAscending = false});
 
   List<Map<String, dynamic>> get sortedArticles {
     var articlesCopy = List<Map<String, dynamic>>.from(articles);

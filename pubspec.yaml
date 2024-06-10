@@ -7,6 +7,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   geolocator: ^10.0.0
   auto_size_text: 3.0.0
   cached_network_image: 3.3.1
@@ -48,5 +50,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
   assets:
     - assets/data/botones_categorias.json

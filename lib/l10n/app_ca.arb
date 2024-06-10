@@ -1,0 +1,11 @@
+{
+  "title": "Carnisseria",
+  "selectScale": "Seleccionar Bàscula",
+  "scaleSelected": "Seleccionada: {scaleName}",
+  "selectPrinter": "Seleccionar Impressora",
+  "printerSelected": "Seleccionada: {printerName}",
+  "viewTotalsByArticle": "Veure Totals per Article",
+  "close": "Tancar",
+  "error": "Error",
+  "selectCategory": "Selecciona una categoria"
+}

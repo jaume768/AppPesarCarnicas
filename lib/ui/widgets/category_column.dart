@@ -33,18 +33,26 @@ class _CategoryColumnState extends State<CategoryColumn> {
     return Expanded(
       child: BlocBuilder<CarniceriaBloc, CarniceriaState>(
         builder: (context, state) {
+          // Evaluar si se necesita scroll basado en el número de botones
+          bool shouldScroll = buttons.length > 6;
+
           return Column(
             children: [
               Expanded(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.1,
-                  mainAxisSpacing: 10,
+                child: GridView.builder(
+                  physics: shouldScroll ? null : NeverScrollableScrollPhysics(), // Deshabilita el scroll si no es necesario
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 1.1,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                  ),
                   padding: EdgeInsets.only(top: 60, left: 30, right: 10),
-                  crossAxisSpacing: 10,
-                  children: buttons.map<Widget>((button) {
+                  itemCount: buttons.length,
+                  itemBuilder: (context, index) {
+                    var button = buttons[index];
                     return _buildButton(context, button['text'], button['productType'], state.selectedProductType);
-                  }).toList(),
+                  },
                 ),
               ),
               Container(
@@ -106,3 +114,4 @@ class _CategoryColumnState extends State<CategoryColumn> {
     );
   }
 }
+

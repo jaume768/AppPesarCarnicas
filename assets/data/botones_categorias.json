@@ -3,6 +3,7 @@
     {"text": "Avicola", "productType": "POULTRY"},
     {"text": "Porc", "productType": "PIG"},
     {"text": "Me / Cordero", "productType": "LAMB"},
-    {"text": "Tallat / Desfet", "productType": "CHOPPED"}
+    {"text": "Tallat / Desfet", "productType": "CHOPPED"},
+    {"text": "Conill", "productType": "CONILL"}
   ]
 }

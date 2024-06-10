@@ -51,8 +51,8 @@ class ActionsColumn extends StatelessWidget {
 
   Widget  _buildButton(BuildContext context, String text, String displayText, Color color, bool? isScale, VoidCallback? onPressed) {
     return Container(
-      width: 190,
-      height: 190, // Fixed height for buttons
+      width: 182,
+      height: 182, // Fixed height for buttons
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.black,
@@ -71,7 +71,7 @@ class ActionsColumn extends StatelessWidget {
           child: Text(
             displayText,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 22), // Adjust text size as needed
+            style: TextStyle(fontSize: 21), // Adjust text size as needed
           ),
         ),
       ),
@@ -192,11 +192,11 @@ class ActionsColumn extends StatelessWidget {
 
   Widget _sortingButton(BuildContext context, String text, String sortField, ArticleLoaded state) {
     bool isActive = state.sortField == sortField;
-    bool isAscending = isActive && state.isAscending;
+    bool isAscending = isActive ? state.isAscending : false;
 
     return ElevatedButton(
       onPressed: () {
-        bool newAscending = isActive ? !state.isAscending : true;
+        bool newAscending = isActive ? !state.isAscending : false;
         context.read<ArticleBloc>().add(SortArticles(sortField: sortField, isAscending: newAscending));
       },
       style: ElevatedButton.styleFrom(
@@ -218,6 +218,7 @@ class ActionsColumn extends StatelessWidget {
       ),
     );
   }
+
 
   AlertDialog _errorDialog(BuildContext context, ArticleState state) {
     return AlertDialog(
