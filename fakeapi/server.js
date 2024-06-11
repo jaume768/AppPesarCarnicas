@@ -609,10 +609,10 @@ server.post('/orderPreparation/productList', (req, res) => {
         "name": "Prova",
         "articles": [
           {
-            "id": 21,
-            "code": 21,
-            "name": "Article 21",
-            "observation": "Observation 21",
+            "id": 23,
+            "code": 23,
+            "name": "Article 23",
+            "observation": "Observation 23",
             "units": 2.5,
             "unitType": "KILOS",
             "special": true,
@@ -623,10 +623,10 @@ server.post('/orderPreparation/productList', (req, res) => {
             "isAccepted": false
           },
           {
-            "id": 22,
-            "code": 22,
-            "name": "Article 22",
-            "observation": "Observation 22",
+            "id": 24,
+            "code": 24,
+            "name": "Article 24",
+            "observation": "Observation 24",
             "units": 1.0,
             "unitType": "KILOS",
             "special": false,
@@ -637,10 +637,10 @@ server.post('/orderPreparation/productList', (req, res) => {
             "isAccepted": false
           },
           {
-            "id": 23,
-            "code": 23,
-            "name": "Article 23",
-            "observation": "Observation 23",
+            "id": 25,
+            "code": 25,
+            "name": "Article 25",
+            "observation": "Observation 25",
             "units": 1.0,
             "unitType": "KILOS",
             "special": false,

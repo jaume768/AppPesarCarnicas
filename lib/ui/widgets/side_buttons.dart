@@ -15,13 +15,15 @@ class SideButtons extends StatelessWidget {
   final List<Client> products;
   final VoidCallback onFilterClient;
   final VoidCallback onClearFilter;
-  final PesajeRepository pesajeRepository;  // Repositorio de pesaje para enviar datos
+  final PesajeRepository pesajeRepository;
+  final bool isFilterActive;  // Añadir esta línea
 
   const SideButtons({
     required this.products,
     required this.onFilterClient,
     required this.onClearFilter,
-    required this.pesajeRepository
+    required this.pesajeRepository,
+    required this.isFilterActive,  // Añadir esta línea
   });
 
   @override
@@ -48,7 +50,7 @@ class SideButtons extends StatelessWidget {
       children: [
         Expanded(
           child: _buildButton(context, 'REVISAR COMPLET', Colors.lightBlue, () {
-            _showFunctionalityAlert(context); // Llamada al método que muestra el modal
+            _showFunctionalityAlert(context);
           }),
         ),
         Expanded(
@@ -71,7 +73,7 @@ class SideButtons extends StatelessWidget {
             TextButton(
               child: Text("OK"),
               onPressed: () {
-                Navigator.of(context).pop();  // Cierra el modal al presionar OK
+                Navigator.of(context).pop();
               },
             ),
           ],
@@ -85,7 +87,7 @@ class SideButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Expanded(
-          child: _buildButton(context, 'FILTRAR CLIENT', Colors.green.shade300, onFilterClient),
+          child: _buildButton(context, isFilterActive ? 'QUITAR FILTRO' : 'FILTRAR CLIENT', Colors.green.shade300, isFilterActive ? onClearFilter : onFilterClient),  // Cambiar esta línea
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -140,7 +142,7 @@ class SideButtons extends StatelessWidget {
     return Column(
       children: [
         _buildMandatoryLotSection(context),
-        MultiPesIndicators(),  // Mantén siempre visibles los indicadores Multi Pes
+        MultiPesIndicators(),
         _buildBottomButtons(context),
       ],
     );
@@ -242,7 +244,6 @@ class SideButtons extends StatelessWidget {
       ],
     );
   }
-
 
   Widget _buildCustomButton(String text, Color color, double width, double height, VoidCallback? onPressed) {
     return Container(

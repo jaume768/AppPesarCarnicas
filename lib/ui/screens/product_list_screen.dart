@@ -148,6 +148,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                         onFilterClient: () => _filterClient(context),
                         onClearFilter: _clearFilter,
                         pesajeRepository: widget.pesajeRepository,
+                        isFilterActive: selectedClient != null,  // Añadir esta línea
                       ),
                     ),
                   ],
