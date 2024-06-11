@@ -16,14 +16,14 @@ class SideButtons extends StatelessWidget {
   final VoidCallback onFilterClient;
   final VoidCallback onClearFilter;
   final PesajeRepository pesajeRepository;
-  final bool isFilterActive;  // Añadir esta línea
+  final bool isFilterActive;
 
   const SideButtons({
     required this.products,
     required this.onFilterClient,
     required this.onClearFilter,
     required this.pesajeRepository,
-    required this.isFilterActive,  // Añadir esta línea
+    required this.isFilterActive,
   });
 
   @override
@@ -87,7 +87,7 @@ class SideButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Expanded(
-          child: _buildButton(context, isFilterActive ? 'QUITAR FILTRO' : 'FILTRAR CLIENT', Colors.green.shade300, isFilterActive ? onClearFilter : onFilterClient),  // Cambiar esta línea
+          child: _buildButton(context, isFilterActive ? 'QUITAR FILTRO' : 'FILTRAR CLIENT', Colors.green.shade300, isFilterActive ? onClearFilter : onFilterClient),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -214,7 +214,13 @@ class SideButtons extends StatelessWidget {
                     ((productState.isMandatoryLot && productState.lotNumber > 0) ||
                         !productState.isMandatoryLot);
 
-                bool isAcceptButtonEnabled = isWeightStable && isLotValid;
+                bool isPendingOrMarked = productState is ProductLoaded &&
+                    (productState.pendingArticles.contains(productState.selectedArticle) ||
+                        products.any((product) =>
+                            product.articles.any((article) =>
+                            article.id == productState.selectedArticle && article.isMarket)));
+
+                bool isAcceptButtonEnabled = isWeightStable && isLotValid && !isPendingOrMarked;
 
                 return _buildCustomButton(
                   'Aceptar Pesada,\ngravar, imprimir',

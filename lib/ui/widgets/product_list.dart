@@ -61,26 +61,51 @@ class ProductListTable extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("El producte s'ha marcat com a pendent"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                final productState = BlocProvider.of<ProductBloc>(context).state;
-                for (var product in products) {
-                  for (var articulo in product.articles) {
-                    if (articulo.isMarket && productState.selectedArticle == articulo.code) {
-                      articulo.isMarket = false;
-                      BlocProvider.of<ProductBloc>(context).add(MarkAsPending(productState.selectedArticle, false));
-                      Navigator.of(context).pop();
-                      return;
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  final productState = BlocProvider.of<ProductBloc>(context).state;
+                  for (var product in products) {
+                    for (var articulo in product.articles) {
+                      if (articulo.isMarket && productState.selectedArticle == articulo.code) {
+                        articulo.isMarket = false;
+                        BlocProvider.of<ProductBloc>(context).add(MarkAsPending(productState.selectedArticle, false));
+                        Navigator.of(context).pop();
+                        return;
+                      }
                     }
                   }
-                }
-                BlocProvider.of<ProductBloc>(context).add(MarkAsPending(productState.selectedArticle, true));
-                Navigator.of(context).pop();
-              },
-              child: Text("Llevar pendent"),
-            ),
-          ],
+                  BlocProvider.of<ProductBloc>(context).add(MarkAsPending(articleId, false));
+                  Navigator.of(context).pop();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                ),
+                child: Text(
+                    "Llevar pendent",
+                    style: TextStyle(color: Colors.black, fontSize: 18)
+                ),
+              ),
+              SizedBox(height: 10),
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: Text(
+                      "Tancar",
+                      style: TextStyle(color: Colors.black, fontSize: 18)
+                  ),
+                ),
+              ),
+            ],
+          ),
         );
       },
     );
