@@ -182,6 +182,7 @@ class SideButtons extends StatelessWidget {
     );
   }
 
+
   void _showLotNumberModal(BuildContext context) {
     showDialog(
       context: context,

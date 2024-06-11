@@ -15,7 +15,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           event.isSpecial,
           event.isMandatoryLot,
           currentState.acceptedArticles,
-          currentState.lotNumber,
+          0,
           event.clientCode,
           currentState.pendingArticles,
         ));
