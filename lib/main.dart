@@ -14,9 +14,12 @@ import 'package:flutterprova/structure/bloc/locale_bloc/locale_bloc.dart';
 import 'package:flutterprova/structure/bloc/pesaje/pesaje_bloc.dart';
 import 'package:flutterprova/structure/bloc/products/products_bloc.dart';
 import 'package:flutterprova/ui/screens/carniceria_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
-  final apiService = ApiService(baseUrl: 'http://10.0.2.2:3000');
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
+
+  final apiService = ApiService(baseUrl: dotenv.env['BASE_URL']!);
   final carniceriaRepository = CarniceriaRepository(apiService: apiService);
   final configurationRepository = ConfigurationRepository(apiService: apiService);
   final productRepository = ProductRepository(apiService: apiService);
@@ -69,15 +72,15 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Carnisseria',
         debugShowCheckedModeBanner: false,
-        locale: Locale('ca', 'ES'), // Locale específico para catalán
+        locale: Locale('ca', 'ES'),
         supportedLocales: [
-          Locale('ca', 'ES'),  // Solo se soporta catalán
+          Locale('ca', 'ES'),
         ],
         localizationsDelegates: const [
-          AppLocalizations.delegate, // Tus localizaciones personalizadas
+          AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate, // Incluir si usas elementos específicos de Cupertino
+          GlobalCupertinoLocalizations.delegate,
         ],
         theme: ThemeData(
           primarySwatch: Colors.blue,
