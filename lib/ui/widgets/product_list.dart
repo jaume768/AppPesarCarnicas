@@ -55,6 +55,37 @@ class ProductListTable extends StatelessWidget {
     }
   }
 
+  Future<void> _showPendingModal(BuildContext context, int articleId) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("El producte s'ha marcat com a pendent"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                final productState = BlocProvider.of<ProductBloc>(context).state;
+                for (var product in products) {
+                  for (var articulo in product.articles) {
+                    if (articulo.isMarket && productState.selectedArticle == articulo.code) {
+                      articulo.isMarket = false;
+                      BlocProvider.of<ProductBloc>(context).add(MarkAsPending(productState.selectedArticle, false));
+                      Navigator.of(context).pop();
+                      return;
+                    }
+                  }
+                }
+                BlocProvider.of<ProductBloc>(context).add(MarkAsPending(productState.selectedArticle, true));
+                Navigator.of(context).pop();
+              },
+              child: Text("Llevar pendent"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductBloc, ProductState>(
@@ -98,9 +129,9 @@ class ProductListTable extends StatelessWidget {
                     DataRow(
                       color: MaterialStateProperty.resolveWith<Color?>(
                             (Set<MaterialState> states) {
-                              if (productState.selectedArticle == articleId && article.isMarket) {
-                                return Colors.red[400];
-                              }
+                          if (productState.selectedArticle == articleId && article.isMarket) {
+                            return Colors.red[400];
+                          }
                           if (productState.selectedArticle == articleId && productState.pendingArticles.contains(articleId) ) {
                             return Colors.red[400];
                           }
@@ -121,7 +152,21 @@ class ProductListTable extends StatelessWidget {
                         DataCell(
                             InkWell(
                               onTap: () {
-                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(article.id, article.special, article.mandatoryLot, product.code));
+                                if (productState.pendingArticles.contains(articleId) || article.isMarket) {
+                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
+                                  _showPendingModal(context, articleId);
+                                } else if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
+                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
+                                  _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId);
+                                } else {
+                                  if (productState.selectedArticle == articleId) {
+                                    BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
+                                    BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
+                                  } else {
+                                    BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
+                                    BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
+                                  }
+                                }
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -134,10 +179,12 @@ class ProductListTable extends StatelessWidget {
                         DataCell(
                           InkWell(
                             onTap: () {
-
-                              if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
+                              if (productState.pendingArticles.contains(articleId) || article.isMarket) {
                                 BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
-                                _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId); // Usar la función para mostrar el modal
+                                _showPendingModal(context, articleId);
+                              } else if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
+                                _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId);
                               } else {
                                 if (productState.selectedArticle == articleId) {
                                   BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
@@ -166,9 +213,12 @@ class ProductListTable extends StatelessWidget {
                         DataCell(
                           InkWell(
                             onTap: () {
-                              if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
+                              if (productState.pendingArticles.contains(articleId) || article.isMarket) {
                                 BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
-                                _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId); // Usar la función para mostrar el modal
+                                _showPendingModal(context, articleId);
+                              } else if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
+                                _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId);
                               } else {
                                 if (productState.selectedArticle == articleId) {
                                   BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
@@ -197,9 +247,12 @@ class ProductListTable extends StatelessWidget {
                         DataCell(
                           InkWell(
                             onTap: () {
-                              if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
+                              if (productState.pendingArticles.contains(articleId) || article.isMarket) {
                                 BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
-                                _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId); // Usar la función para mostrar el modal
+                                _showPendingModal(context, articleId);
+                              } else if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
+                                _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId);
                               } else {
                                 if (productState.selectedArticle == articleId) {
                                   BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
