@@ -169,7 +169,7 @@ class ProductListTable extends StatelessWidget {
                             return Colors.blue[400];
                           }
                           if (productState.selectedArticle == articleId) {
-                            return Colors.grey[300];
+                            return Colors.grey[400];
                           }
                           return null;
                         },
@@ -185,13 +185,8 @@ class ProductListTable extends StatelessWidget {
                                 BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
                                 _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId);
                               } else {
-                                if (productState.selectedArticle == articleId) {
-                                  BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
-                                  BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
-                                } else {
-                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
-                                  BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
-                                }
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
+                                BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
                               }
                             },
                             child: Container(
@@ -215,13 +210,8 @@ class ProductListTable extends StatelessWidget {
                                 BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
                                 _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId);
                               } else {
-                                if (productState.selectedArticle == articleId) {
-                                  BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
-                                  BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
-                                } else {
-                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
-                                  BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
-                                }
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
+                                BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
                               }
                             },
                             child: Center(
@@ -249,13 +239,8 @@ class ProductListTable extends StatelessWidget {
                                 BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
                                 _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId);
                               } else {
-                                if (productState.selectedArticle == articleId) {
-                                  BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
-                                  BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
-                                } else {
-                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
-                                  BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
-                                }
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
+                                BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
                               }
                             },
                             child: Center(
@@ -283,13 +268,8 @@ class ProductListTable extends StatelessWidget {
                                 BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
                                 _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId);
                               } else {
-                                if (productState.selectedArticle == articleId) {
-                                  BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
-                                  BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
-                                } else {
-                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
-                                  BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
-                                }
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
+                                BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
                               }
                             },
                             child: Center(
