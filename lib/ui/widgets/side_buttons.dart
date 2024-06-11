@@ -160,10 +160,6 @@ class SideButtons extends StatelessWidget {
                 SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () => _showLotNumberModal(context),
-                  child: Text(
-                    state.lotNumber == 0 ? 'S/N' : state.lotNumber.toString(),
-                    style: TextStyle(color: Colors.black, fontSize: 24),
-                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.pink,
                     minimumSize: Size(100, 60),
@@ -171,6 +167,10 @@ class SideButtons extends StatelessWidget {
                       borderRadius: BorderRadius.circular(0),
                     ),
                     side: BorderSide(color: Colors.black, width: 1),
+                  ),
+                  child: Text(
+                    state.lotNumber == 0 ? 'S/N' : state.lotNumber.toString(),
+                    style: TextStyle(color: Colors.black, fontSize: 24),
                   ),
                 ),
               ],
@@ -216,9 +216,10 @@ class SideButtons extends StatelessWidget {
 
                 bool isPendingOrMarked = productState is ProductLoaded &&
                     (productState.pendingArticles.contains(productState.selectedArticle) ||
+                        productState.acceptedArticles.contains(productState.selectedArticle) ||
                         products.any((product) =>
                             product.articles.any((article) =>
-                            article.id == productState.selectedArticle && article.isMarket)));
+                            article.id == productState.selectedArticle && (article.isMarket || article.isAccepted))));
 
                 bool isAcceptButtonEnabled = isWeightStable && isLotValid && !isPendingOrMarked;
 
@@ -251,16 +252,13 @@ class SideButtons extends StatelessWidget {
     );
   }
 
+
+
   Widget _buildCustomButton(String text, Color color, double width, double height, VoidCallback? onPressed) {
     return Container(
       margin: EdgeInsets.only(right: 50),
       child: ElevatedButton(
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: TextStyle(color: Colors.black, fontSize: 24),
-          textAlign: TextAlign.center,
-        ),
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
           minimumSize: Size(width, height),
@@ -268,6 +266,11 @@ class SideButtons extends StatelessWidget {
             borderRadius: BorderRadius.circular(0),
           ),
           side: BorderSide(color: Colors.black, width: 1),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(color: Colors.black, fontSize: 24),
+          textAlign: TextAlign.center,
         ),
       ),
     );
@@ -281,17 +284,17 @@ class SideButtons extends StatelessWidget {
         height: 60,
         child: ElevatedButton(
           onPressed: onPressed,
-          child: Text(
-            text,
-            style: TextStyle(color: Colors.black, fontSize: 17),
-            textAlign: TextAlign.center,
-          ),
           style: ElevatedButton.styleFrom(
             backgroundColor: color,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(0),
             ),
             side: BorderSide(color: Colors.black, width: 1),
+          ),
+          child: Text(
+            text,
+            style: TextStyle(color: Colors.black, fontSize: 17),
+            textAlign: TextAlign.center,
           ),
         ),
       ),
