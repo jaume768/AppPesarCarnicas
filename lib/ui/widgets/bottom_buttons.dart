@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../data/repositories/pesaje_repository.dart';
 import '../../data/services/api_service.dart';
 import '../../structure/bloc/carniceria/carniceria_bloc.dart';
@@ -51,11 +52,11 @@ class BottomButtons extends StatelessWidget {
                 );
               });
             } else {
-              String errorMessage = 'Selecciona:';
-              if (!isCategorySelected) errorMessage += '\n- Una categoría';
-              if (!isScaleSelected) errorMessage += '\n- Una báscula';
-              if (!isPrinterSelected) errorMessage += '\n- Una impresora';
-              if (!isAnyOptionSelected) errorMessage += '\n- Al menos un resumen';
+              String errorMessage = AppLocalizations.of(context)!.selectItems;
+              if (!isCategorySelected) errorMessage += '\n- ' + AppLocalizations.of(context)!.aCategory;
+              if (!isScaleSelected) errorMessage += '\n- ' + AppLocalizations.of(context)!.aScale;
+              if (!isPrinterSelected) errorMessage += '\n- ' + AppLocalizations.of(context)!.aPrinter;
+              if (!isAnyOptionSelected) errorMessage += '\n- ' + AppLocalizations.of(context)!.atLeastOneSummary;
 
               showDialog(
                 context: context,
@@ -65,7 +66,7 @@ class BottomButtons extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     title: Text(
-                      'Error',
+                      AppLocalizations.of(context)!.error,
                       style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                     content: Text(
@@ -84,7 +85,7 @@ class BottomButtons extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          'Cerrar',
+                          AppLocalizations.of(context)!.close,
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       ),
@@ -95,7 +96,7 @@ class BottomButtons extends StatelessWidget {
             }
           },
           icon: Icon(Icons.check, color: Colors.black),
-          label: Text('Aceptar', style: TextStyle(color: Colors.black, fontSize: 27)),
+          label: Text(AppLocalizations.of(context)!.accept, style: TextStyle(color: Colors.black, fontSize: 27)),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
             padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(vertical: 10, horizontal: 20)),

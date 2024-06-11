@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../structure/bloc/configuration/configuration_bloc.dart';
 import '../../structure/bloc/configuration/configuration_event.dart';
 import '../../structure/bloc/configuration/configuration_state.dart';
@@ -18,8 +19,10 @@ class ActionsColumn extends StatelessWidget {
               SizedBox(height: 60),
               _buildButton(
                 context,
-                'Seleccionar Báscula',
-                state.selectedScale != null ? 'Seleccionada: ${state.selectedScale['name']}' : 'Seleccionar Báscula',
+                AppLocalizations.of(context)!.selectScale,
+                state.selectedScale != null
+                    ? AppLocalizations.of(context)!.scaleSelected(state.selectedScale['name'])
+                    : AppLocalizations.of(context)!.selectScale,
                 Colors.lightBlue,
                 true,
                 null,
@@ -27,8 +30,10 @@ class ActionsColumn extends StatelessWidget {
               SizedBox(height: 10),
               _buildButton(
                 context,
-                'Seleccionar Impresora',
-                state.selectedPrinter != null ? 'Seleccionada: ${state.selectedPrinter['name']}' : 'Seleccionar Impresora',
+                AppLocalizations.of(context)!.selectPrinter,
+                state.selectedPrinter != null
+                    ? AppLocalizations.of(context)!.printerSelected(state.selectedPrinter['name'])
+                    : AppLocalizations.of(context)!.selectPrinter,
                 Colors.pink,
                 false,
                 null,
@@ -36,8 +41,8 @@ class ActionsColumn extends StatelessWidget {
               SizedBox(height: 10),
               _buildButton(
                 context,
-                'Veure Totals x Article',
-                'Veure Totals x Article',
+                AppLocalizations.of(context)!.viewTotalsByArticle,
+                AppLocalizations.of(context)!.viewTotalsByArticle,
                 Colors.red,
                 null,
                     () => _showArticlesDialog(context),
@@ -49,7 +54,7 @@ class ActionsColumn extends StatelessWidget {
     );
   }
 
-  Widget  _buildButton(BuildContext context, String text, String displayText, Color color, bool? isScale, VoidCallback? onPressed) {
+  Widget _buildButton(BuildContext context, String text, String displayText, Color color, bool? isScale, VoidCallback? onPressed) {
     return Container(
       width: 182,
       height: 182, // Fixed height for buttons
@@ -91,7 +96,7 @@ class ActionsColumn extends StatelessWidget {
 
             final items = isScale ? state.scales : state.printers;
             return AlertDialog(
-              title: Text(isScale ? 'Seleccionar Báscula' : 'Seleccionar Impresora'),
+              title: Text(isScale ? AppLocalizations.of(context)!.selectScale : AppLocalizations.of(context)!.selectPrinter),
               content: SingleChildScrollView(
                 child: ListBody(
                   children: items.map((item) {
@@ -129,7 +134,7 @@ class ActionsColumn extends StatelessWidget {
                 return Center(child: CircularProgressIndicator());
               } else if (state is ArticleLoaded) {
                 return AlertDialog(
-                  title: Text('Veure Totals x Article'),
+                  title: Text(AppLocalizations.of(context)!.viewTotalsByArticle),
                   content: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -143,7 +148,7 @@ class ActionsColumn extends StatelessWidget {
                           ],
                         ),
                         DataTable(
-                          columns: const [
+                          columns: [
                             DataColumn(label: Text('Codi')),
                             DataColumn(label: Text('Descripció')),
                             DataColumn(label: Text('Kgs')),
@@ -170,7 +175,7 @@ class ActionsColumn extends StatelessWidget {
                   actions: [
                     ElevatedButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: Text('Cerrar'),
+                      child: Text(AppLocalizations.of(context)!.close),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
                         foregroundColor: Colors.white,
@@ -219,15 +224,14 @@ class ActionsColumn extends StatelessWidget {
     );
   }
 
-
   AlertDialog _errorDialog(BuildContext context, ArticleState state) {
     return AlertDialog(
-      title: Text('Error'),
+      title: Text(AppLocalizations.of(context)!.error),
       content: Text(state is ArticleError ? state.message : 'Error desconocido'),
       actions: [
         ElevatedButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text('Cerrar'),
+          child: Text(AppLocalizations.of(context)!.close),
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.red,
             foregroundColor: Colors.white,
@@ -242,12 +246,12 @@ class ActionsColumn extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Error'),
-          content: Text('Selecciona una categoria'),
+          title: Text(AppLocalizations.of(context)!.error),
+          content: Text(AppLocalizations.of(context)!.selectCategory),
           actions: [
             ElevatedButton(
-              onPressed: () => Navigator.of(context). pop(),
-              child: Text('Cerrar'),
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(AppLocalizations.of(context)!.close),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
                 foregroundColor: Colors.white,

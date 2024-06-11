@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../data/repositories/pesaje_repository.dart';
 import '../../structure/bloc/pesaje/pesaje_event.dart';
 import '../../structure/bloc/products/products_bloc.dart';
@@ -32,17 +33,17 @@ class ProductListTable extends StatelessWidget {
             productObservation: articleObservation,
             weight: weight,
             onConfirm: () {
-              for(var product in products){
-                for(var articulo in product.articles){
-                  if(articulo.isAccepted && productState.selectedArticle == articulo.code){
+              for (var product in products) {
+                for (var articulo in product.articles) {
+                  if (articulo.isAccepted && productState.selectedArticle == articulo.code) {
                     articulo.isAccepted = false;
-                    BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle,false));
+                    BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle, false));
                     Navigator.of(context).pop();
                     return;
                   }
                 }
               }
-              BlocProvider.of<ProductBloc>(context).add(AcceptArticle(articleId,true));
+              BlocProvider.of<ProductBloc>(context).add(AcceptArticle(articleId, true));
               Navigator.of(context).pop();
             },
           );
@@ -50,7 +51,7 @@ class ProductListTable extends StatelessWidget {
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al obtener el peso del artículo: $e')),
+        SnackBar(content: Text(AppLocalizations.of(context)!.errorFetchingWeight(e.toString()))),
       );
     }
   }
@@ -60,7 +61,7 @@ class ProductListTable extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("El producte s'ha marcat com a pendent"),
+          title: Text(AppLocalizations.of(context)!.markedAsPending),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -84,8 +85,8 @@ class ProductListTable extends StatelessWidget {
                   backgroundColor: Colors.red,
                 ),
                 child: Text(
-                    "Llevar pendent",
-                    style: TextStyle(color: Colors.black, fontSize: 18)
+                  AppLocalizations.of(context)!.removePending,
+                  style: TextStyle(color: Colors.black, fontSize: 18),
                 ),
               ),
               SizedBox(height: 10),
@@ -99,8 +100,8 @@ class ProductListTable extends StatelessWidget {
                     backgroundColor: Colors.blue,
                   ),
                   child: Text(
-                      "Tancar",
-                      style: TextStyle(color: Colors.black, fontSize: 18)
+                    AppLocalizations.of(context)!.close,
+                    style: TextStyle(color: Colors.black, fontSize: 18),
                   ),
                 ),
               ),
@@ -157,7 +158,7 @@ class ProductListTable extends StatelessWidget {
                           if (productState.selectedArticle == articleId && article.isMarket) {
                             return Colors.red[400];
                           }
-                          if (productState.selectedArticle == articleId && productState.pendingArticles.contains(articleId) ) {
+                          if (productState.selectedArticle == articleId && productState.pendingArticles.contains(articleId)) {
                             return Colors.red[400];
                           }
                           if (productState.pendingArticles.contains(articleId) || article.isMarket) {
@@ -175,47 +176,50 @@ class ProductListTable extends StatelessWidget {
                       ),
                       cells: [
                         DataCell(
-                            InkWell(
-                              onTap: () {
-                                if (productState.pendingArticles.contains(articleId) || article.isMarket) {
-                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
-                                  _showPendingModal(context, articleId);
-                                } else if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
-                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
-                                  _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId);
-                                } else {
-                                  if (productState.selectedArticle == articleId) {
-                                    BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
-                                    BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
-                                  } else {
-                                    BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
-                                    BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
-                                  }
-                                }
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.symmetric(vertical: 20),
-                                width: double.infinity,
-                                child: Text(article.special ? 'X' : '', style: TextStyle(color: Colors.black, fontSize: 18),),
-                              ),
-                            )
-                        ),
-                        DataCell(
                           InkWell(
                             onTap: () {
                               if (productState.pendingArticles.contains(articleId) || article.isMarket) {
-                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
                                 _showPendingModal(context, articleId);
                               } else if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
-                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
                                 _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId);
                               } else {
                                 if (productState.selectedArticle == articleId) {
                                   BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
                                   BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
                                 } else {
-                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
+                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
+                                  BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
+                                }
+                              }
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(vertical: 20),
+                              width: double.infinity,
+                              child: Text(
+                                article.special ? 'X' : '',
+                                style: TextStyle(color: Colors.black, fontSize: 18),
+                              ),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          InkWell(
+                            onTap: () {
+                              if (productState.pendingArticles.contains(articleId) || article.isMarket) {
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
+                                _showPendingModal(context, articleId);
+                              } else if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
+                                _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId);
+                              } else {
+                                if (productState.selectedArticle == articleId) {
+                                  BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
+                                  BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
+                                } else {
+                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
                                   BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
                                 }
                               }
@@ -239,17 +243,17 @@ class ProductListTable extends StatelessWidget {
                           InkWell(
                             onTap: () {
                               if (productState.pendingArticles.contains(articleId) || article.isMarket) {
-                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
                                 _showPendingModal(context, articleId);
                               } else if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
-                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
                                 _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId);
                               } else {
                                 if (productState.selectedArticle == articleId) {
                                   BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
                                   BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
                                 } else {
-                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
+                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
                                   BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
                                 }
                               }
@@ -273,17 +277,17 @@ class ProductListTable extends StatelessWidget {
                           InkWell(
                             onTap: () {
                               if (productState.pendingArticles.contains(articleId) || article.isMarket) {
-                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
                                 _showPendingModal(context, articleId);
                               } else if (productState.acceptedArticles.contains(articleId) || article.isAccepted) {
-                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
+                                BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
                                 _showConfirmDeleteModal(context, product.name, article.name, article.observation, articleId);
                               } else {
                                 if (productState.selectedArticle == articleId) {
                                   BlocProvider.of<ProductBloc>(context).add(DeselectArticle(articleId));
                                   BlocProvider.of<PesajeBloc>(context).add(StopPesajeMonitoring());
                                 } else {
-                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot,product.code));
+                                  BlocProvider.of<ProductBloc>(context).add(SelectArticle(articleId, article.special, article.mandatoryLot, product.code));
                                   BlocProvider.of<PesajeBloc>(context).add(StartPesajeMonitoring());
                                 }
                               }
@@ -334,15 +338,15 @@ class ProductListTable extends StatelessWidget {
                                 top: BorderSide(color: Colors.black, width: 2),
                                 left: BorderSide(color: Colors.black, width: 2),
                               ),
-                              columns: const [
-                                DataColumn(label: Text('BLOC', style: TextStyle(color: Colors.black, fontSize: 20,), textAlign: TextAlign.center)),
-                                DataColumn(label: Text('QUANT.', style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
-                                DataColumn(label: Text('UNI', style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
-                                DataColumn(label: Text('CLIENT/ PRODUCTE', style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
+                              columns: [
+                                DataColumn(label: Text(AppLocalizations.of(context)!.block, style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
+                                DataColumn(label: Text(AppLocalizations.of(context)!.quantity, style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
+                                DataColumn(label: Text(AppLocalizations.of(context)!.unit, style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
+                                DataColumn(label: Text(AppLocalizations.of(context)!.clientProduct, style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
                               ],
                               rows: rows,
                             ),
-                            Expanded(child: Container()),  // This ensures the DataTable stays at the top
+                            Expanded(child: Container()), // This ensures the DataTable stays at the top
                           ],
                         ),
                       ),
@@ -351,7 +355,7 @@ class ProductListTable extends StatelessWidget {
                 },
               );
             } else {
-              return Center(child: Text('No se han cargado los productos'));
+              return Center(child: Text(AppLocalizations.of(context)!.productsNotLoaded));
             }
           },
         );

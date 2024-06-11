@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../structure/bloc/carniceria/carniceria_bloc.dart';
 import '../../structure/bloc/carniceria/carniceria_event.dart';
 import '../../structure/bloc/carniceria/carniceria_state.dart';
@@ -12,15 +13,20 @@ class SummaryColumn extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 70),
-          const Text(
-            'RESUM',
+          Text(
+            AppLocalizations.of(context)!.summary,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32), // Aumenta el tamaño del texto
           ),
           Expanded(
             child: BlocBuilder<CarniceriaBloc, CarniceriaState>(
               builder: (context, state) {
                 if (state.selectedProductType == null) {
-                  return Center(child: Text("Seleccione una categoría", style: TextStyle(fontSize: 18))); // Aumenta el tamaño del texto
+                  return Center(
+                    child: Text(
+                      AppLocalizations.of(context)!.selectCategory,
+                      style: TextStyle(fontSize: 18), // Aumenta el tamaño del texto
+                    ),
+                  );
                 }
 
                 final options = state.optionsMap[state.selectedProductType!] ?? [];
@@ -47,7 +53,12 @@ class SummaryColumn extends StatelessWidget {
                         ),
                       );
                     } else {
-                      return Center(child: Text("No hay opciones disponibles.", style: TextStyle(fontSize: 18))); // Aumenta el tamaño del texto
+                      return Center(
+                        child: Text(
+                          AppLocalizations.of(context)!.noOptionsAvailable,
+                          style: TextStyle(fontSize: 18), // Aumenta el tamaño del texto
+                        ),
+                      );
                     }
                   },
                 );

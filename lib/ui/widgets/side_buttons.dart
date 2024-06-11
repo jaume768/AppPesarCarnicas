@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../data/repositories/pesaje_repository.dart';
 import '../../structure/bloc/products/products_bloc.dart';
 import '../../structure/bloc/products/products_event.dart';
@@ -49,12 +50,12 @@ class SideButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          child: _buildButton(context, 'REVISAR COMPLET', Colors.lightBlue, () {
+          child: _buildButton(context, AppLocalizations.of(context)!.reviewComplete, Colors.lightBlue, () {
             _showFunctionalityAlert(context);
           }),
         ),
         Expanded(
-          child: _buildButton(context, 'CANVIAR CONFIGURACIÓ', Colors.yellow.shade300, () {
+          child: _buildButton(context, AppLocalizations.of(context)!.changeConfiguration, Colors.yellow.shade300, () {
             Navigator.pop(context);
           }),
         ),
@@ -67,8 +68,8 @@ class SideButtons extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Alerta"),
-          content: Text("Falta funcionalidad, avisa a informática"),
+          title: Text(AppLocalizations.of(context)!.alert),
+          content: Text(AppLocalizations.of(context)!.missingFunctionality),
           actions: <Widget>[
             TextButton(
               child: Text("OK"),
@@ -87,7 +88,7 @@ class SideButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Expanded(
-          child: _buildButton(context, isFilterActive ? 'QUITAR FILTRO' : 'FILTRAR CLIENT', Colors.green.shade300, isFilterActive ? onClearFilter : onFilterClient),
+          child: _buildButton(context, isFilterActive ? AppLocalizations.of(context)!.removeFilter : AppLocalizations.of(context)!.filterClient, Colors.green.shade300, isFilterActive ? onClearFilter : onFilterClient),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -102,7 +103,7 @@ class SideButtons extends StatelessWidget {
   }
 
   Widget _buildMarkAsPendingButton(BuildContext context) {
-    return _buildButton(context, 'MARCAR PENDENT', Colors.grey.shade300, () {
+    return _buildButton(context, AppLocalizations.of(context)!.markPending, Colors.grey.shade300, () {
       final currentState = BlocProvider.of<ProductBloc>(context).state;
       if (currentState is ProductLoaded) {
         for (var product in products) {
@@ -122,7 +123,7 @@ class SideButtons extends StatelessWidget {
   Widget _buildBlocButton(BuildContext context) {
     return BlocBuilder<ProductBloc, ProductState>(
       builder: (context, state) {
-        final buttonText = (state is ProductLoaded && state.isSpecial) ? 'ETIQUETA BLOC' : 'PES PRODUCTE';
+        final buttonText = (state is ProductLoaded && state.isSpecial) ? AppLocalizations.of(context)!.blockLabel : AppLocalizations.of(context)!.productWeight;
         return _buildButton(
           context,
           buttonText,
@@ -156,7 +157,7 @@ class SideButtons extends StatelessWidget {
             margin: EdgeInsets.only(bottom: 20, left: 165),
             child: Row(
               children: [
-                Text('LOT:', style: TextStyle(color: Colors.black, fontSize: 24)),
+                Text(AppLocalizations.of(context)!.lot, style: TextStyle(color: Colors.black, fontSize: 24)),
                 SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () => _showLotNumberModal(context),
@@ -169,7 +170,7 @@ class SideButtons extends StatelessWidget {
                     side: BorderSide(color: Colors.black, width: 1),
                   ),
                   child: Text(
-                    state.lotNumber == 0 ? 'S/N' : state.lotNumber.toString(),
+                    state.lotNumber == 0 ? AppLocalizations.of(context)!.sn : state.lotNumber.toString(),
                     style: TextStyle(color: Colors.black, fontSize: 24),
                   ),
                 ),
@@ -181,7 +182,6 @@ class SideButtons extends StatelessWidget {
       },
     );
   }
-
 
   void _showLotNumberModal(BuildContext context) {
     showDialog(
@@ -199,7 +199,7 @@ class SideButtons extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        _buildCustomButton('Multi Pes', Colors.pink, 100, 100, () {
+        _buildCustomButton(AppLocalizations.of(context)!.multiWeight, Colors.pink, 100, 100, () {
           BlocProvider.of<PesajeBloc>(context).add(AccumulateWeight());
           BlocProvider.of<PesajeBloc>(context).add(IncrementCount());
         }),
@@ -225,7 +225,7 @@ class SideButtons extends StatelessWidget {
                 bool isAcceptButtonEnabled = isWeightStable && isLotValid && !isPendingOrMarked;
 
                 return _buildCustomButton(
-                  'Aceptar Pesada,\ngravar, imprimir',
+                  AppLocalizations.of(context)!.acceptWeightRecordPrint,
                   isAcceptButtonEnabled ? Colors.blueAccent : Colors.grey,
                   200,
                   100,
@@ -240,7 +240,7 @@ class SideButtons extends StatelessWidget {
                       BlocProvider.of<ProductBloc>(context).add(AcceptArticle(productState.selectedArticle, true));
                     } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Error al enviar el peso: ${e.toString()}')),
+                        SnackBar(content: Text(AppLocalizations.of(context)!.errorSendingWeight(e.toString()))),
                       );
                     }
                   } : null,
@@ -252,8 +252,6 @@ class SideButtons extends StatelessWidget {
       ],
     );
   }
-
-
 
   Widget _buildCustomButton(String text, Color color, double width, double height, VoidCallback? onPressed) {
     return Container(

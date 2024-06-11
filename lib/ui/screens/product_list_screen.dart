@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../data/repositories/pesaje_repository.dart';
 import '../../structure/bloc/carniceria/carniceria_bloc.dart';
 import '../../structure/bloc/carniceria/carniceria_state.dart';
@@ -34,7 +35,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 .toList();
 
             return AlertDialog(
-              title: Text('Seleccionar Cliente'),
+              title: Text(AppLocalizations.of(context)!.selectClient),
               content: Container(
                 width: MediaQuery.of(context).size.width * 0.3,
                 child: Column(
@@ -42,7 +43,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     TextField(
                       controller: _searchController,
                       decoration: InputDecoration(
-                        labelText: 'Buscar Cliente',
+                        labelText: AppLocalizations.of(context)!.searchClient,
                       ),
                       onChanged: (value) {
                         setState(() {
@@ -83,20 +84,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    setState(() {
-                      selectedClient = null;
-                      filter = '';
-                      _searchController.clear();
-                    });
                     Navigator.pop(context);
                   },
-                  child: Text('Quitar Filtro'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text('Cancelar'),
+                  child: Text(AppLocalizations.of(context)!.cancel),
                 ),
               ],
             );
@@ -120,7 +110,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       body: BlocBuilder<CarniceriaBloc, CarniceriaState>(
         builder: (context, state) {
           if (state.products.isEmpty) {
-            return Center(child: Text('No hay productos disponibles'));
+            return Center(child: Text(AppLocalizations.of(context)!.noProductsAvailable));
           }
 
           return Column(
@@ -161,3 +151,4 @@ class _ProductListScreenState extends State<ProductListScreen> {
     );
   }
 }
+

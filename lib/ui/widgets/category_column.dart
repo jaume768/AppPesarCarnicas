@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../structure/bloc/carniceria/carniceria_bloc.dart';
 import '../../structure/bloc/carniceria/carniceria_event.dart';
 import '../../structure/bloc/carniceria/carniceria_state.dart';
@@ -33,14 +34,13 @@ class _CategoryColumnState extends State<CategoryColumn> {
     return Expanded(
       child: BlocBuilder<CarniceriaBloc, CarniceriaState>(
         builder: (context, state) {
-          // Evaluar si se necesita scroll basado en el número de botones
           bool shouldScroll = buttons.length > 6;
 
           return Column(
             children: [
               Expanded(
                 child: GridView.builder(
-                  physics: shouldScroll ? null : NeverScrollableScrollPhysics(), // Deshabilita el scroll si no es necesario
+                  physics: shouldScroll ? null : NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 1.1,
@@ -57,7 +57,7 @@ class _CategoryColumnState extends State<CategoryColumn> {
               ),
               Container(
                 margin: EdgeInsets.only(top: 60),
-                child: _buildSwitch(context, 'CARNICERIA    ', state.isButchery),
+                child: _buildSwitch(context, AppLocalizations.of(context)!.butchershop, state.isButchery),
               ),
             ],
           );
@@ -99,19 +99,21 @@ class _CategoryColumnState extends State<CategoryColumn> {
       children: [
         Text(
           text,
-          style: TextStyle(fontSize: 26),
+          style: TextStyle(fontSize: 30),
         ),
-        Transform.scale(
-          scale: 1.4,
-          child: Switch(
-            value: isButchery,
-            onChanged: (value) {
-              context.read<CarniceriaBloc>().add(ToggleButchery(value));
-            },
+        Padding(
+          padding: const EdgeInsets.only(left: 15.0), // Aquí se añade el margen izquierdo
+          child: Transform.scale(
+            scale: 1.4,
+            child: Switch(
+              value: isButchery,
+              onChanged: (value) {
+                context.read<CarniceriaBloc>().add(ToggleButchery(value));
+              },
+            ),
           ),
         ),
       ],
     );
   }
 }
-

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConfirmDeleteModal extends StatelessWidget {
   final String clientName;
@@ -23,22 +24,22 @@ class ConfirmDeleteModal extends StatelessWidget {
         borderRadius: BorderRadius.circular(15.0),
       ),
       title: Text(
-        "El producte seleccionat ja està pesat i etiquetat.\nSi voleu canviar el pes és necessari borrar la pesada.",
+        AppLocalizations.of(context)!.productAlreadyWeighed,
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildInfoRow("Nom del client", clientName),
-          _buildInfoRow("Nom del producte", productName),
-          _buildInfoRow("Observació del producte", productObservation),
-          _buildInfoRow("Pes", weight.toString()),
+          _buildInfoRow(AppLocalizations.of(context)!.clientName, clientName),
+          _buildInfoRow(AppLocalizations.of(context)!.productName, productName),
+          _buildInfoRow(AppLocalizations.of(context)!.productObservation, productObservation),
+          _buildInfoRow(AppLocalizations.of(context)!.weight, weight.toString()),
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: onConfirm,
             child: Text(
-              "Borrar pesada",
+              AppLocalizations.of(context)!.deleteWeight,
               style: TextStyle(color: Colors.black),
             ),
             style: ElevatedButton.styleFrom(
@@ -58,7 +59,7 @@ class ConfirmDeleteModal extends StatelessWidget {
             Navigator.of(context).pop();
           },
           child: Text(
-            "Tancar",
+            AppLocalizations.of(context)!.close,
             style: TextStyle(color: Colors.black),
           ),
           style: TextButton.styleFrom(

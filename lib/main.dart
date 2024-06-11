@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutterprova/data/repositories/carniceria_repository.dart';
+import 'package:flutterprova/data/repositories/configuration_repository.dart';
+import 'package:flutterprova/data/repositories/pesaje_repository.dart';
+import 'package:flutterprova/data/repositories/product_repository.dart';
+import 'package:flutterprova/data/services/api_service.dart';
+import 'package:flutterprova/structure/bloc/article/article_bloc.dart';
 import 'package:flutterprova/structure/bloc/carniceria/carniceria_bloc.dart';
 import 'package:flutterprova/structure/bloc/configuration/configuration_bloc.dart';
-import 'package:flutterprova/structure/bloc/products/products_bloc.dart';
+import 'package:flutterprova/structure/bloc/locale_bloc/locale_bloc.dart';
 import 'package:flutterprova/structure/bloc/pesaje/pesaje_bloc.dart';
-import 'package:flutterprova/structure/bloc/article/article_bloc.dart';
+import 'package:flutterprova/structure/bloc/products/products_bloc.dart';
 import 'package:flutterprova/ui/screens/carniceria_screen.dart';
-import 'data/repositories/carniceria_repository.dart';
-import 'data/repositories/configuration_repository.dart';
-import 'data/repositories/product_repository.dart';
-import 'data/repositories/pesaje_repository.dart';
-import 'data/services/api_service.dart';
 
 void main() {
   final apiService = ApiService(baseUrl: 'http://10.0.2.2:3000');
@@ -59,9 +62,23 @@ class MyApp extends StatelessWidget {
         BlocProvider<ArticleBloc>(
           create: (context) => ArticleBloc(productRepository: productRepository),
         ),
+        BlocProvider<LocaleBloc>(
+          create: (context) => LocaleBloc(),
+        ),
       ],
       child: MaterialApp(
-        title: 'Carnicería',
+        title: 'Carnisseria',
+        debugShowCheckedModeBanner: false,
+        locale: Locale('ca', 'ES'), // Locale específico para catalán
+        supportedLocales: [
+          Locale('ca', 'ES'),  // Solo se soporta catalán
+        ],
+        localizationsDelegates: const [
+          AppLocalizations.delegate, // Tus localizaciones personalizadas
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate, // Incluir si usas elementos específicos de Cupertino
+        ],
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
