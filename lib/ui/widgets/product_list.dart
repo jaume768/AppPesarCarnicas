@@ -78,7 +78,7 @@ class ProductListTable extends StatelessWidget {
                       }
                     }
                   }
-                  BlocProvider.of<ProductBloc>(context).add(MarkAsPending(articleId, false));
+                  BlocProvider.of<ProductBloc>(context).add(MarkAsPending(articleId, true));
                   Navigator.of(context).pop();
                 },
                 style: ElevatedButton.styleFrom(
