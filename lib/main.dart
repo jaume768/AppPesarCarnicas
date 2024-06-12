@@ -13,7 +13,7 @@ import 'package:flutterprova/structure/bloc/configuration/configuration_bloc.dar
 import 'package:flutterprova/structure/bloc/locale_bloc/locale_bloc.dart';
 import 'package:flutterprova/structure/bloc/pesaje/pesaje_bloc.dart';
 import 'package:flutterprova/structure/bloc/products/products_bloc.dart';
-import 'package:flutterprova/ui/screens/carniceria_screen.dart';
+import 'package:flutterprova/ui/screens/configuration_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
