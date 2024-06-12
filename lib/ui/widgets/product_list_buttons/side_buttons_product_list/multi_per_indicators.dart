@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../structure/bloc/pesaje/pesaje_bloc.dart';
-import '../../structure/bloc/pesaje/pesaje_state.dart';
+import '../../../../structure/bloc/pesaje/pesaje_bloc.dart';
+import '../../../../structure/bloc/pesaje/pesaje_state.dart';
 
 class MultiPesIndicators extends StatelessWidget {
   @override

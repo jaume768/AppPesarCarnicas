@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutterprova/ui/widgets/side_buttons_product_list/bottom_section.dart';
-import 'package:flutterprova/ui/widgets/side_buttons_product_list/middle_buttons.dart';
-import 'package:flutterprova/ui/widgets/side_buttons_product_list/top_buttons.dart';
-import '../../data/repositories/pesaje_repository.dart';
-import '../../models/client.dart';
+import 'package:flutterprova/ui/widgets/product_list_buttons/side_buttons_product_list/bottom_section.dart';
+import 'package:flutterprova/ui/widgets/product_list_buttons/side_buttons_product_list/middle_buttons.dart';
+import 'package:flutterprova/ui/widgets/product_list_buttons/side_buttons_product_list/top_buttons.dart';
+import '../../../data/repositories/pesaje_repository.dart';
+import '../../../models/client.dart';
 
 class SideButtons extends StatelessWidget {
   final List<Client> products;

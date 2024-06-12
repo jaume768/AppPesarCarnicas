@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../data/repositories/pesaje_repository.dart';
-import '../../data/services/api_service.dart';
-import '../../structure/bloc/carniceria/carniceria_bloc.dart';
-import '../../structure/bloc/carniceria/carniceria_event.dart';
-import '../../structure/bloc/carniceria/carniceria_state.dart';
-import '../screens/product_list_screen.dart';
-import '../../structure/bloc/configuration/configuration_bloc.dart';
-import '../../structure/bloc/configuration/configuration_state.dart';
+import '../../../data/repositories/pesaje_repository.dart';
+import '../../../data/services/api_service.dart';
+import '../../../structure/bloc/carniceria/carniceria_bloc.dart';
+import '../../../structure/bloc/carniceria/carniceria_event.dart';
+import '../../../structure/bloc/carniceria/carniceria_state.dart';
+import '../../screens/product_list_screen.dart';
+import '../../../structure/bloc/configuration/configuration_bloc.dart';
+import '../../../structure/bloc/configuration/configuration_state.dart';
 
 class BottomButtons extends StatelessWidget {
   final ApiService apiService;

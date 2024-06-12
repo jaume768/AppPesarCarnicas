@@ -4,8 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../data/repositories/pesaje_repository.dart';
 import '../../structure/bloc/carniceria/carniceria_bloc.dart';
 import '../../structure/bloc/carniceria/carniceria_state.dart';
-import '../widgets/product_list.dart';
-import '../widgets/side_buttons.dart';
+import '../widgets/product_list_buttons/product_list.dart';
+import '../widgets/product_list_buttons/side_buttons.dart';
 import '../../models/client.dart';
 
 class ProductListScreen extends StatefulWidget {

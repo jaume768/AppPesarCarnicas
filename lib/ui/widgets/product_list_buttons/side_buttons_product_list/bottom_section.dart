@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../data/repositories/pesaje_repository.dart';
-import '../../../structure/bloc/pesaje/pesaje_bloc.dart';
-import '../../../structure/bloc/pesaje/pesaje_event.dart';
-import '../../../structure/bloc/pesaje/pesaje_state.dart';
-import '../../../structure/bloc/products/products_bloc.dart';
-import '../../../structure/bloc/products/products_event.dart';
-import '../../../structure/bloc/products/products_state.dart';
-import '../../utils/lot_number_modal.dart';
-import '../multi_per_indicators.dart';
-import '../../../models/client.dart';
+import '../../../../data/repositories/pesaje_repository.dart';
+import '../../../../structure/bloc/pesaje/pesaje_bloc.dart';
+import '../../../../structure/bloc/pesaje/pesaje_event.dart';
+import '../../../../structure/bloc/pesaje/pesaje_state.dart';
+import '../../../../structure/bloc/products/products_bloc.dart';
+import '../../../../structure/bloc/products/products_event.dart';
+import '../../../../structure/bloc/products/products_state.dart';
+import '../../../utils/lot_number_modal.dart';
+import 'multi_per_indicators.dart';
+import '../../../../models/client.dart';
 import 'custom_button.dart';
 
 class BottomSection extends StatelessWidget {

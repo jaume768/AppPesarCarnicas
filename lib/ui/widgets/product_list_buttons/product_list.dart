@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../data/repositories/pesaje_repository.dart';
-import '../../structure/bloc/pesaje/pesaje_event.dart';
-import '../../structure/bloc/products/products_bloc.dart';
-import '../../structure/bloc/products/products_event.dart';
-import '../../structure/bloc/products/products_state.dart';
-import '../../structure/bloc/pesaje/pesaje_bloc.dart';
-import '../../structure/bloc/pesaje/pesaje_state.dart';
-import '../../models/client.dart';
-import '../utils/confirm_delete_modal.dart';
+import '../../../data/repositories/pesaje_repository.dart';
+import '../../../structure/bloc/pesaje/pesaje_event.dart';
+import '../../../structure/bloc/products/products_bloc.dart';
+import '../../../structure/bloc/products/products_event.dart';
+import '../../../structure/bloc/products/products_state.dart';
+import '../../../structure/bloc/pesaje/pesaje_bloc.dart';
+import '../../../structure/bloc/pesaje/pesaje_state.dart';
+import '../../../models/client.dart';
+import '../../utils/confirm_delete_modal.dart';
 
 class ProductListTable extends StatelessWidget {
   final List<Client> products;

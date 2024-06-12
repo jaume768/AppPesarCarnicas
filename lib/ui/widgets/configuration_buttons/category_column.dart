@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../structure/bloc/carniceria/carniceria_bloc.dart';
-import '../../structure/bloc/carniceria/carniceria_event.dart';
-import '../../structure/bloc/carniceria/carniceria_state.dart';
+import '../../../structure/bloc/carniceria/carniceria_bloc.dart';
+import '../../../structure/bloc/carniceria/carniceria_event.dart';
+import '../../../structure/bloc/carniceria/carniceria_state.dart';
 
 class CategoryColumn extends StatefulWidget {
   @override
