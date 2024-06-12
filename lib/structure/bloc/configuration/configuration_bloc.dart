@@ -6,7 +6,7 @@ import 'configuration_state.dart';
 class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
   final ConfigurationRepository repository;
 
-  ConfigurationBloc({required this.repository}) : super(ConfigurationState()) {
+  ConfigurationBloc({required this.repository}) : super(const ConfigurationState()) {
     on<FetchConfiguration>(_onFetchConfiguration);
     on<SelectPrinter>(_onSelectPrinter);
     on<SelectScale>(_onSelectScale);

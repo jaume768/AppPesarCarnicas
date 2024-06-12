@@ -17,7 +17,7 @@ class SummaryColumn extends StatelessWidget {
           const SizedBox(height: 70),
           Text(
             AppLocalizations.of(context)!.summary,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 32), // Aumenta el tamaño del texto
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
           ),
           Expanded(
             child: BlocBuilder<CarniceriaBloc, CarniceriaState>(
@@ -26,7 +26,7 @@ class SummaryColumn extends StatelessWidget {
                   return Center(
                     child: Text(
                       AppLocalizations.of(context)!.selectCategory,
-                      style: const TextStyle(fontSize: 18), // Aumenta el tamaño del texto
+                      style: const TextStyle(fontSize: 18),
                     ),
                   );
                 }
@@ -43,7 +43,7 @@ class SummaryColumn extends StatelessWidget {
                           children: [
                             Text('Nº ${state.summaries[index]}       ', style: const TextStyle(fontSize: 26)), // Aumenta el tamaño del texto
                             Transform.scale(
-                              scale: 1.5, // Aumenta el tamaño del Switch
+                              scale: 1.5,
                               child: Switch(
                                 value: options[index],
                                 onChanged: (value) {
@@ -58,7 +58,7 @@ class SummaryColumn extends StatelessWidget {
                       return Center(
                         child: Text(
                           AppLocalizations.of(context)!.noOptionsAvailable,
-                          style: const TextStyle(fontSize: 18), // Aumenta el tamaño del texto
+                          style: const TextStyle(fontSize: 18),
                         ),
                       );
                     }

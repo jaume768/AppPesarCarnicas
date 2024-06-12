@@ -37,23 +37,23 @@ class _LotNumberModalState extends State<LotNumberModal> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('NÚMERO DE LOT'),
+      title: const Text('NÚMERO DE LOT'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(input, style: TextStyle(fontSize: 24)),
-          SizedBox(height: 10),
+          Text(input, style: const TextStyle(fontSize: 24)),
+          const SizedBox(height: 10),
           _buildNumberPad(),
         ],
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text('Cancelar'),
+          child: const Text('Cancelar'),
         ),
         TextButton(
           onPressed: () => _handleAccept(context),
-          child: Text('Aceptar'),
+          child: const Text('Aceptar'),
         ),
       ],
     );

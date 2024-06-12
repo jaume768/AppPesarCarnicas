@@ -21,11 +21,11 @@ class CarniceriaScreen extends StatelessWidget {
               child: Row(
                 children: [
                   const SizedBox(height: 10),
-                  CategoryColumn(),
+                  const CategoryColumn(),
                   const SizedBox(width: 30),
                   ActionsColumn(),
                   const SizedBox(width: 30),
-                  SummaryColumn(),
+                  const SummaryColumn(),
                 ],
               ),
             ),

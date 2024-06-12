@@ -3,7 +3,7 @@ class ConfigurationState {
   final List<dynamic> scales;
   final dynamic selectedPrinter;
   final dynamic selectedScale;
-  final String? selectedProductType; // Agregar esta línea
+  final String? selectedProductType;
   final bool isLoading;
   final String? error;
 
@@ -12,7 +12,7 @@ class ConfigurationState {
     this.scales = const [],
     this.selectedPrinter,
     this.selectedScale,
-    this.selectedProductType, // Agregar esta línea
+    this.selectedProductType,
     this.isLoading = false,
     this.error,
   });
@@ -22,7 +22,7 @@ class ConfigurationState {
     List<dynamic>? scales,
     dynamic selectedPrinter,
     dynamic selectedScale,
-    String? selectedProductType, // Agregar esta línea
+    String? selectedProductType,
     bool? isLoading,
     String? error,
   }) {
@@ -31,7 +31,7 @@ class ConfigurationState {
       scales: scales ?? this.scales,
       selectedPrinter: selectedPrinter ?? this.selectedPrinter,
       selectedScale: selectedScale ?? this.selectedScale,
-      selectedProductType: selectedProductType ?? this.selectedProductType, // Agregar esta línea
+      selectedProductType: selectedProductType ?? this.selectedProductType,
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
     );

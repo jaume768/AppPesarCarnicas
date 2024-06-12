@@ -8,7 +8,7 @@ class CarniceriaBloc extends Bloc<CarniceriaEvent, CarniceriaState> {
   final CarniceriaRepository repository;
 
   CarniceriaBloc({required this.repository})
-      : super(CarniceriaState(optionsMap: {}, summaries: [], isButchery: false)) {
+      : super(const CarniceriaState(optionsMap: {}, summaries: [], isButchery: false)) {
     on<ToggleOption>(_onToggleOption);
     on<FetchSummaries>(_onFetchSummaries);
     on<ToggleButchery>(_onToggleButchery);

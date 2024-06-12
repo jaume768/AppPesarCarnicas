@@ -73,12 +73,12 @@ class _CategoryColumnState extends State<CategoryColumn> {
     Color color = isSelected ? Colors.green : Colors.grey.shade300;
 
     return Container(
-      margin: EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 10),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.black,
           backgroundColor: color,
-          minimumSize: Size(100, 80),
+          minimumSize: const Size(100, 80),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),

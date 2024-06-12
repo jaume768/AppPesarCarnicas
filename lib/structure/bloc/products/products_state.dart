@@ -21,9 +21,8 @@ class ProductLoaded extends ProductState {
       Set<int> acceptedArticles,
       this.lotNumber,
       int clientCode, 
-      [Set<int> pendingArticles = const {}]
-      ) : this.pendingArticles = pendingArticles,
-        super(selectedArticle, isSpecial, isMandatoryLot, acceptedArticles, clientCode); // Añadir aquí
+      [this.pendingArticles = const {}]
+      ) : super(selectedArticle, isSpecial, isMandatoryLot, acceptedArticles, clientCode);
 
   @override
   List<Object> get props => super.props..addAll([pendingArticles, lotNumber]);

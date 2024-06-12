@@ -28,7 +28,7 @@ class BottomSection extends StatelessWidget {
     return Column(
       children: [
         _buildMandatoryLotSection(context),
-        MultiPesIndicators(),
+        const MultiPesIndicators(),
         _buildBottomButtons(context),
       ],
     );
