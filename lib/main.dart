@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
   final ProductRepository productRepository;
   final PesajeRepository pesajeRepository;
 
-  MyApp({
+  const MyApp({super.key,
     required this.carniceriaRepository,
     required this.configurationRepository,
     required this.productRepository,
@@ -69,24 +69,28 @@ class MyApp extends StatelessWidget {
           create: (context) => LocaleBloc(),
         ),
       ],
-      child: MaterialApp(
-        title: 'Carnisseria',
-        debugShowCheckedModeBanner: false,
-        locale: Locale('ca', 'ES'),
-        supportedLocales: [
-          Locale('ca', 'ES'),
-        ],
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: CarniceriaScreen(),
+      child: Builder(
+        builder: (context) {
+          return MaterialApp(
+            title: AppLocalizations.of(context)?.title ?? 'App',
+            debugShowCheckedModeBanner: false,
+            locale: const Locale('ca', 'ES'),
+            supportedLocales: const [
+              Locale('ca', 'ES'),
+            ],
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+            ),
+            home: CarniceriaScreen(),
+          );
+        },
       ),
     );
   }

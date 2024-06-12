@@ -1,5 +1,5 @@
 abstract class ProductEvent {
-  @override
+
   List<Object> get props => [];
 }
 

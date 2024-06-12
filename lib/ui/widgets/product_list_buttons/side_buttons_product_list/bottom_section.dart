@@ -18,7 +18,7 @@ class BottomSection extends StatelessWidget {
   final PesajeRepository pesajeRepository;
   final List<Client> products;
 
-  const BottomSection({
+  const BottomSection({super.key,
     required this.pesajeRepository,
     required this.products,
   });
@@ -39,31 +39,31 @@ class BottomSection extends StatelessWidget {
       builder: (context, state) {
         if (state is ProductLoaded && state.isMandatoryLot) {
           return Container(
-            margin: EdgeInsets.only(bottom: 20, left: 165),
+            margin: const EdgeInsets.only(bottom: 20, left: 165),
             child: Row(
               children: [
-                Text(AppLocalizations.of(context)!.lot, style: TextStyle(color: Colors.black, fontSize: 24)),
-                SizedBox(width: 10),
+                Text(AppLocalizations.of(context)!.lot, style: const TextStyle(color: Colors.black, fontSize: 24)),
+                const SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () => _showLotNumberModal(context),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.pink,
-                    minimumSize: Size(100, 60),
+                    minimumSize: const Size(100, 60),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(0),
                     ),
-                    side: BorderSide(color: Colors.black, width: 1),
+                    side: const BorderSide(color: Colors.black, width: 1),
                   ),
                   child: Text(
                     state.lotNumber == 0 ? AppLocalizations.of(context)!.sn : state.lotNumber.toString(),
-                    style: TextStyle(color: Colors.black, fontSize: 24),
+                    style: const TextStyle(color: Colors.black, fontSize: 24),
                   ),
                 ),
               ],
             ),
           );
         }
-        return SizedBox.shrink();
+        return const SizedBox.shrink();
       },
     );
   }
@@ -74,7 +74,7 @@ class BottomSection extends StatelessWidget {
       builder: (BuildContext context) {
         return BlocProvider.value(
           value: BlocProvider.of<ProductBloc>(context),
-          child: LotNumberModal(),
+          child: const LotNumberModal(),
         );
       },
     );

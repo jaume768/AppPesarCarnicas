@@ -5,7 +5,7 @@ import 'custom_button.dart';
 class TopButtons extends StatelessWidget {
   final VoidCallback onReviewComplete;
 
-  const TopButtons({
+  const TopButtons({super.key,
     required this.onReviewComplete,
   });
 

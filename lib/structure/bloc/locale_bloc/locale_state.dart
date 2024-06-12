@@ -5,7 +5,6 @@ sealed class LocaleState {
   const LocaleState({Language? language})
       : selectedLanguage = language ?? Language.catalan;
 
-  @override
   List<Object> get props => [selectedLanguage];
 }
 

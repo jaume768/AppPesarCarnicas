@@ -2,7 +2,6 @@
 abstract class ConfigurationEvent{
   const ConfigurationEvent();
 
-  @override
   List<Object> get props => [];
 }
 

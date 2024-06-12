@@ -37,6 +37,5 @@ class ConfigurationState {
     );
   }
 
-  @override
   List<Object?> get props => [printers, scales, selectedPrinter, selectedScale, selectedProductType, isLoading, error];
 }

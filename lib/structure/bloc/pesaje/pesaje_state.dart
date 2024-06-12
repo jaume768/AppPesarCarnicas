@@ -5,7 +5,6 @@ abstract class PesajeState {
 
   const PesajeState({this.weight, this.accumulatedWeight = 0.0, this.count = 0});
 
-  @override
   List<Object?> get props => [weight, accumulatedWeight, count];
 }
 

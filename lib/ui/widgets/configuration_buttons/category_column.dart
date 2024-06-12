@@ -8,6 +8,8 @@ import '../../../structure/bloc/carniceria/carniceria_event.dart';
 import '../../../structure/bloc/carniceria/carniceria_state.dart';
 
 class CategoryColumn extends StatefulWidget {
+  const CategoryColumn({super.key});
+
   @override
   _CategoryColumnState createState() => _CategoryColumnState();
 }
@@ -40,14 +42,14 @@ class _CategoryColumnState extends State<CategoryColumn> {
             children: [
               Expanded(
                 child: GridView.builder(
-                  physics: shouldScroll ? null : NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  physics: shouldScroll ? null : const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 1.1,
                     mainAxisSpacing: 10,
                     crossAxisSpacing: 10,
                   ),
-                  padding: EdgeInsets.only(top: 60, left: 30, right: 10),
+                  padding: const EdgeInsets.only(top: 60, left: 30, right: 10),
                   itemCount: buttons.length,
                   itemBuilder: (context, index) {
                     var button = buttons[index];
@@ -56,7 +58,7 @@ class _CategoryColumnState extends State<CategoryColumn> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 60),
+                margin: const EdgeInsets.only(top: 60),
                 child: _buildSwitch(context, AppLocalizations.of(context)!.butchershop, state.isButchery),
               ),
             ],
@@ -87,7 +89,7 @@ class _CategoryColumnState extends State<CategoryColumn> {
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 20),
         ),
       ),
     );
@@ -99,7 +101,7 @@ class _CategoryColumnState extends State<CategoryColumn> {
       children: [
         Text(
           text,
-          style: TextStyle(fontSize: 30),
+          style: const TextStyle(fontSize: 30),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 15.0), // Aquí se añade el margen izquierdo

@@ -3,7 +3,6 @@ part of 'article_bloc.dart';
 abstract class ArticleEvent {
   const ArticleEvent();
 
-  @override
   List<Object> get props => [];
 }
 

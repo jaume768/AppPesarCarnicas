@@ -8,7 +8,7 @@ class SortingButton extends StatelessWidget {
   final String sortField;
   final ArticleLoaded state;
 
-  const SortingButton({
+  const SortingButton({super.key,
     required this.context,
     required this.text,
     required this.sortField,
@@ -28,7 +28,7 @@ class SortingButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: isActive ? Colors.blue : Colors.grey,
         foregroundColor: Colors.white,
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
         elevation: isActive ? 4 : 0,
       ),
       child: Row(

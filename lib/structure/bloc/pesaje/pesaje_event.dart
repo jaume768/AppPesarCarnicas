@@ -1,7 +1,6 @@
 abstract class PesajeEvent {
   const PesajeEvent();
 
-  @override
   List<Object?> get props => [];
 }
 

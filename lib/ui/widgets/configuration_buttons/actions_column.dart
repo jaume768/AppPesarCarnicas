@@ -15,7 +15,7 @@ class ActionsColumn extends StatelessWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 60),
+              const SizedBox(height: 60),
               ActionButton(
                 context: context,
                 text: AppLocalizations.of(context)!.selectScale,
@@ -25,7 +25,7 @@ class ActionsColumn extends StatelessWidget {
                 color: Colors.lightBlue,
                 isScale: true,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               ActionButton(
                 context: context,
                 text: AppLocalizations.of(context)!.selectPrinter,
@@ -35,7 +35,7 @@ class ActionsColumn extends StatelessWidget {
                 color: Colors.pink,
                 isScale: false,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               ActionButton(
                 context: context,
                 text: AppLocalizations.of(context)!.viewTotalsByArticle,

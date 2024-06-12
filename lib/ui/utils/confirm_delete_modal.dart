@@ -9,13 +9,13 @@ class ConfirmDeleteModal extends StatelessWidget {
   final VoidCallback onConfirm;
 
   const ConfirmDeleteModal({
-    Key? key,
+    super.key,
     required this.clientName,
     required this.productName,
     required this.productObservation,
     required this.weight,
     required this.onConfirm,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class ConfirmDeleteModal extends StatelessWidget {
       title: Text(
         AppLocalizations.of(context)!.productAlreadyWeighed,
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -38,17 +38,17 @@ class ConfirmDeleteModal extends StatelessWidget {
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: onConfirm,
-            child: Text(
-              AppLocalizations.of(context)!.deleteWeight,
-              style: TextStyle(color: Colors.black),
-            ),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            child: Text(
+              AppLocalizations.of(context)!.deleteWeight,
+              style: const TextStyle(color: Colors.black),
             ),
           ),
         ],
@@ -58,13 +58,13 @@ class ConfirmDeleteModal extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text(
-            AppLocalizations.of(context)!.close,
-            style: TextStyle(color: Colors.black),
-          ),
           style: TextButton.styleFrom(
             backgroundColor: Colors.blue,
-            textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          child: Text(
+            AppLocalizations.of(context)!.close,
+            style: const TextStyle(color: Colors.black),
           ),
         ),
       ],
@@ -84,12 +84,12 @@ class ConfirmDeleteModal extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           Flexible(
             child: Text(
               value,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               textAlign: TextAlign.right,
             ),
           ),

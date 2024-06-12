@@ -13,7 +13,7 @@ void showSelectionDialog(BuildContext context, bool isScale) {
       return BlocBuilder<ConfigurationBloc, ConfigurationState>(
         builder: (context, state) {
           if (state.isLoading) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           final items = isScale ? state.scales : state.printers;

@@ -1,7 +1,6 @@
 abstract class CarniceriaEvent {
   const CarniceriaEvent();
 
-  @override
   List<Object> get props => [];
 }
 

@@ -8,7 +8,7 @@ class CarniceriaBloc extends Bloc<CarniceriaEvent, CarniceriaState> {
   final CarniceriaRepository repository;
 
   CarniceriaBloc({required this.repository})
-      : super(CarniceriaState(optionsMap: {}, summaries: [], isButchery: true)) {
+      : super(CarniceriaState(optionsMap: {}, summaries: [], isButchery: false)) {
     on<ToggleOption>(_onToggleOption);
     on<FetchSummaries>(_onFetchSummaries);
     on<ToggleButchery>(_onToggleButchery);
@@ -36,7 +36,6 @@ class CarniceriaBloc extends Bloc<CarniceriaEvent, CarniceriaState> {
           optionsMap: {event.productType: optionsForProduct}
       ));
     } catch (e) {
-      print("Error al cargar los resúmenes: $e");
       emit(state.copyWith(
           selectedProductType: event.productType,
           summaries: [],

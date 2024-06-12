@@ -7,7 +7,6 @@ abstract class ProductState {
 
   const ProductState(this.selectedArticle, this.isSpecial, this.isMandatoryLot, this.acceptedArticles, this.clientCode);
 
-  @override
   List<Object> get props => [selectedArticle, isSpecial, isMandatoryLot, acceptedArticles, clientCode];
 }
 

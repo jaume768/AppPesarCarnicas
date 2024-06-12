@@ -4,7 +4,7 @@ import '../../../models/client.dart';
 class CarniceriaState {
   final Map<String, List<bool>> optionsMap;
   final List<int> summaries;
-  final List<Client> products; // Cambiar a List<Client>
+  final List<Client> products;
   final String? selectedProductType;
   final bool isButchery;
 
@@ -19,7 +19,7 @@ class CarniceriaState {
   CarniceriaState copyWith({
     Map<String, List<bool>>? optionsMap,
     List<int>? summaries,
-    List<Client>? products, // Cambiar a List<Client>
+    List<Client>? products,
     String? selectedProductType,
     bool? isButchery,
     Map<String, dynamic>? selectedScale,
@@ -29,12 +29,11 @@ class CarniceriaState {
     return CarniceriaState(
       optionsMap: optionsMap ?? this.optionsMap,
       summaries: summaries ?? this.summaries,
-      products: products ?? this.products, // Cambiar a List<Client>
+      products: products ?? this.products,
       selectedProductType: clearSelectedProductType ? null : selectedProductType ?? this.selectedProductType,
       isButchery: isButchery ?? this.isButchery,
     );
   }
 
-  @override
   List<Object?> get props => [optionsMap, summaries, products, selectedProductType, isButchery];
 }

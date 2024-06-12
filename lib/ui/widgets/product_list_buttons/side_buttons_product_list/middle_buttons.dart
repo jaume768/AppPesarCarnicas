@@ -13,7 +13,7 @@ class MiddleButtons extends StatelessWidget {
   final VoidCallback onClearFilter;
   final List<Client> products;
 
-  const MiddleButtons({
+  const MiddleButtons({super.key,
     required this.isFilterActive,
     required this.onFilterClient,
     required this.onClearFilter,

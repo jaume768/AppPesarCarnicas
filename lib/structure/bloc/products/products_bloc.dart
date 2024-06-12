@@ -99,7 +99,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     });
 
     on<RemoveArticleFromLists>((event, emit) {
-        print("si");
         final currentState = state as ProductLoaded;
         Set<int> newAcceptedArticles = Set<int>.from(currentState.acceptedArticles);
         Set<int> newPendingArticles = Set<int>.from(currentState.pendingArticles);

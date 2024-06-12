@@ -13,7 +13,7 @@ class SideButtons extends StatelessWidget {
   final PesajeRepository pesajeRepository;
   final bool isFilterActive;
 
-  const SideButtons({
+  const SideButtons({super.key,
     required this.products,
     required this.onFilterClient,
     required this.onClearFilter,
@@ -53,7 +53,7 @@ class SideButtons extends StatelessWidget {
           content: Text(AppLocalizations.of(context)!.missingFunctionality),
           actions: <Widget>[
             TextButton(
-              child: Text("OK"),
+              child: const Text("OK"),
               onPressed: () {
                 Navigator.of(context).pop();
               },

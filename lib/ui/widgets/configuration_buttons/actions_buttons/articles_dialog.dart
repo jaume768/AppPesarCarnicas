@@ -15,7 +15,7 @@ void showArticlesDialog(BuildContext context) {
         return BlocBuilder<ArticleBloc, ArticleState>(
           builder: (context, state) {
             if (state is ArticleLoading) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (state is ArticleLoaded) {
               return AlertDialog(
                 title: Text(AppLocalizations.of(context)!.viewTotalsByArticle),
@@ -32,7 +32,7 @@ void showArticlesDialog(BuildContext context) {
                         ],
                       ),
                       DataTable(
-                        columns: [
+                        columns: const [
                           DataColumn(label: Text('Codi')),
                           DataColumn(label: Text('Descripció')),
                           DataColumn(label: Text('Kgs')),
@@ -59,11 +59,11 @@ void showArticlesDialog(BuildContext context) {
                 actions: [
                   ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: Text(AppLocalizations.of(context)!.close),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                       foregroundColor: Colors.white,
                     ),
+                    child: Text(AppLocalizations.of(context)!.close),
                   ),
                 ],
               );
@@ -86,11 +86,11 @@ AlertDialog _errorDialog(BuildContext context, ArticleState state) {
     actions: [
       ElevatedButton(
         onPressed: () => Navigator.of(context).pop(),
-        child: Text(AppLocalizations.of(context)!.close),
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.red,
           foregroundColor: Colors.white,
         ),
+        child: Text(AppLocalizations.of(context)!.close),
       ),
     ],
   );
@@ -106,11 +106,11 @@ void _showCategoryErrorDialog(BuildContext context) {
         actions: [
           ElevatedButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.close),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
               foregroundColor: Colors.white,
             ),
+            child: Text(AppLocalizations.of(context)!.close),
           ),
         ],
       );

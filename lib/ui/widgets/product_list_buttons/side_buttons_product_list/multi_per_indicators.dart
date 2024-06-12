@@ -4,6 +4,8 @@ import '../../../../structure/bloc/pesaje/pesaje_bloc.dart';
 import '../../../../structure/bloc/pesaje/pesaje_state.dart';
 
 class MultiPesIndicators extends StatelessWidget {
+  const MultiPesIndicators({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PesajeBloc, PesajeState>(
@@ -15,9 +17,9 @@ class MultiPesIndicators extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _buildIndicator(accumulatedWeightText, Colors.yellow, width: 120),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             _buildIndicator(countText, Colors.green, width: 70),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             _buildIndicator(weightText, Colors.green.shade200, width: 120),
           ],
         );
@@ -27,8 +29,8 @@ class MultiPesIndicators extends StatelessWidget {
 
   Widget _buildIndicator(String text, Color color, {double width = 60}) {
     return Container(
-      margin: EdgeInsets.only(bottom: 14),
-      padding: EdgeInsets.all(10.0),
+      margin: const EdgeInsets.only(bottom: 14),
+      padding: const EdgeInsets.all(10.0),
       width: width,
       decoration: BoxDecoration(
         color: color,
@@ -36,7 +38,7 @@ class MultiPesIndicators extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: TextStyle(color: Colors.black, fontSize: 31),
+        style: const TextStyle(color: Colors.black, fontSize: 31),
         textAlign: TextAlign.center,
       ),
     );

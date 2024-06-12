@@ -3,7 +3,6 @@ part of 'locale_bloc.dart';
 sealed class LocaleEvent {
   const LocaleEvent();
 
-  @override
   List<Object> get props => [];
 }
 

@@ -11,7 +11,7 @@ class ActionButton extends StatelessWidget {
   final bool? isScale;
   final VoidCallback? onPressed;
 
-  const ActionButton({
+  const ActionButton({super.key,
     required this.context,
     required this.text,
     required this.displayText,
@@ -22,14 +22,14 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 182,
       height: 182, // Fixed height for buttons
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.black,
           backgroundColor: color,
-          minimumSize: Size(0, 0), // Minimum size to 0 to ensure it's square
+          minimumSize: const Size(0, 0), // Minimum size to 0 to ensure it's square
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(0),
           ),
@@ -43,7 +43,7 @@ class ActionButton extends StatelessWidget {
           child: Text(
             displayText,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 21), // Adjust text size as needed
+            style: const TextStyle(fontSize: 21), // Adjust text size as needed
           ),
         ),
       ),

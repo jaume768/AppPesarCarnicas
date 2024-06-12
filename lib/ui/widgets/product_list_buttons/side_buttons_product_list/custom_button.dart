@@ -8,7 +8,7 @@ class CustomButton extends StatelessWidget {
   final double fontSize; // Nueva propiedad para el tamaño de fuente
   final VoidCallback? onPressed;
 
-  const CustomButton({
+  const CustomButton({super.key,
     required this.text,
     required this.color,
     this.width = 175,
@@ -20,7 +20,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 20.0),
+      margin: const EdgeInsets.only(right: 20.0),
       child: SizedBox(
         width: width,
         height: height,
@@ -31,7 +31,7 @@ class CustomButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(0),
             ),
-            side: BorderSide(color: Colors.black, width: 1),
+            side: const BorderSide(color: Colors.black, width: 1),
           ),
           child: Text(
             text,

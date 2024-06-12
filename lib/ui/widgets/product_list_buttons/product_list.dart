@@ -16,7 +16,7 @@ class ProductListTable extends StatelessWidget {
   final String? selectedClient;
   final PesajeRepository pesajeRepository;
 
-  const ProductListTable({Key? key, required this.products, this.selectedClient, required this.pesajeRepository}) : super(key: key);
+  const ProductListTable({super.key, required this.products, this.selectedClient, required this.pesajeRepository});
 
   Future<void> _showConfirmDeleteModal(BuildContext context, String clientName, String articleName, String articleObservation, int articleId) async {
     try {
@@ -86,10 +86,10 @@ class ProductListTable extends StatelessWidget {
                 ),
                 child: Text(
                   AppLocalizations.of(context)!.removePending,
-                  style: TextStyle(color: Colors.black, fontSize: 18),
+                  style: const TextStyle(color: Colors.black, fontSize: 18),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Align(
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
@@ -101,7 +101,7 @@ class ProductListTable extends StatelessWidget {
                   ),
                   child: Text(
                     AppLocalizations.of(context)!.close,
-                    style: TextStyle(color: Colors.black, fontSize: 18),
+                    style: const TextStyle(color: Colors.black, fontSize: 18),
                   ),
                 ),
               ),
@@ -133,14 +133,14 @@ class ProductListTable extends StatelessWidget {
                       },
                     ),
                     cells: [
-                      DataCell(Text('')),
-                      DataCell(Text('')),
-                      DataCell(Text('')),
+                      const DataCell(Text('')),
+                      const DataCell(Text('')),
+                      const DataCell(Text('')),
                       DataCell(
                         Center(
                           child: Text(
                             '${product.name} (${product.code})',
-                            style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                            style: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -191,11 +191,11 @@ class ProductListTable extends StatelessWidget {
                             },
                             child: Container(
                               alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(vertical: 20),
+                              padding: const EdgeInsets.symmetric(vertical: 20),
                               width: double.infinity,
                               child: Text(
                                 article.special ? 'X' : '',
-                                style: TextStyle(color: Colors.black, fontSize: 18),
+                                style: const TextStyle(color: Colors.black, fontSize: 18),
                               ),
                             ),
                           ),
@@ -221,7 +221,7 @@ class ProductListTable extends StatelessWidget {
                                 children: [
                                   Text(
                                     article.units.toString(),
-                                    style: TextStyle(color: Colors.black, fontSize: 18),
+                                    style: const TextStyle(color: Colors.black, fontSize: 18),
                                     textAlign: TextAlign.center,
                                   ),
                                 ],
@@ -250,7 +250,7 @@ class ProductListTable extends StatelessWidget {
                                 children: [
                                   Text(
                                     article.unitType.toString(),
-                                    style: TextStyle(color: Colors.black, fontSize: 18),
+                                    style: const TextStyle(color: Colors.black, fontSize: 18),
                                     textAlign: TextAlign.center,
                                   ),
                                 ],
@@ -279,12 +279,12 @@ class ProductListTable extends StatelessWidget {
                                 children: [
                                   Text(
                                     article.name,
-                                    style: TextStyle(color: Colors.black, fontSize: 18),
+                                    style: const TextStyle(color: Colors.black, fontSize: 18),
                                     textAlign: TextAlign.center,
                                   ),
                                   Text(
                                     article.observation,
-                                    style: TextStyle(color: Colors.black, fontSize: 18),
+                                    style: const TextStyle(color: Colors.black, fontSize: 18),
                                     textAlign: TextAlign.center,
                                   ),
                                 ],
@@ -319,10 +319,10 @@ class ProductListTable extends StatelessWidget {
                                 left: BorderSide(color: Colors.black, width: 2),
                               ),
                               columns: [
-                                DataColumn(label: Text(AppLocalizations.of(context)!.block, style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
-                                DataColumn(label: Text(AppLocalizations.of(context)!.quantity, style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
-                                DataColumn(label: Text(AppLocalizations.of(context)!.unit, style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
-                                DataColumn(label: Text(AppLocalizations.of(context)!.clientProduct, style: TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
+                                DataColumn(label: Text(AppLocalizations.of(context)!.block, style: const TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
+                                DataColumn(label: Text(AppLocalizations.of(context)!.quantity, style: const TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
+                                DataColumn(label: Text(AppLocalizations.of(context)!.unit, style: const TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
+                                DataColumn(label: Text(AppLocalizations.of(context)!.clientProduct, style: const TextStyle(color: Colors.black, fontSize: 20), textAlign: TextAlign.center)),
                               ],
                               rows: rows,
                             ),

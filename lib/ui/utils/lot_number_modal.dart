@@ -5,6 +5,8 @@ import '../../structure/bloc/products/products_event.dart';
 import '../../structure/bloc/products/products_state.dart';
 
 class LotNumberModal extends StatefulWidget {
+  const LotNumberModal({super.key});
+
   @override
   _LotNumberModalState createState() => _LotNumberModalState();
 }
@@ -84,7 +86,7 @@ class _LotNumberModalState extends State<LotNumberModal> {
               _handleNumberInput(number);
             }
           },
-          child: Text(number, style: TextStyle(fontSize: 24)),
+          child: Text(number, style: const TextStyle(fontSize: 24)),
         );
       }).toList(),
     );

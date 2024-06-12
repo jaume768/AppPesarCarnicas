@@ -11,7 +11,7 @@ import '../../models/client.dart';
 class ProductListScreen extends StatefulWidget {
   final PesajeRepository pesajeRepository;
 
-  const ProductListScreen({Key? key, required this.pesajeRepository}) : super(key: key);
+  const ProductListScreen({super.key, required this.pesajeRepository});
 
   @override
   _ProductListScreenState createState() => _ProductListScreenState();
@@ -22,7 +22,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
   int? selectedRowIndex;
   List<Client> products = [];
   String filter = '';
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   void _filterClient(BuildContext context) {
     showDialog(
@@ -36,7 +36,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
             return AlertDialog(
               title: Text(AppLocalizations.of(context)!.selectClient),
-              content: Container(
+              content: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.3,
                 child: Column(
                   children: [
@@ -64,7 +64,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                   selectedClient == client ? Icons.check_circle : Icons.radio_button_unchecked,
                                   color: selectedClient == client ? Colors.green : null,
                                 ),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 Text(client),
                               ],
                             ),
@@ -115,14 +115,14 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
           return Column(
             children: [
-              SizedBox(height: 70.0),
+              const SizedBox(height: 70.0),
               Expanded(
                 child: Row(
                   children: [
                     Expanded(
                       flex: 4,
                       child: Container(
-                        margin: EdgeInsets.only(left: 20.0),
+                        margin: const EdgeInsets.only(left: 20.0),
                         child: ProductListTable(
                           products: state.products,
                           selectedClient: selectedClient,
@@ -130,7 +130,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                         ),
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Flexible(
                       flex: 4,
                       child: SideButtons(

@@ -13,7 +13,7 @@ import '../../../structure/bloc/configuration/configuration_state.dart';
 class BottomButtons extends StatelessWidget {
   final ApiService apiService;
 
-  const BottomButtons({Key? key, required this.apiService}) : super(key: key);
+  const BottomButtons({super.key, required this.apiService});
 
   @override
   Widget build(BuildContext context) {
@@ -53,10 +53,10 @@ class BottomButtons extends StatelessWidget {
               });
             } else {
               String errorMessage = AppLocalizations.of(context)!.selectItems;
-              if (!isCategorySelected) errorMessage += '\n- ' + AppLocalizations.of(context)!.aCategory;
-              if (!isScaleSelected) errorMessage += '\n- ' + AppLocalizations.of(context)!.aScale;
-              if (!isPrinterSelected) errorMessage += '\n- ' + AppLocalizations.of(context)!.aPrinter;
-              if (!isAnyOptionSelected) errorMessage += '\n- ' + AppLocalizations.of(context)!.atLeastOneSummary;
+              if (!isCategorySelected) errorMessage += '\n- ${AppLocalizations.of(context)!.aCategory}';
+              if (!isScaleSelected) errorMessage += '\n- ${AppLocalizations.of(context)!.aScale}';
+              if (!isPrinterSelected) errorMessage += '\n- ${AppLocalizations.of(context)!.aPrinter}';
+              if (!isAnyOptionSelected) errorMessage += '\n- ${AppLocalizations.of(context)!.atLeastOneSummary}';
 
               showDialog(
                 context: context,
@@ -67,11 +67,11 @@ class BottomButtons extends StatelessWidget {
                     ),
                     title: Text(
                       AppLocalizations.of(context)!.error,
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                     content: Text(
                       errorMessage,
-                      style: TextStyle(fontSize: 18),
+                      style: const TextStyle(fontSize: 18),
                     ),
                     actions: [
                       TextButton(
@@ -86,7 +86,7 @@ class BottomButtons extends StatelessWidget {
                         ),
                         child: Text(
                           AppLocalizations.of(context)!.close,
-                          style: TextStyle(color: Colors.black, fontSize: 18),
+                          style: const TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       ),
                     ],
@@ -95,7 +95,7 @@ class BottomButtons extends StatelessWidget {
               );
             }
           },
-          icon: Icon(Icons.check, color: Colors.black),
+          icon: const Icon(Icons.check, color: Colors.black),
           label: Text(AppLocalizations.of(context)!.accept, style: TextStyle(color: Colors.black, fontSize: 27)),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
