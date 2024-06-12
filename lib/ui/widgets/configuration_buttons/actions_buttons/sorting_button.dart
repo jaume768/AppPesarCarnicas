@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../structure/bloc/article/article_bloc.dart';
+import '../../../../structure/bloc/article/article_bloc.dart';
 
 class SortingButton extends StatelessWidget {
   final BuildContext context;

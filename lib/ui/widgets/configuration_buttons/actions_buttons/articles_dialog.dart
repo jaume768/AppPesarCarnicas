@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../structure/bloc/article/article_bloc.dart';
-import '../../../structure/bloc/carniceria/carniceria_bloc.dart';
+import '../../../../structure/bloc/article/article_bloc.dart';
+import '../../../../structure/bloc/carniceria/carniceria_bloc.dart';
 import 'sorting_button.dart';
 
 void showArticlesDialog(BuildContext context) {

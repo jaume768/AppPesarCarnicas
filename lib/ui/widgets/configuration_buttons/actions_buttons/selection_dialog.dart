@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../structure/bloc/configuration/configuration_bloc.dart';
-import '../../../structure/bloc/configuration/configuration_event.dart';
-import '../../../structure/bloc/configuration/configuration_state.dart';
+import '../../../../structure/bloc/configuration/configuration_bloc.dart';
+import '../../../../structure/bloc/configuration/configuration_event.dart';
+import '../../../../structure/bloc/configuration/configuration_state.dart';
 
 void showSelectionDialog(BuildContext context, bool isScale) {
   context.read<ConfigurationBloc>().add(FetchConfiguration());

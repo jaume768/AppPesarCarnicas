@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../structure/bloc/configuration/configuration_bloc.dart';
 import '../../../structure/bloc/configuration/configuration_state.dart';
-import '../actions_buttons_configuration_screen/action_button.dart';
-import '../actions_buttons_configuration_screen/articles_dialog.dart';
+import 'actions_buttons/action_button.dart';
+import 'actions_buttons/articles_dialog.dart';
 
 class ActionsColumn extends StatelessWidget {
   @override
