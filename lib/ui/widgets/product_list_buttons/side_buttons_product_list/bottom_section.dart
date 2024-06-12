@@ -89,6 +89,7 @@ class BottomSection extends StatelessWidget {
           color: Colors.pink,
           width: 200,
           height: 100,
+          fontSize: 24,
           onPressed: () {
             BlocProvider.of<PesajeBloc>(context).add(AccumulateWeight());
             BlocProvider.of<PesajeBloc>(context).add(IncrementCount());
@@ -120,6 +121,7 @@ class BottomSection extends StatelessWidget {
                   color: isAcceptButtonEnabled ? Colors.blueAccent : Colors.grey,
                   width: 250,
                   height: 100,
+                  fontSize: 23,
                   onPressed: isAcceptButtonEnabled ? () async {
                     try {
                       await pesajeRepository.sendArticleWeight(
