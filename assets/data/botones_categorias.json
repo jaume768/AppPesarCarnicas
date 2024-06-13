@@ -1,9 +1,9 @@
 {
   "buttons": [
-    {"text": "Avicola", "productType": "POULTRY"},
-    {"text": "Porc", "productType": "PIG"},
-    {"text": "Me / Cordero", "productType": "LAMB"},
-    {"text": "Tallat / Desfet", "productType": "CHOPPED"},
-    {"text": "Conill", "productType": "CONILL"}
+    {"text": "Avicola", "productType": "POULTRY", "isButchery": true},
+    {"text": "Porc", "productType": "PIG", "isButchery": true},
+    {"text": "Me / Cordero", "productType": "LAMB", "isButchery": false},
+    {"text": "Tallat / Desfet", "productType": "CHOPPED", "isButchery": true},
+    {"text": "Conill", "productType": "CONILL", "isButchery": false}
   ]
 }

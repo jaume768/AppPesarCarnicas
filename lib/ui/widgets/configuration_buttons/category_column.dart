@@ -16,6 +16,9 @@ class CategoryColumn extends StatefulWidget {
 
 class _CategoryColumnState extends State<CategoryColumn> {
   List<dynamic> buttons = [];
+  bool isSwitchEnabled = false;
+  bool isSwitchActive = false;
+  String? selectedProductType;
 
   @override
   void initState() {
@@ -53,7 +56,7 @@ class _CategoryColumnState extends State<CategoryColumn> {
                   itemCount: buttons.length,
                   itemBuilder: (context, index) {
                     var button = buttons[index];
-                    return _buildButton(context, button['text'], button['productType'], state.selectedProductType);
+                    return _buildButton(context, button['text'], button['productType'], button['isButchery'], state.selectedProductType);
                   },
                 ),
               ),
@@ -68,8 +71,8 @@ class _CategoryColumnState extends State<CategoryColumn> {
     );
   }
 
-  Widget _buildButton(BuildContext context, String text, String productType, String? selectedProductType) {
-    bool isSelected = selectedProductType == productType;
+  Widget _buildButton(BuildContext context, String text, String productType, bool isButchery, String? selectedProductType) {
+    bool isSelected = selectedProductType == productType || this.selectedProductType == productType;
     Color color = isSelected ? Colors.green : Colors.grey.shade300;
 
     return Container(
@@ -85,6 +88,14 @@ class _CategoryColumnState extends State<CategoryColumn> {
         ),
         onPressed: () {
           context.read<CarniceriaBloc>().add(FetchSummaries(productType));
+          setState(() {
+            isSwitchEnabled = isButchery;
+            if (!isButchery) {
+              isSwitchActive = false;
+              context.read<CarniceriaBloc>().add(ToggleButchery(false));
+            }
+            this.selectedProductType = productType;
+          });
         },
         child: Text(
           text,
@@ -104,14 +115,17 @@ class _CategoryColumnState extends State<CategoryColumn> {
           style: const TextStyle(fontSize: 30),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 15.0), // Aquí se añade el margen izquierdo
+          padding: const EdgeInsets.only(left: 15.0),
           child: Transform.scale(
             scale: 1.4,
             child: Switch(
-              value: isButchery,
-              onChanged: (value) {
+              value: isSwitchActive && isButchery,
+              onChanged: isSwitchEnabled ? (value) {
+                setState(() {
+                  isSwitchActive = value;
+                });
                 context.read<CarniceriaBloc>().add(ToggleButchery(value));
-              },
+              } : null,
             ),
           ),
         ),
