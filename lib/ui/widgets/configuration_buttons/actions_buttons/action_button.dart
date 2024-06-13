@@ -29,7 +29,7 @@ class ActionButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.black,
           backgroundColor: color,
-          minimumSize: const Size(0, 0), // Minimum size to 0 to ensure it's square
+          minimumSize: const Size(0, 0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(0),
           ),
@@ -43,7 +43,7 @@ class ActionButton extends StatelessWidget {
           child: Text(
             displayText,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 21), // Adjust text size as needed
+            style: const TextStyle(fontSize: 21),
           ),
         ),
       ),

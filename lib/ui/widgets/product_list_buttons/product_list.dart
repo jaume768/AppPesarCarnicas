@@ -307,6 +307,7 @@ class ProductListTable extends StatelessWidget {
                           children: [
                             DataTable(
                               columnSpacing: 47.0,
+                              dataRowMinHeight: 80.0,
                               dataRowMaxHeight: 80.0,
                               headingRowHeight: 70.0,
                               border: const TableBorder(
