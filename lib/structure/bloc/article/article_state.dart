@@ -35,8 +35,12 @@ class ArticleLoaded extends ArticleState {
       bValue = convertToNumeric(bValue);
 
       if (isAscending) {
+        if (aValue == 0 && bValue != 0) return 1;
+        if (aValue != 0 && bValue == 0) return -1;
         return aValue.compareTo(bValue);
       } else {
+        if (aValue == 0 && bValue != 0) return 1;
+        if (aValue != 0 && bValue == 0) return -1;
         return bValue.compareTo(aValue);
       }
     });

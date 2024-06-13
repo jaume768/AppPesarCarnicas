@@ -120,7 +120,6 @@ class ProductListTable extends StatelessWidget {
           builder: (context, pesajeState) {
             if (productState is ProductLoaded) {
               List<DataRow> rows = [];
-              int rowIndex = 0;
 
               for (var product in products) {
                 if (selectedClient != null && product.name != selectedClient) continue;
@@ -308,7 +307,7 @@ class ProductListTable extends StatelessWidget {
                           children: [
                             DataTable(
                               columnSpacing: 47.0,
-                              dataRowHeight: 80.0,
+                              dataRowMaxHeight: 80.0,
                               headingRowHeight: 70.0,
                               border: const TableBorder(
                                 horizontalInside: BorderSide(color: Colors.black, width: 2),

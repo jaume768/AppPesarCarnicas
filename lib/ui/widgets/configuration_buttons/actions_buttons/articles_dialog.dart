@@ -61,7 +61,7 @@ void showArticlesDialog(BuildContext context) {
                     onPressed: () => Navigator.of(context).pop(),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
-                      foregroundColor: Colors.white,
+                      foregroundColor: Colors.black,
                     ),
                     child: Text(AppLocalizations.of(context)!.close),
                   ),
