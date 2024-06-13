@@ -123,8 +123,11 @@ class _CategoryColumnState extends State<CategoryColumn> {
               onChanged: isSwitchEnabled ? (value) {
                 setState(() {
                   isSwitchActive = value;
+                  context.read<CarniceriaBloc>().add(ToggleButchery(value));
+                  if (selectedProductType != null) {
+                    context.read<CarniceriaBloc>().add(FetchSummaries(selectedProductType!));
+                  }
                 });
-                context.read<CarniceriaBloc>().add(ToggleButchery(value));
               } : null,
             ),
           ),
